@@ -1,0 +1,7 @@
+export const GET_ERRORS = "GET_ERRORS";
+export const USER_LOADING = "USER_LOADING";
+export const SET_CURRENT_USER = "SET_CURRENT_USER";
+export const SET_PROFILE_IMG = "SET_PROFILE_IMG";
+export const SET_HOME_IMG = "SET_HOME_IMG";
+export const SET_HOME_DETAILS = "SET_HOME_DETAILS";
+export const SET_SEARCH_RESULTS = "SET_SEARCH_RESULTS";

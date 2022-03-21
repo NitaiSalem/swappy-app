@@ -1,0 +1,42 @@
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
+// Create Schema
+//_id: mongoose.Schema.Types.ObjectId,    might need to add later?
+const UserSchema = new Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  date: {
+    type: Date,
+    default: Date.now,
+  },
+  profileImg: {
+    type: String,
+  },
+  homeImages: {
+    type: Array,
+  },
+
+  homeDetails: {
+    type: Object,
+  },
+});
+UserSchema.index(
+  {
+    homeDetails: "text",
+    // "homeDetails.houseLocation.area": "text",
+  },
+  {collation: {locale: "en", strength: 2}}
+);
+
+const User = mongoose.model("User", UserSchema);
+module.exports = User;

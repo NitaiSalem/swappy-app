@@ -1,0 +1,17 @@
+
+.destinations-container{
+    margin-top:50px;
+    width:100%;
+    height: 250px;
+    display:flex; 
+    flex-direction: column;
+    align-items: center;
+   
+}
+
+.images-container{
+
+    display:grid;
+    grid-template-columns: 150px 150px 150px;
+    justify-items: center;
+}

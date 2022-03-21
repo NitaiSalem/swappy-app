@@ -1,0 +1,56 @@
+.welcome-container {
+    margin-top: 55px;
+    height: 70vh;
+    width: 100%;
+    background: url("background-tlv.jpg") no-repeat center center fixed;
+    background-size: cover;
+}
+
+
+
+.welcome-container {
+    display: flex;
+    flex-direction: column;
+}
+
+#header {
+    color:white;
+    align-self: center;
+    margin-top: 60px;
+    font-weight: 700;
+    font-size:47px;
+}
+
+.search-form-container {
+    align-self: left;
+    background-color: #EAFCEBC2;
+    border-radius: 2px;
+    margin-left: 30px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, .2);
+margin-top:50px;
+    width: 60vw;
+}
+
+.search-header {
+    margin-left: 20px;
+    margin-bottom: 5px;
+    padding-top: 22px;
+    font-weight: 600;
+}
+
+.submit-search {
+    background-color: #DB8200;
+    border: none;
+}
+
+.submit-search:hover {
+    background-color: #508104;
+}
+
+#search {
+    margin: 10px 10px 15px 20px;
+    border: none;
+    background-color: #C4C4C4;
+    padding-left: 12px;
+    width:220px;
+}
