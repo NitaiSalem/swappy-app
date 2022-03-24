@@ -43,7 +43,7 @@ export const filterDetails = (detailsToFilter, HomesArr) => {
 
 export const filterLifeStyle = (checkedLifeStyle, foundHomesArr) => {
   //mustuseMemo for this expensive filtering!!!! higher up in handle filterclick function
-  console.log({checkedLifeStyle});
+  console.log({ checkedLifeStyle });
   let filteredHomes = foundHomesArr;
   //make or condition to check if we have filter active?
   const hasActiveFilter = Object.values(checkedLifeStyle).includes(true);
@@ -66,7 +66,7 @@ export const filterLifeStyle = (checkedLifeStyle, foundHomesArr) => {
       if (rulesKeysArray.length === 0) {
         return false;
       } else {
-        console.log({rulesKeysArray});
+        console.log({ rulesKeysArray });
         return rulesKeysArray.every(
           //use the amneties from home here
           (rulesKey) => houseRules[rulesKey] === true
@@ -80,7 +80,7 @@ export const filterLifeStyle = (checkedLifeStyle, foundHomesArr) => {
 
 export const filterAmneties = (checkedAmneties, foundHomesArr) => {
   //mustuseMemo for this expensive filtering!!!! higher up in handle filterclick function
-  console.log({checkedAmneties});
+  console.log({ checkedAmneties });
   let filteredHomes = foundHomesArr;
   //make or condition to check if we have filter active?
   const hasActiveFilter = Object.values(checkedAmneties).includes(true);
@@ -103,7 +103,7 @@ export const filterAmneties = (checkedAmneties, foundHomesArr) => {
       if (amnetiesKeysArray.length === 0) {
         return false;
       } else {
-        console.log({amnetiesKeysArray});
+        console.log({ amnetiesKeysArray });
         return amnetiesKeysArray.every(
           //use the amneties from home here
           (amnetyKey) => homeAmneties[amnetyKey] === true
@@ -114,3 +114,28 @@ export const filterAmneties = (checkedAmneties, foundHomesArr) => {
 
   return filteredHomes;
 };
+
+//*make function to combine all and return the final filtered, export it to use inside search results component.
+
+export const filterAll = (
+  homesToFilter,
+  desiredHomeType,
+  filterDetailsObj,
+  checkedAmneties,
+  checkedLifeStyle
+) => {
+  //how to filter our details::
+  const filterdByHomeType = filterHomeType(desiredHomeType, homesToFilter);
+
+  const filteredByDetails = filterDetails(filterDetailsObj, filterdByHomeType);
+  const filteredByAmneties = filterAmneties(checkedAmneties, filteredByDetails);
+
+  const finalFiltered = filterLifeStyle(checkedLifeStyle, filteredByAmneties);
+
+  return finalFiltered;
+};
+
+// export const getStoragedFavorites = () => JSON.parse(localStorage.getItem('favoriteImages')) || [];
+
+// export const saveFavoritesToStorage = (newFavoriteImages) =>
+// 	localStorage.setItem('favoriteImages', JSON.stringify(newFavoriteImages));

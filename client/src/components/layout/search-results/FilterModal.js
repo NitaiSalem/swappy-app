@@ -12,6 +12,7 @@ import {
   FormControlLabel,
   FormGroup,
 } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
 import CheckBoxOutlinedIcon from "@mui/icons-material/CheckBoxOutlined";
 import CheckBoxOutlineBlankOutlinedIcon from "@mui/icons-material/CheckBoxOutlineBlankOutlined";
 import InputLabel from "@mui/material/InputLabel";
@@ -23,8 +24,11 @@ import {
   filterHomeType,
   filterAmneties,
   filterLifeStyle,
+  filterAll,
 } from "../../../utils/filterUtils";
 import { useLocation, useNavigate } from "react-router-dom";
+import { setFilterCounter, updateFilterValues } from "../../../actions/filterActions";
+import { getSearchResults } from "../../../utils/getHomes";
 
 //this is to map checkboxes....
 export const AMNETIES_NAMES = [
@@ -83,41 +87,85 @@ const style = {
 const FilterModal = ({
   setFilteredHomes,
   foundHomes,
+  searchValue,
+  filteredHomes,
   perPage,
   setSlicedHomes,
   setFoundHomes,
   setPageCount,
 }) => {
+  //* const homeDetails = useSelector((state) => state.homeDetails);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [checkedLifeStyle, setCheckedLifeStyle] = useState({});
-  const [desiredHomeType, setDesiredHomeType] = useState("");
-  const [checkedAmneties, setCheckedAmneties] = useState({});
-  const [filterDetailsObj, setFilterDetailsObj] = useState({
-    bathRooms: "",
-    bedRooms: "",
-    sleeps: "",
-    doubleBeds: "",
-    singleBeds: "",
-  });
+  const [filterCount, setFilterCount] = useState(useSelector((state) => state.filterCounter));
+  const [checkedLifeStyle, setCheckedLifeStyle] = useState(
+    useSelector((state) => state.lifeStyleFilter)
+  );
+  const [desiredHomeType, setDesiredHomeType] = useState(
+    useSelector((state) => state.homeTypeFilter)
+  );
+  const [checkedAmneties, setCheckedAmneties] = useState(
+    useSelector((state) => state.amnetiesFilter)
+  );
+  const [filterDetailsObj, setFilterDetailsObj] = useState(
+    useSelector((state) =>
+      state.detailsFilter
+        ? state.detailsFilter
+        : {
+            bathRooms: "",
+            bedRooms: "",
+            sleeps: "",
+            doubleBeds: "",
+            singleBeds: "",
+          }
+    )
+  );
 
+  const dispatch = useDispatch();
+  console.log({ filterCount });
   console.log({ checkedAmneties });
-  console.log({ foundHomes });
+  console.log({ filteredHomes });
   console.log({ filterDetailsObj });
   console.log({ desiredHomeType });
 
   ////////////////////////////?add filtercount to show how many filters applied?
-  let navigate = useNavigate();
-  const location = useLocation();
+  // let navigate = useNavigate();
+  // const location = useLocation();
+
+  //const amneties = useSelector(({homeDetails}) => homeDetails.amneties);
   //*can acess location.pathname for current path.
 
   const handleOpen = () => setIsModalOpen(true);
   const handleClose = () => setIsModalOpen(false);
 
-  const handleDetailsChange = (event, key) => {
-    setFilterDetailsObj({ ...filterDetailsObj, [key]: event.target.value });
+  const handleHomeTypeChange = ({ target: { value } }) => {
+    if (!desiredHomeType) {
+      setFilterCount(filterCount + 1);
+    } else if (value === desiredHomeType) {
+      setFilterCount(filterCount - 1);
+    }
+    setDesiredHomeType(desiredHomeType === value ? "" : value);
+  };
+
+  const handleDetailsChange = ({ target: { value } }, key) => {
+    //cover cases: 
+    //if that key is true/defined then count stays the same 
+    //if its empty then +1 
+    //must -1 when canceled? check the value from event
+    if(!(filterDetailsObj[key])&& value !== ""){
+      setFilterCount(filterCount + 1);
+    }
+    else if(value===""){
+      setFilterCount(filterCount - 1);
+    }
+    setFilterDetailsObj({ ...filterDetailsObj, [key]:value });
   };
 
   const handleAmnetiesChange = (key) => {
+if(!(checkedAmneties[key])){
+  setFilterCount(filterCount + 1);
+}
+else  setFilterCount(filterCount - 1);
+    
     setCheckedAmneties({
       ...checkedAmneties,
       [key]: checkedAmneties[key] ? false : true,
@@ -125,6 +173,12 @@ const FilterModal = ({
   };
 
   const handleLifestyleChange = (key) => {
+
+    if(!(checkedLifeStyle[key])){
+      setFilterCount(filterCount + 1);
+    }
+    else  setFilterCount(filterCount - 1);
+
     setCheckedLifeStyle({
       ...checkedLifeStyle,
       [key]: checkedLifeStyle[key] ? false : true,
@@ -132,33 +186,67 @@ const FilterModal = ({
   };
 
   const updateResults = () => {
-    //how to filter our details::
-    const filterdByHomeType = filterHomeType(desiredHomeType, foundHomes);
-
-    const filteredByDetails = filterDetails(
+    //!dispatch the filter count as well on update! 
+    dispatch(setFilterCounter(filterCount)); 
+    const finalFiltered = filterAll(
+      foundHomes,
+      desiredHomeType,
       filterDetailsObj,
-      filterdByHomeType
-    );
-    const filteredByAmneties = filterAmneties(
       checkedAmneties,
-      filteredByDetails
+      checkedLifeStyle
     );
-
-    const finalFiltered = filterLifeStyle(checkedLifeStyle, filteredByAmneties);
-
     setFilteredHomes(finalFiltered);
     setSlicedHomes(finalFiltered);
-    // setPageCount(Math.ceil(filteredHomes.length / perPage))
+    setIsModalOpen(false);
+    dispatch(
+      updateFilterValues(
+        desiredHomeType,
+        filterDetailsObj,
+        checkedAmneties,
+        checkedLifeStyle
+      )
+    );
+  };
 
-    // navigate(`${location.pathname}`, {state: {foundHomes: finalFiltered}});
+  const clearFilter = () => {
+    setFilterCount(0);
+    setFilterDetailsObj({
+      bathRooms: "",
+      bedRooms: "",
+      sleeps: "",
+      doubleBeds: "",
+      singleBeds: "",
+    });
+    setCheckedAmneties({});
+    setCheckedLifeStyle({});
+    setDesiredHomeType("");
+    dispatch(
+      updateFilterValues(
+        "",
+        {
+          bathRooms: "",
+          bedRooms: "",
+          sleeps: "",
+          doubleBeds: "",
+          singleBeds: "",
+        },
+        {},
+        {}
+      )
+    );
+
+    // let fetchedHomes = await getSearchResults(searchValue);
+    // setFilteredHomes(fetchedHomes);
+    // setIsModalOpen(false);
+
+    //*set is filter active to false !
   };
 
   return (
     <div className="modal-container">
       <Button onClick={handleOpen} className="filter-button">
-        <FilterListIcon /> Filter Results
+        <FilterListIcon /> Filter Results ({filterCount})
       </Button>
-      {/* <Button onClick={handleOpen}>Open modal</Button> */}
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -218,11 +306,7 @@ const FilterModal = ({
                 })}
                 <div className="home-type-checkbox-container">
                   <FormControlLabel
-                    onChange={() =>
-                      setDesiredHomeType(
-                        desiredHomeType === "Appartment" ? "" : "Appartment"
-                      )
-                    }
+                    onChange={handleHomeTypeChange}
                     control={
                       <Checkbox
                         checkedIcon={
@@ -241,14 +325,11 @@ const FilterModal = ({
                       />
                     }
                     label={"Appartment"}
+                    value="Appartment"
                     labelPlacement="end"
                   />
                   <FormControlLabel
-                    onChange={() =>
-                      setDesiredHomeType(
-                        desiredHomeType === "House" ? "" : "House"
-                      )
-                    }
+                    onChange={handleHomeTypeChange}
                     control={
                       <Checkbox
                         checkedIcon={
@@ -265,6 +346,7 @@ const FilterModal = ({
                       />
                     }
                     label={"House"}
+                    value="House"
                     labelPlacement="end"
                   />
                   {/* make 2 checkboxes?  */}
@@ -365,9 +447,19 @@ const FilterModal = ({
                   </div>
                 </div>
               </FormGroup>
-              <Button onClick={() => updateResults(checkedAmneties)}>
-                Apply Filter
-              </Button>
+              <div className="apply-or-delete-filter-container">
+                <Button size="medium" onClick={updateResults}>
+                  Update Results
+                </Button>
+                <Button
+                  variant="outlined"
+                  color="error"
+                  size="small"
+                  onClick={clearFilter}
+                >
+                  Clear Filter
+                </Button>
+              </div>
             </FormControl>
           </Box>
         </Fade>

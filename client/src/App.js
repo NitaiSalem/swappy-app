@@ -17,7 +17,9 @@ import About from "./components/layout/about/About";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import SearchResults from "./components/layout/search-results/SearchResults";
 import FoundProfile from "./components/layout/search-results/FoundProfile";
-
+import { persistStore } from 'redux-persist';
+import { PersistGate } from 'redux-persist/integration/react';
+let persistor = persistStore(store);
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
   // Set auth token header auth
@@ -40,6 +42,7 @@ if (localStorage.jwtToken) {
 function App() {
   return (
     <Provider store={store}>
+         <PersistGate persistor={persistor}>
       <Router>
         <div className="App">
           <NavigationBar />
@@ -68,6 +71,7 @@ function App() {
           {/* <Footer /> */}
         </div>
       </Router>
+      </PersistGate>
     </Provider>
   );
 }

@@ -21,11 +21,12 @@ const WelcomeSection = () => {
   const searchHomes = async (searchValue) => {
     // const foundHomes = await
     // await dispatch(getSearchResults(searchValue));
+    // const searchResults = await getSearchResults(searchValue);
+    // console.log("this is search results in search homes func", searchResults);
     const searchResults = await getSearchResults(searchValue);
 
     console.log("this is search results in search homes func", searchResults);
-
-    navigate(`/search/${searchValue}`, {state: {foundHomes: searchResults}});
+    navigate(`/search/${searchValue}`, {state: {searchValue,foundHomes: searchResults}});
   };
 
   //make it as link tag even with router to navigate to /find-homes, - no need if i just use navigate()

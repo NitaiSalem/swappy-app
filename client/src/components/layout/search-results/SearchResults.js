@@ -9,19 +9,30 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import FilterModal from "./FilterModal";
 import ReactPaginate from "react-paginate";
+import { getSearchResults } from "../../../utils/getHomes";
+import { filterAll } from "../../../utils/filterUtils";
 
 const SearchResults = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  console.log({location})
-  //*can acess location.pathname for current path. 
+  console.log({ location });
+  //*can acess location.pathname for current path.
   const { state } = useLocation();
   const [offset, setOffset] = useState(0);
-  const perPage = 5; //?might remove from state later?
+  const perPage = 5;
 
-  console.log({state});
-  const foundHomes = state.foundHomes;
-  const [filteredHomes, setFilteredHomes] = useState(foundHomes);
+  //*use these not in state
+  const checkedLifeStyle = useSelector((state) => state.lifeStyleFilter);
+  const desiredHomeType = useSelector((state) => state.homeTypeFilter);
+  const checkedAmneties = useSelector((state) => state.amnetiesFilter);
+  const filterDetailsObj = useSelector((state) => state.detailsFilter);
+  
+
+  console.log({ state });
+  const searchValue = state ? state.searchValue : ""; //!use this to get search value!!!
+  const foundHomes = state.foundHomes; //I i changed this!
+  const [filteredHomes, setFilteredHomes] = useState([]);
+
   const [filterAccessibility, setFilterAccessibility] = useState({});
   const [pageCount, setPageCount] = useState(
     Math.ceil(filteredHomes.length / perPage)
@@ -43,7 +54,7 @@ const SearchResults = () => {
       ? filteredHomes.filter((home) => home.homeDetails)
       : [];
   console.log({ mappedHouses });
-  console.log({ foundHomes });
+  console.log({ filteredHomes });
 
   const goToUser = (user) => {
     navigate(`user/${user["_id"]}`, { state: user });
@@ -54,8 +65,33 @@ const SearchResults = () => {
     const selectedPage = e.selected;
     setOffset(selectedPage + 1); //? because of index difference add 1?
     executeScroll();
-    // myScrollRef.scrollIntoView({behavior:"smooth"})
   };
+
+  useEffect(() => {
+    //*getSearchResults
+    const fetchHomes = async () => {
+      let fetchedHomes = await getSearchResults(searchValue);
+      const finalFiltered = filterAll(
+        fetchedHomes,
+        desiredHomeType,
+        filterDetailsObj,
+        checkedAmneties,
+        checkedLifeStyle
+      );
+      //*I do have acess to the filter objects from redux state, use the filter method here with those redux store values ?
+
+      //!get the redux store state of filter values and apply filter here?
+      // ?check if filter is active? apply filter here?
+
+      console.log({ fetchedHomes });
+      setFilteredHomes(finalFiltered);
+    };
+    fetchHomes();
+    //?make axios request here to update state? the rendered page will get the search value if we have one, otherwise reload all results.
+    //set sliced:
+    setPageCount(Math.ceil(filteredHomes.length / perPage));
+    setSlicedHomes(filteredHomes.slice(offset, offset + perPage));
+  }, []);
 
   useEffect(() => {
     //set sliced:
@@ -69,8 +105,8 @@ const SearchResults = () => {
         <h3 ref={myScrollRef}>
           Found {filteredHomes.length} homes{" "}
           <FilterModal
+            searchValue={searchValue}
             foundHomes={foundHomes}
-            filteredHomes={filteredHomes}
             perPage={perPage}
             setSlicedHomes={setSlicedHomes}
             setFilteredHomes={setFilteredHomes}
