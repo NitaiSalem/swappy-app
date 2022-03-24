@@ -6,7 +6,7 @@ import "./search-results.style.scss";
 import SearchResultsMap from "../../map/SearchResultsMap";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef,useMemo } from "react";
 import FilterModal from "./FilterModal";
 import ReactPaginate from "react-paginate";
 import { getSearchResults } from "../../../utils/getHomes";
@@ -22,6 +22,7 @@ const SearchResults = () => {
   const perPage = 5;
 
   //*use these not in state
+  //!these are causing the map rerender. 
   const checkedLifeStyle = useSelector((state) => state.lifeStyleFilter);
   const desiredHomeType = useSelector((state) => state.homeTypeFilter);
   const checkedAmneties = useSelector((state) => state.amnetiesFilter);
@@ -49,12 +50,13 @@ const SearchResults = () => {
   // })
   const myScrollRef = useRef(null);
   const executeScroll = () => scrollToRef(myScrollRef);
-  const mappedHouses =
-    filteredHomes.length > 0
-      ? filteredHomes.filter((home) => home.homeDetails)
-      : [];
-  console.log({ mappedHouses });
-  console.log({ filteredHomes });
+
+  const mappedHouses = useMemo(()=> filteredHomes.length > 0
+    ? filteredHomes.filter((home) => home.homeDetails)
+    : [],[filteredHomes])
+ 
+  // console.log({ mappedHouses });
+  // console.log({ filteredHomes });
 
   const goToUser = (user) => {
     navigate(`user/${user["_id"]}`, { state: user });
@@ -69,6 +71,8 @@ const SearchResults = () => {
 
   useEffect(() => {
     //*getSearchResults
+    console.log("fetching useffect rendered!!!")
+    //?limit to maybe only when filter values change? otherwise first render gives us the search results already...
     const fetchHomes = async () => {
       let fetchedHomes = await getSearchResults(searchValue);
       const finalFiltered = filterAll(
@@ -79,15 +83,9 @@ const SearchResults = () => {
         checkedLifeStyle
       );
       //*I do have acess to the filter objects from redux state, use the filter method here with those redux store values ?
-
-      //!get the redux store state of filter values and apply filter here?
-      // ?check if filter is active? apply filter here?
-
-      console.log({ fetchedHomes });
       setFilteredHomes(finalFiltered);
     };
     fetchHomes();
-    //?make axios request here to update state? the rendered page will get the search value if we have one, otherwise reload all results.
     //set sliced:
     setPageCount(Math.ceil(filteredHomes.length / perPage));
     setSlicedHomes(filteredHomes.slice(offset, offset + perPage));
@@ -95,6 +93,8 @@ const SearchResults = () => {
 
   useEffect(() => {
     //set sliced:
+    console.log("second useffect rendered!!!")
+    //!possibly might have to remove filtered homes  from dependency? 
     setPageCount(Math.ceil(filteredHomes.length / perPage));
     setSlicedHomes(filteredHomes.slice(offset, offset + perPage));
   }, [offset, filteredHomes]);
@@ -153,28 +153,6 @@ const SearchResults = () => {
                         width="50px"
                         height="50px"
                       ></img>
-
-                      {/* {
-                  home.homeImages.length > 0 && (
-                    <img
-                      src={homeImageUrl}
-                      alt="home pic"
-                      width="200px"
-                      height="200px"
-                    ></img>
-                  )
-
-                  // : (
-                  //else add default pic
-
-                  //   <img
-                  //     src={defaultImage}
-                  //     alt="home pic"
-                  //     width="100px"
-                  //     height="100px"
-                  //   ></img>
-                  // )
-                } */}
                     </div>
                     <h5>{home.name + `'s`} Home</h5>
                     <span>

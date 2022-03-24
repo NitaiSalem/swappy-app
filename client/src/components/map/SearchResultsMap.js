@@ -10,7 +10,7 @@ import {
 // import Autocomplete from "react-google-autocomplete";
 import Geocode from "react-geocode";
 // import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import React, {useCallback, useEffect, useState} from "react";
+import React from "react";
 import {memo} from "react";
 // import {useNavigate} from "react-router-dom";
 // import mapIcon from "../../../../client/src/site images/marker-icon.png";
@@ -23,7 +23,10 @@ Geocode.enableDebug();
 
 const SearchResultsMap = ({mappedHouses, goToUser}) => {
   //   const [markerIcon, setMarkerIcon] = useState("");
-
+  // const mappedHouses =
+  //   filteredHomes.length > 0
+  //     ? filteredHomes.filter((home) => home.homeDetails)
+  //     : [];
   //   const navigate = useNavigate();
   const zoom = 11;
   let markerPosition = {

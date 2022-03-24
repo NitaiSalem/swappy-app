@@ -18,17 +18,13 @@ import CheckBoxOutlineBlankOutlinedIcon from "@mui/icons-material/CheckBoxOutlin
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
-import { Numbers } from "@mui/icons-material";
+// import { Numbers } from "@mui/icons-material";
 import {
-  filterDetails,
-  filterHomeType,
-  filterAmneties,
-  filterLifeStyle,
   filterAll,
 } from "../../../utils/filterUtils";
-import { useLocation, useNavigate } from "react-router-dom";
+// import { useLocation, useNavigate } from "react-router-dom";
 import { setFilterCounter, updateFilterValues } from "../../../actions/filterActions";
-import { getSearchResults } from "../../../utils/getHomes";
+// import { getSearchResults } from "../../../utils/getHomes";
 
 //this is to map checkboxes....
 export const AMNETIES_NAMES = [
@@ -96,7 +92,8 @@ const FilterModal = ({
 }) => {
   //* const homeDetails = useSelector((state) => state.homeDetails);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [filterCount, setFilterCount] = useState(useSelector((state) => state.filterCounter));
+  const [filterCount, setFilterCount] = useState(useSelector((state) => state.filterCounter?state.filterCounter:0));
+  const displayCount = useSelector((state) => state.filterCounter?state.filterCounter:0);
   const [checkedLifeStyle, setCheckedLifeStyle] = useState(
     useSelector((state) => state.lifeStyleFilter)
   );
@@ -135,7 +132,46 @@ const FilterModal = ({
   //*can acess location.pathname for current path.
 
   const handleOpen = () => setIsModalOpen(true);
-  const handleClose = () => setIsModalOpen(false);
+
+  const handleClose = () => {
+    //  setFilterCount(0);
+    // setFilterDetailsObj({
+    //   bathRooms: "",
+    //   bedRooms: "",
+    //   sleeps: "",
+    //   doubleBeds: "",
+    //   singleBeds: "",
+    // });
+    // setCheckedAmneties({});
+    // setCheckedLifeStyle({});
+    // setDesiredHomeType("");
+    setIsModalOpen(false)};
+////////////////////////////////////////////////////////////////////////////////////////////////
+    const updateResults = () => {
+      setFilterCounter(filterCount)
+      dispatch(setFilterCounter(filterCount)); 
+      const finalFiltered = filterAll(
+        foundHomes,
+        desiredHomeType,
+        filterDetailsObj,
+        checkedAmneties,
+        checkedLifeStyle
+      );
+      setFilteredHomes(finalFiltered);
+      setSlicedHomes(finalFiltered);
+      setIsModalOpen(false);
+      dispatch(
+        updateFilterValues(
+          desiredHomeType,
+          filterDetailsObj,
+          checkedAmneties,
+          checkedLifeStyle
+        )
+      );
+    };
+  
+
+
 
   const handleHomeTypeChange = ({ target: { value } }) => {
     if (!desiredHomeType) {
@@ -185,67 +221,41 @@ else  setFilterCount(filterCount - 1);
     });
   };
 
-  const updateResults = () => {
-    //!dispatch the filter count as well on update! 
-    dispatch(setFilterCounter(filterCount)); 
-    const finalFiltered = filterAll(
-      foundHomes,
-      desiredHomeType,
-      filterDetailsObj,
-      checkedAmneties,
-      checkedLifeStyle
-    );
-    setFilteredHomes(finalFiltered);
-    setSlicedHomes(finalFiltered);
-    setIsModalOpen(false);
-    dispatch(
-      updateFilterValues(
-        desiredHomeType,
-        filterDetailsObj,
-        checkedAmneties,
-        checkedLifeStyle
-      )
-    );
-  };
 
-  const clearFilter = () => {
-    setFilterCount(0);
-    setFilterDetailsObj({
-      bathRooms: "",
-      bedRooms: "",
-      sleeps: "",
-      doubleBeds: "",
-      singleBeds: "",
-    });
-    setCheckedAmneties({});
-    setCheckedLifeStyle({});
-    setDesiredHomeType("");
-    dispatch(
-      updateFilterValues(
-        "",
-        {
-          bathRooms: "",
-          bedRooms: "",
-          sleeps: "",
-          doubleBeds: "",
-          singleBeds: "",
-        },
-        {},
-        {}
-      )
-    );
-
-    // let fetchedHomes = await getSearchResults(searchValue);
-    // setFilteredHomes(fetchedHomes);
-    // setIsModalOpen(false);
-
-    //*set is filter active to false !
-  };
+  // const clearFilter = () => {
+  //   setFilterCount(0);
+  //   setFilterDetailsObj({
+  //     bathRooms: "",
+  //     bedRooms: "",
+  //     sleeps: "",
+  //     doubleBeds: "",
+  //     singleBeds: "",
+  //   });
+  //   setCheckedAmneties({});
+  //   setCheckedLifeStyle({});
+  //   setDesiredHomeType("");
+  //   //!this dispatch update causes rerender of map 
+  //   //?move it inside the update filter? 
+  //   // dispatch(
+  //   //   updateFilterValues(
+  //   //     "",
+  //   //     {
+  //   //       bathRooms: "",
+  //   //       bedRooms: "",
+  //   //       sleeps: "",
+  //   //       doubleBeds: "",
+  //   //       singleBeds: "",
+  //   //     },
+  //   //     {},
+  //   //     {}
+  //   //   )
+  //   // );
+  // };
 
   return (
     <div className="modal-container">
       <Button onClick={handleOpen} className="filter-button">
-        <FilterListIcon /> Filter Results ({filterCount})
+        <FilterListIcon /> Add filters ({displayCount})
       </Button>
       <Modal
         aria-labelledby="transition-modal-title"
@@ -448,16 +458,16 @@ else  setFilterCount(filterCount - 1);
                 </div>
               </FormGroup>
               <div className="apply-or-delete-filter-container">
-                <Button size="medium" onClick={updateResults}>
-                  Update Results
-                </Button>
                 <Button
                   variant="outlined"
                   color="error"
                   size="small"
-                  onClick={clearFilter}
+                  onClick={handleClose}
                 >
-                  Clear Filter
+                  Cancel
+                </Button>
+                <Button  variant="outlined" size="medium" onClick={updateResults}>
+                  Update Results
                 </Button>
               </div>
             </FormControl>
