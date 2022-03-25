@@ -8,14 +8,15 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState, useRef,useMemo } from "react";
 import FilterModal from "./FilterModal";
+import SearchBar from "./SearchBar";
 import ReactPaginate from "react-paginate";
 import { getSearchResults } from "../../../utils/getHomes";
 import { filterAll } from "../../../utils/filterUtils";
 
 const SearchResults = () => {
   const navigate = useNavigate();
-  const location = useLocation();
-  console.log({ location });
+  // const location = useLocation();
+  // console.log({ location });
   //*can acess location.pathname for current path.
   const { state } = useLocation();
   const [offset, setOffset] = useState(0);
@@ -29,7 +30,7 @@ const SearchResults = () => {
   const filterDetailsObj = useSelector((state) => state.detailsFilter);
   
 
-  console.log({ state });
+  // console.log({ state });
   const searchValue = state ? state.searchValue : ""; //!use this to get search value!!!
   const foundHomes = state.foundHomes; //I i changed this!
   const [filteredHomes, setFilteredHomes] = useState([]);
@@ -51,9 +52,9 @@ const SearchResults = () => {
   const myScrollRef = useRef(null);
   const executeScroll = () => scrollToRef(myScrollRef);
 
-  const mappedHouses = useMemo(()=> filteredHomes.length > 0
+  const mappedHouses =  filteredHomes.length > 0
     ? filteredHomes.filter((home) => home.homeDetails)
-    : [],[filteredHomes])
+    : [];
  
   // console.log({ mappedHouses });
   // console.log({ filteredHomes });
@@ -71,7 +72,7 @@ const SearchResults = () => {
 
   useEffect(() => {
     //*getSearchResults
-    console.log("fetching useffect rendered!!!")
+    // console.log("fetching useffect rendered!!!")
     //?limit to maybe only when filter values change? otherwise first render gives us the search results already...
     const fetchHomes = async () => {
       let fetchedHomes = await getSearchResults(searchValue);
@@ -96,7 +97,7 @@ const SearchResults = () => {
     console.log("second useffect rendered!!!")
     //!possibly might have to remove filtered homes  from dependency? 
     setPageCount(Math.ceil(filteredHomes.length / perPage));
-    setSlicedHomes(filteredHomes.slice(offset, offset + perPage));
+     setSlicedHomes(filteredHomes);
   }, [offset, filteredHomes]);
 
   return (
@@ -104,6 +105,11 @@ const SearchResults = () => {
       <div id="all-homes-container" className="all-homes-container">
         <h3 ref={myScrollRef}>
           Found {filteredHomes.length} homes{" "}
+          <SearchBar 
+          // filteredHomes={filteredHomes}
+           setFilteredHomes={setFilteredHomes}
+          searchValue={searchValue}
+          /> 
           <FilterModal
             searchValue={searchValue}
             foundHomes={foundHomes}

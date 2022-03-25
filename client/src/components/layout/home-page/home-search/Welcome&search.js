@@ -50,6 +50,8 @@ const WelcomeSection = () => {
             componentRestrictions: {country: "isr"},
           }}
           onChange={onTextChange}
+          //!here set search value when selected!
+          onPlaceSelected= {(place) => setSearchText(place.formatted_address)}
           // onPlaceSelected={onPlaceSelected}
         />
 

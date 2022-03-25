@@ -139,3 +139,39 @@ export const filterAll = (
 
 // export const saveFavoritesToStorage = (newFavoriteImages) =>
 // 	localStorage.setItem('favoriteImages', JSON.stringify(newFavoriteImages));
+
+export const AMNETIES_NAMES = [
+  { name: "TV", key: "tv" },
+  { name: "WiFi", key: "wifi" },
+  { name: "Microwave", key: "microwave" },
+  { name: "Refrigerator", key: "fridge" },
+  { name: "AC", key: "ac" },
+  { name: "FirePlace", key: "firePlace" },
+  { name: "Pool", key: "pool" },
+  { name: "Grill", key: "grill" },
+  { name: "Garden", key: "garden" },
+  { name: "Parking", key: "parking" },
+  { name: "Esports", key: "esports" },
+  { name: "Balcony", key: "balcony" },
+  { name: "Elevator", key: "elevator" },
+  { name: "washing Machine", key: "washingMachine" },
+  { name: "Accessible", key: "accessible" },
+];
+
+export const DETAILS_NAMES = [
+  { name: "Bathrooms", key: "bathRooms" },
+  { name: "Bedrooms", key: "bedRooms" },
+  { name: "Sleeps", key: "sleeps" },
+  { name: "Double-beds", key: "doubleBeds" },
+  { name: "Single-beds", key: "singleBeds" },
+];
+
+export const LIFESTYLE_NAMES = [
+  { name: "Smokers welcome", key: "smoking" },
+  { name: "Pets welcome", key: "pets" },
+  { name: "Children welcome", key: "children" },
+];
+
+export const MENU_ITEMS_RANGE = [
+  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+];

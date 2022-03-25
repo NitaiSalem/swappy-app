@@ -20,48 +20,17 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 // import { Numbers } from "@mui/icons-material";
 import {
+  AMNETIES_NAMES,
+  DETAILS_NAMES,
   filterAll,
+  LIFESTYLE_NAMES,
+  MENU_ITEMS_RANGE,
 } from "../../../utils/filterUtils";
 // import { useLocation, useNavigate } from "react-router-dom";
 import { setFilterCounter, updateFilterValues } from "../../../actions/filterActions";
 // import { getSearchResults } from "../../../utils/getHomes";
 
 //this is to map checkboxes....
-export const AMNETIES_NAMES = [
-  { name: "TV", key: "tv" },
-  { name: "WiFi", key: "wifi" },
-  { name: "Microwave", key: "microwave" },
-  { name: "Refrigerator", key: "fridge" },
-  { name: "AC", key: "ac" },
-  { name: "FirePlace", key: "firePlace" },
-  { name: "Pool", key: "pool" },
-  { name: "Grill", key: "grill" },
-  { name: "Garden", key: "garden" },
-  { name: "Parking", key: "parking" },
-  { name: "Esports", key: "esports" },
-  { name: "Balcony", key: "balcony" },
-  { name: "Elevator", key: "elevator" },
-  { name: "washing Machine", key: "washingMachine" },
-  { name: "Accessible", key: "accessible" },
-];
-
-export const DETAILS_NAMES = [
-  { name: "Bathrooms", key: "bathRooms" },
-  { name: "Bedrooms", key: "bedRooms" },
-  { name: "Sleeps", key: "sleeps" },
-  { name: "Double-beds", key: "doubleBeds" },
-  { name: "Single-beds", key: "singleBeds" },
-];
-
-export const LIFESTYLE_NAMES = [
-  { name: "Smokers welcome", key: "smoking" },
-  { name: "Pets welcome", key: "pets" },
-  { name: "Children welcome", key: "children" },
-];
-
-export const MENU_ITEMS_RANGE = [
-  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-];
 
 const style = {
   position: "absolute",
@@ -118,33 +87,19 @@ const FilterModal = ({
   );
 
   const dispatch = useDispatch();
-  console.log({ filterCount });
-  console.log({ checkedAmneties });
-  console.log({ filteredHomes });
-  console.log({ filterDetailsObj });
-  console.log({ desiredHomeType });
-
+  // console.log({ filterCount });
+  // console.log({ checkedAmneties });
+  // console.log({ filteredHomes });
+  // console.log({ filterDetailsObj });
+  // console.log({ desiredHomeType });
   ////////////////////////////?add filtercount to show how many filters applied?
   // let navigate = useNavigate();
   // const location = useLocation();
-
-  //const amneties = useSelector(({homeDetails}) => homeDetails.amneties);
   //*can acess location.pathname for current path.
 
   const handleOpen = () => setIsModalOpen(true);
 
   const handleClose = () => {
-    //  setFilterCount(0);
-    // setFilterDetailsObj({
-    //   bathRooms: "",
-    //   bedRooms: "",
-    //   sleeps: "",
-    //   doubleBeds: "",
-    //   singleBeds: "",
-    // });
-    // setCheckedAmneties({});
-    // setCheckedLifeStyle({});
-    // setDesiredHomeType("");
     setIsModalOpen(false)};
 ////////////////////////////////////////////////////////////////////////////////////////////////
     const updateResults = () => {
@@ -170,9 +125,6 @@ const FilterModal = ({
       );
     };
   
-
-
-
   const handleHomeTypeChange = ({ target: { value } }) => {
     if (!desiredHomeType) {
       setFilterCount(filterCount + 1);
@@ -201,7 +153,6 @@ if(!(checkedAmneties[key])){
   setFilterCount(filterCount + 1);
 }
 else  setFilterCount(filterCount - 1);
-    
     setCheckedAmneties({
       ...checkedAmneties,
       [key]: checkedAmneties[key] ? false : true,
@@ -209,12 +160,10 @@ else  setFilterCount(filterCount - 1);
   };
 
   const handleLifestyleChange = (key) => {
-
     if(!(checkedLifeStyle[key])){
       setFilterCount(filterCount + 1);
     }
     else  setFilterCount(filterCount - 1);
-
     setCheckedLifeStyle({
       ...checkedLifeStyle,
       [key]: checkedLifeStyle[key] ? false : true,
@@ -222,35 +171,7 @@ else  setFilterCount(filterCount - 1);
   };
 
 
-  // const clearFilter = () => {
-  //   setFilterCount(0);
-  //   setFilterDetailsObj({
-  //     bathRooms: "",
-  //     bedRooms: "",
-  //     sleeps: "",
-  //     doubleBeds: "",
-  //     singleBeds: "",
-  //   });
-  //   setCheckedAmneties({});
-  //   setCheckedLifeStyle({});
-  //   setDesiredHomeType("");
-  //   //!this dispatch update causes rerender of map 
-  //   //?move it inside the update filter? 
-  //   // dispatch(
-  //   //   updateFilterValues(
-  //   //     "",
-  //   //     {
-  //   //       bathRooms: "",
-  //   //       bedRooms: "",
-  //   //       sleeps: "",
-  //   //       doubleBeds: "",
-  //   //       singleBeds: "",
-  //   //     },
-  //   //     {},
-  //   //     {}
-  //   //   )
-  //   // );
-  // };
+
 
   return (
     <div className="modal-container">
