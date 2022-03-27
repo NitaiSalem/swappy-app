@@ -39,6 +39,8 @@ if (localStorage.jwtToken) {
   }
 }
 
+//////////testing sync
+
 function App() {
   return (
     <Provider store={store}>
