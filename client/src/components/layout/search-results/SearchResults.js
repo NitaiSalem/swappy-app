@@ -31,7 +31,7 @@ const SearchResults = () => {
   
 
   // console.log({ state });
-  const searchValue = state ? state.searchValue : ""; //!use this to get search value!!!
+  const searchValue =  state.searchValue; //!use this to get search value!!!
   const foundHomes = state.foundHomes; //I i changed this!
   const [filteredHomes, setFilteredHomes] = useState([]);
 
@@ -40,7 +40,7 @@ const SearchResults = () => {
     Math.ceil(filteredHomes.length / perPage)
   );
   const [slicedHomes, setSlicedHomes] = useState(
-    filteredHomes.slice(offset, offset + perPage)
+    filteredHomes?filteredHomes.slice(offset, offset + perPage):[]
   );
 
   //*creating scroll reference for element
@@ -89,7 +89,7 @@ const SearchResults = () => {
     fetchHomes();
     //set sliced:
     setPageCount(Math.ceil(filteredHomes.length / perPage));
-    setSlicedHomes(filteredHomes.slice(offset, offset + perPage));
+    setSlicedHomes(filteredHomes?filteredHomes.slice(offset, offset + perPage): []);
   }, []);
 
   useEffect(() => {

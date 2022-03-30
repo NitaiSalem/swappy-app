@@ -18,7 +18,9 @@ router.get("/", async (req, res) => {
 //removed authenticate jwt
 router.get("/:location", async (req, res) => {
   console.log(req.params, " here is req.params");
-  const {location} = req.params;
+  let {location} = req.params;
+location = location.replace(', Israel', ""); 
+  //?use replace here? 
   // console.log("this is location ", location);
   // console.log(req.user, "this is req user");
   try {

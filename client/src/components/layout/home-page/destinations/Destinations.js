@@ -9,7 +9,7 @@ const Destinations = () => {
             <h1 className='destinations-header'>Find your next destination</h1>
             <div className='images-container'>
             <a href="abc.com">
-    <img src="abc.png"  alt='destination'/>
+    <img src="jihri.png"  alt='destination'/>
    </a>
    <a href="abc.com">
     <img src="abc.png"  alt='destination'/>

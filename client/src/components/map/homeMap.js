@@ -26,6 +26,7 @@ const HomeMap = (props) => {
     withGoogleMap(() => {
       return (
         <GoogleMap
+        google={window.google}
           defaultZoom={zoom}
           defaultCenter={{
             lat: markerPosition.lat,
