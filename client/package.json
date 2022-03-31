@@ -30,6 +30,7 @@
     "react-google-maps": "^9.4.5",
     "react-paginate": "^8.1.2",
     "react-redux": "^7.2.6",
+    "react-responsive-carousel": "^3.2.23",
     "react-router-dom": "^6.2.1",
     "react-scripts": "4.0.3",
     "redux": "^4.0.1",

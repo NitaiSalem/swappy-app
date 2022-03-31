@@ -1,0 +1,122 @@
+
+.found-profile-container{
+     width: 100vw; 
+     height:100vh; 
+    // background-color: blueviolet; 
+}
+
+.found-home-img-container{
+    // width: auto !important;
+    // height: auto !important;
+    //  max-height: 400px !important; 
+    max-width: 70% !important;
+}
+
+.found-profile-homeimg{
+    width:100%;
+}
+.carousel-wrapper-outside{
+    // margin-top:40px;
+    // animation-name: appearanceOpacity;
+	// animation-duration: 500ms;
+
+    // transition: ease-in 2s linear;
+    position: fixed;    
+    height: 100% !important;
+}
+
+.carousel-wrapper-outside-close{
+    // margin-top:40px;
+    // animation-name: closeOpacity;
+	// animation-duration: 500ms;
+
+    // transition: ease-in 2s linear;
+    position: fixed;    
+    height: 100% !important;
+}
+
+
+@keyframes appearanceOpacity {
+	0% {
+		opacity: 0;
+	}
+
+	100% {
+		opacity: 1;
+	}
+}
+
+@keyframes closeOpacity {
+	0% {
+		opacity: 1;
+	}
+
+	100% {
+		opacity: 0;
+	}
+}
+
+
+
+.carousel-wrapper-custom{
+    position: fixed;
+    top: 40px;
+    left: 0;
+     width:100%;
+    // height: 100%;
+    // background: 'white';
+     background-color: rgba(43, 40, 40, 0.9);
+    display:flex;
+    flex-direction: column; 
+    // flex-wrap:  wrap ;
+  
+    //  max-width: 100%; 
+        //  padding-right: 8px;
+    height:100%;  
+    width:100%; 
+
+    .close-carousel{
+        right:0;  
+        width: 15px;  
+        align-self: flex-end; 
+    }
+    .carousel-root{
+        height:100%;  
+    }
+    
+    .carousel.carousel-slider{
+    height:85% !important; 
+    }
+}
+
+
+.carousel-image-container{
+
+      height: 100%;
+ width:100%; 
+}
+
+.carousel-image{
+    // padding-top:40px;
+    width: auto !important;
+    height: auto !important;
+     max-height: 100%; 
+    max-width: 70% !important;
+    // height: 450px;
+
+    // object-fit: contain;
+}
+
+.thumbs-wrapper{
+    width: 100%; 
+    display: flex; 
+    justify-content: center; 
+}
+
+li.thumb{
+    border: none !important; 
+}
+li.thumb.selected{
+    border: 3px solid #333  !important;
+
+}

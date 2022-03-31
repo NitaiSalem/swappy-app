@@ -16,9 +16,10 @@ import Footer from "./components/layout/footer/Footer";
 import About from "./components/layout/about/About";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import SearchResults from "./components/layout/search-results/SearchResults";
-import FoundProfile from "./components/layout/search-results/FoundProfile";
+// import FoundProfile from "./components/layout/search-results/FoundProfile";
 import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
+import FoundProfile from "./components/layout/search-results/found-profile/FoundProfile";
 let persistor = persistStore(store);
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
