@@ -8,10 +8,10 @@ const NavigationBar = () => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
   return (
-    <Navbar fixed="top" expand="sm" className="navbar-container">
+    <Navbar id ="navbar" fixed="top" expand="sm" className="navbar-container">
       <Container fluid className="container-fluid">
         <Link to="/"> Logo image here</Link>
-        <Nav>
+        <Nav> 
           <Link to="/about">How it works</Link>
           { !isAuthenticated? <Link to="/login">Login</Link> :<Link to="/profile">Profile</Link> }
           <Link  to="/">Home</Link>
