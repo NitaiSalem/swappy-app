@@ -1,3 +1,7 @@
+#justcolor {
+  color: rgb(90, 92, 100);
+}
+
 .found-profile-container {
   width: 100vw;
   height: 100vh;
@@ -7,7 +11,7 @@
 .top-view-container {
   display: flex;
 
-  margin-left: 13vw;
+  // margin-left: 13vw;
   margin-right: 13vw;
   //   margin-left: 150px;
   //   margin-right: 150px;
@@ -82,8 +86,8 @@
 }
 
 .carousel-wrapper-custom {
-  z-index: 1000000;
-  position: fixed;
+  position: fixed !important;
+  z-index: 1000 !important;
   bottom: 0px;
   //   top:40px;
   left: 0;
@@ -171,7 +175,7 @@ li.thumb.selected {
 .user-column {
   display: flex;
   flex-direction: column;
-
+  background-color: rgb(252, 218, 175);
   .profile-info-container {
     display: flex;
     align-items: center;
@@ -200,7 +204,6 @@ li.thumb.selected {
     }
   }
 
-
   .hometype-area {
     font-size: 21px;
     padding: 10px 0px 10px 0px;
@@ -208,18 +211,67 @@ li.thumb.selected {
     border-bottom: 1px solid rgb(204, 203, 203);
   }
 
-  .about-home-section{
+  .about-home-section {
     padding: 10px 0px 10px 0px;
     border-bottom: 1px solid rgb(204, 203, 203);
 
-.about-home-title{
-    font-size: 20px;
+    .about-home-title {
+      font-size: 20px;
+    }
+
+    .about-home-text {
+      font-size: 17px;
+    }
+  }
 }
 
-.about-home-text{
-    font-size:17px;
+.found-home-info-section-container {
+  background-color: #f4f4f4;
+  padding-right: 20%;
+
+  .grid-container {
+    padding: 0px 100px 0px 100px;
+
+    .my-grid-column {
+      padding: 25px 10px 0px 10px;
+
+      .info-section-box {
+        display:flex; 
+        flex-direction: column;
+        background: #fff;
+        padding: 20px;
+        margin-bottom: 25px;
+        border: 1px solid #ebebeb;
+        border-radius: 5px;
+
+.details-list{
+  list-style-type: none;
+
+li{
+display:flex;
+justify-content: space-between;
+align-items: center;
+  border-bottom:1px solid #cccbcb; 
+  padding-bottom: 8px;
+  padding-top: 8px;
+  
+// .icon{
+//   margin-right: 10px;
+//   width:30px;
+//   // font-size: 34px !important;
+// }
+
+path{
+width:25px;
+}
 
 }
 
+}
+
+
+
+      }
+    }
   }
 }

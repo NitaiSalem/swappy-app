@@ -58,6 +58,10 @@ if(!homeDetails.homeType){
             <span>{homeDetails.doubleBeds}</span> double beds
           </p>
         </div>
+
+
+{/*!add bathroom  */ }
+
       </div>
       <h2>h2</h2>
     </div>
