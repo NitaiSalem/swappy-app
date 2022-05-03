@@ -9,8 +9,10 @@
   //   font-family: "Open Sans", sans-serif !important;
 }
 html {
-  // overflow-y: hidden;
-  overflow-x: hidden;
+  height: 100vh; 
+  width:100%;
+  // overflow-y: scroll;
+   overflow-x: hidden;  
 }
 
 // .app-container {

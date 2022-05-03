@@ -2,18 +2,18 @@ import "./footerStyle.scss";
 import React from "react";
 
 const Footer = () => {
+  return (
+    <div className="footer-container">
+      <div className="footer-row">
+        <a href="">Terms of use</a>
+        <a href="">Privacy Policy</a>
+        <a href="">Site map</a>
+      </div>
+      <div>
+        <p>Copyright (c) 2021 Swappy all rights reserved</p>
+      </div>
+    </div>
+  );
+};
 
-    return (
-      <div className='footer-container'> 
-<p>Terms of use</p>
-<p>Privacy Policy</p>
-<p>Site map</p>
-
-<p>Copyright (c) 2021 Homies all rights reserved</p>
-      </div>  
-    )
-}
-
-export default Footer; 
-
-
+export default Footer;

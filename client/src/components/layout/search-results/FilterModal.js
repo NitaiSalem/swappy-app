@@ -27,7 +27,10 @@ import {
   MENU_ITEMS_RANGE,
 } from "../../../utils/filterUtils";
 // import { useLocation, useNavigate } from "react-router-dom";
-import { setFilterCounter, updateFilterValues } from "../../../actions/filterActions";
+import {
+  setFilterCounter,
+  updateFilterValues,
+} from "../../../actions/filterActions";
 // import { getSearchResults } from "../../../utils/getHomes";
 
 //this is to map checkboxes....
@@ -37,11 +40,15 @@ const style = {
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
-  padding: "15px",
+  overflowY: "auto",
+  overflowX: "hidden",
+  // padding: "15px",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  //   width: 400,
+  maxHeight: "80vh",
+  maxWidth: "90vw",
+  // width: 600,
   bgcolor: "background.paper",
   //   border: "2px solid #000",
   borderRadius: "3px",
@@ -61,8 +68,12 @@ const FilterModal = ({
 }) => {
   //* const homeDetails = useSelector((state) => state.homeDetails);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [filterCount, setFilterCount] = useState(useSelector((state) => state.filterCounter?state.filterCounter:0));
-  const displayCount = useSelector((state) => state.filterCounter?state.filterCounter:0);
+  const [filterCount, setFilterCount] = useState(
+    useSelector((state) => (state.filterCounter ? state.filterCounter : 0))
+  );
+  const displayCount = useSelector((state) =>
+    state.filterCounter ? state.filterCounter : 0
+  );
   const [checkedLifeStyle, setCheckedLifeStyle] = useState(
     useSelector((state) => state.lifeStyleFilter)
   );
@@ -100,31 +111,32 @@ const FilterModal = ({
   const handleOpen = () => setIsModalOpen(true);
 
   const handleClose = () => {
-    setIsModalOpen(false)};
-////////////////////////////////////////////////////////////////////////////////////////////////
-    const updateResults = () => {
-      setFilterCounter(filterCount)
-      dispatch(setFilterCounter(filterCount)); 
-      const finalFiltered = filterAll(
-        foundHomes,
+    setIsModalOpen(false);
+  };
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+  const updateResults = () => {
+    setFilterCounter(filterCount);
+    dispatch(setFilterCounter(filterCount));
+    const finalFiltered = filterAll(
+      foundHomes,
+      desiredHomeType,
+      filterDetailsObj,
+      checkedAmneties,
+      checkedLifeStyle
+    );
+    setFilteredHomes(finalFiltered);
+    setSlicedHomes(finalFiltered);
+    setIsModalOpen(false);
+    dispatch(
+      updateFilterValues(
         desiredHomeType,
         filterDetailsObj,
         checkedAmneties,
         checkedLifeStyle
-      );
-      setFilteredHomes(finalFiltered);
-      setSlicedHomes(finalFiltered);
-      setIsModalOpen(false);
-      dispatch(
-        updateFilterValues(
-          desiredHomeType,
-          filterDetailsObj,
-          checkedAmneties,
-          checkedLifeStyle
-        )
-      );
-    };
-  
+      )
+    );
+  };
+
   const handleHomeTypeChange = ({ target: { value } }) => {
     if (!desiredHomeType) {
       setFilterCount(filterCount + 1);
@@ -135,24 +147,22 @@ const FilterModal = ({
   };
 
   const handleDetailsChange = ({ target: { value } }, key) => {
-    //cover cases: 
-    //if that key is true/defined then count stays the same 
-    //if its empty then +1 
+    //cover cases:
+    //if that key is true/defined then count stays the same
+    //if its empty then +1
     //must -1 when canceled? check the value from event
-    if(!(filterDetailsObj[key])&& value !== ""){
+    if (!filterDetailsObj[key] && value !== "") {
       setFilterCount(filterCount + 1);
-    }
-    else if(value===""){
+    } else if (value === "") {
       setFilterCount(filterCount - 1);
     }
-    setFilterDetailsObj({ ...filterDetailsObj, [key]:value });
+    setFilterDetailsObj({ ...filterDetailsObj, [key]: value });
   };
 
   const handleAmnetiesChange = (key) => {
-if(!(checkedAmneties[key])){
-  setFilterCount(filterCount + 1);
-}
-else  setFilterCount(filterCount - 1);
+    if (!checkedAmneties[key]) {
+      setFilterCount(filterCount + 1);
+    } else setFilterCount(filterCount - 1);
     setCheckedAmneties({
       ...checkedAmneties,
       [key]: checkedAmneties[key] ? false : true,
@@ -160,24 +170,27 @@ else  setFilterCount(filterCount - 1);
   };
 
   const handleLifestyleChange = (key) => {
-    if(!(checkedLifeStyle[key])){
+    if (!checkedLifeStyle[key]) {
       setFilterCount(filterCount + 1);
-    }
-    else  setFilterCount(filterCount - 1);
+    } else setFilterCount(filterCount - 1);
     setCheckedLifeStyle({
       ...checkedLifeStyle,
       [key]: checkedLifeStyle[key] ? false : true,
     });
   };
 
-
-
-
   return (
     <div className="modal-container">
       <Button onClick={handleOpen} className="filter-button">
         <FilterListIcon /> Add filters ({displayCount})
       </Button>
+      <style>
+        {`.fooDiv {
+                background-color: red;
+                color: white;
+                font-size: 2em
+            }`}
+      </style>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -287,7 +300,7 @@ else  setFilterCount(filterCount - 1);
               </div>
 
               <FormGroup>
-                <div className="filter-item-container">
+                <div className="details-title">
                   <Typography
                     id="transition-modal-title"
                     variant="h6"
@@ -295,43 +308,41 @@ else  setFilterCount(filterCount - 1);
                   >
                     Amneties
                   </Typography>
-                  <div className={"amneties-container"}>
-                    {AMNETIES_NAMES.map((amnety) => {
-                      return (
-                        <div
-                          className="amnety-label-container"
-                          key={amnety.name}
-                        >
-                          <FormControlLabel
-                            onChange={() => handleAmnetiesChange(amnety.key)}
-                            control={
-                              <Checkbox
-                                checkedIcon={
-                                  <CheckBoxOutlinedIcon
-                                    style={{ color: "#e28811" }}
-                                  />
-                                }
-                                icon={
-                                  <CheckBoxOutlineBlankOutlinedIcon
-                                    style={{ color: "#e28811" }}
-                                  />
-                                }
-                                // checked={false}
-                                checked={
-                                  checkedAmneties[amnety.key] ? true : false
-                                }
-                                //make condition here
-                              />
-                            }
-                            label={amnety.name}
-                            labelPlacement="end"
-                          />
-                        </div>
-                      );
-                    })}
-                  </div>
                 </div>
-                <div>
+                <div className="amneties-container">
+                  {AMNETIES_NAMES.map((amnety) => {
+                    return (
+                      <div className="amnety-label-container" key={amnety.name}>
+                        <FormControlLabel
+                          onChange={() => handleAmnetiesChange(amnety.key)}
+                          control={
+                            <Checkbox
+                              checkedIcon={
+                                <CheckBoxOutlinedIcon
+                                  style={{ color: "#e28811" }}
+                                />
+                              }
+                              icon={
+                                <CheckBoxOutlineBlankOutlinedIcon
+                                  style={{ color: "#e28811" }}
+                                />
+                              }
+                              // checked={false}
+                              checked={
+                                checkedAmneties[amnety.key] ? true : false
+                              }
+                              //make condition here
+                            />
+                          }
+                          label={amnety.name}
+                          labelPlacement="end"
+                        />
+                      </div>
+                    );
+                  })}
+                </div>
+
+                <div className="details-title">
                   <Typography
                     id="transition-modal-title"
                     variant="h6"
@@ -339,46 +350,47 @@ else  setFilterCount(filterCount - 1);
                   >
                     Lifestyle
                   </Typography>
-                  <div className="lifestyle-container">
-                    {LIFESTYLE_NAMES.map((lifeStyle) => {
-                      return (
-                        <div
-                          className="lifestyle-checkbox-container"
-                          key={lifeStyle.name}
-                        >
-                          <FormControlLabel
-                            onChange={() =>
-                              handleLifestyleChange(lifeStyle.key)
-                            }
-                            control={
-                              <Checkbox
-                                checkedIcon={
-                                  <CheckBoxOutlinedIcon
-                                    style={{ color: "#e28811" }}
-                                  />
-                                }
-                                icon={
-                                  <CheckBoxOutlineBlankOutlinedIcon
-                                    style={{ color: "#e28811" }}
-                                  />
-                                }
-                                // checked={false}
-                                checked={
-                                  checkedLifeStyle[lifeStyle.key] ? true : false
-                                }
-                                //make condition here
-                              />
-                            }
-                            label={lifeStyle.name}
-                            labelPlacement="end"
-                          />
-                        </div>
-                      );
-                    })}
-                  </div>
+                </div>
+                <div className="lifestyle-container">
+                  {LIFESTYLE_NAMES.map((lifeStyle) => {
+                    return (
+                      <div
+                        className="lifestyle-checkbox-container"
+                        key={lifeStyle.name}
+                      >
+                        <FormControlLabel
+                          onChange={() => handleLifestyleChange(lifeStyle.key)}
+                          control={
+                            <Checkbox
+                              checkedIcon={
+                                <CheckBoxOutlinedIcon
+                                  style={{ color: "#e28811" }}
+                                />
+                              }
+                              icon={
+                                <CheckBoxOutlineBlankOutlinedIcon
+                                  style={{ color: "#e28811" }}
+                                />
+                              }
+                              // checked={false}
+                              checked={
+                                checkedLifeStyle[lifeStyle.key] ? true : false
+                              }
+                              //make condition here
+                            />
+                          }
+                          label={lifeStyle.name}
+                          labelPlacement="end"
+                        />
+                      </div>
+                    );
+                  })}
                 </div>
               </FormGroup>
-              <div className="apply-or-delete-filter-container">
+              <div
+                className="apply-or-delete-filter-container"
+                style={{ display: "flex", justifyContent: "space-between" }}
+              >
                 <Button
                   variant="outlined"
                   color="error"
@@ -387,7 +399,11 @@ else  setFilterCount(filterCount - 1);
                 >
                   Cancel
                 </Button>
-                <Button  variant="outlined" size="medium" onClick={updateResults}>
+                <Button
+                  variant="outlined"
+                  size="medium"
+                  onClick={updateResults}
+                >
                   Update Results
                 </Button>
               </div>

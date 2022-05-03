@@ -6,7 +6,7 @@ import "./search-results.style.scss";
 import SearchResultsMap from "../../map/SearchResultsMap";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useEffect, useState, useRef,useMemo } from "react";
+import { useEffect, useState, useRef, useMemo, useCallback } from "react";
 import FilterModal from "./FilterModal";
 import SearchBar from "./SearchBar";
 import ReactPaginate from "react-paginate";
@@ -20,18 +20,17 @@ const SearchResults = () => {
   //*can acess location.pathname for current path.
   const { state } = useLocation();
   const [offset, setOffset] = useState(0);
-  const perPage = 5;
-
+  const perPage = 6;
+  console.log({ offset });
   //*use these not in state
-  //!these are causing the map rerender. 
+  //!these are causing the map rerender.
   const checkedLifeStyle = useSelector((state) => state.lifeStyleFilter);
   const desiredHomeType = useSelector((state) => state.homeTypeFilter);
   const checkedAmneties = useSelector((state) => state.amnetiesFilter);
   const filterDetailsObj = useSelector((state) => state.detailsFilter);
-  
 
   // console.log({ state });
-  const searchValue =  state.searchValue; //!use this to get search value!!!
+  const searchValue = state.searchValue; //!use this to get search value!!!
   const foundHomes = state.foundHomes; //I i changed this!
   const [filteredHomes, setFilteredHomes] = useState([]);
 
@@ -39,8 +38,9 @@ const SearchResults = () => {
   const [pageCount, setPageCount] = useState(
     Math.ceil(filteredHomes.length / perPage)
   );
+  //!this inialization can mess the search results?
   const [slicedHomes, setSlicedHomes] = useState(
-    filteredHomes?filteredHomes.slice(offset, offset + perPage):[]
+    filteredHomes ? filteredHomes.slice(offset, offset + perPage) : []
   );
 
   //*creating scroll reference for element
@@ -52,21 +52,36 @@ const SearchResults = () => {
   const myScrollRef = useRef(null);
   const executeScroll = () => scrollToRef(myScrollRef);
 
-  const mappedHouses =  filteredHomes.length > 0
-    ? filteredHomes.filter((home) => home.homeDetails)
-    : [];
- 
+  const mappedHouses = useMemo(
+    () =>
+      filteredHomes.length > 0
+        ? filteredHomes.filter((home) => home.homeDetails)
+        : [],
+    [filteredHomes]
+  );
+
   // console.log({ mappedHouses });
   // console.log({ filteredHomes });
 
-  const goToUser = (user) => {
+  const goToUser = useCallback((user) => {
     navigate(`user/${user["_id"]}`, { state: user });
-  };
+  }, []);
 
   const handlePageClick = (e) => {
     //must update sliced home
-    const selectedPage = e.selected;
-    setOffset(selectedPage + 1); //? because of index difference add 1?
+    console.log("event page here ", e);
+    // const selectedPage = e.selected;
+    console.log("e selected " ,e.selected)
+
+    //?if modulo gives us the first number than modulo part unneccersary? 
+    // const newOffset = (e.selected * perPage) % filteredHomes.length;
+    const newOffset = (e.selected * perPage);
+
+
+    // setOffset(selectedPage + 1); //? because of index difference add 1?
+ 
+    setOffset(newOffset); 
+
     executeScroll();
   };
 
@@ -89,27 +104,34 @@ const SearchResults = () => {
     fetchHomes();
     //set sliced:
     setPageCount(Math.ceil(filteredHomes.length / perPage));
-    setSlicedHomes(filteredHomes?filteredHomes.slice(offset, offset + perPage): []);
+    // setSlicedHomes(filteredHomes?filteredHomes.slice(offset, offset + perPage): []);
   }, []);
 
   useEffect(() => {
     //set sliced:
-    console.log("second useffect rendered!!!")
-    //!possibly might have to remove filtered homes  from dependency? 
+    // const endOffset = offset + perPage;
+    console.log("second useffect rendered!!!");
+
     setPageCount(Math.ceil(filteredHomes.length / perPage));
-     setSlicedHomes(filteredHomes);
+    //  setSlicedHomes(filteredHomes);
+    setSlicedHomes(
+      filteredHomes ? filteredHomes.slice(offset, offset + perPage) : []
+    );
   }, [offset, filteredHomes]);
 
+  console.log("window inner width value ", window.innerWidth  )
   return (
     <div className="search-results-container">
       <div id="all-homes-container" className="all-homes-container">
-        <h3 ref={myScrollRef}>
+        <h3 className="found-homes-title" ref={myScrollRef}>
           Found {filteredHomes.length} homes{" "}
-          <SearchBar 
-          // filteredHomes={filteredHomes}
-           setFilteredHomes={setFilteredHomes}
-          searchValue={searchValue}
-          /> 
+    
+        </h3>
+        <SearchBar
+            // filteredHomes={filteredHomes}
+            setFilteredHomes={setFilteredHomes}
+            searchValue={searchValue}
+          />
           <FilterModal
             searchValue={searchValue}
             foundHomes={foundHomes}
@@ -120,8 +142,7 @@ const SearchResults = () => {
             setFilterAccessibility={setFilterAccessibility}
             setPageCount={setPageCount}
           />
-        </h3>
-
+          
         <Grid container spacing={2} className="homes-grid-container">
           {Array.isArray(slicedHomes) &&
             slicedHomes.map((home, i) => {
@@ -138,7 +159,7 @@ const SearchResults = () => {
                   : defaultHomeImage;
 
               return (
-                <Grid item xs={5} key={i}>
+                <Grid item xs={12} sm={6} key={i}>
                   <div
                     key={i}
                     className="found-home-container"
@@ -154,17 +175,20 @@ const SearchResults = () => {
                       }}
                     >
                       <img
+                      className= "user-image"
                         src={home.profileImg ? home.profileImg : defaultImage}
                         alt="profile pic"
                         width="50px"
                         height="50px"
                       ></img>
                     </div>
-                    <h5>{home.name + `'s`} Home</h5>
-                    <span>
+                    <div className= "user-text-box"> 
+                    <h5 className="user-home-text ">{home.name + `'s`} Home</h5>
+                    <p className="location-text">
                       <LocationOnIcon />
                       {houseLocation.area + ", Israel"}
-                    </span>
+                    </p>
+                    </div>
                   </div>
                 </Grid>
               );
@@ -184,10 +208,11 @@ const SearchResults = () => {
           activeClassName={"active"}
         />
       </div>
-
-      <div className="map-container">
-        <SearchResultsMap mappedHouses={mappedHouses} goToUser={goToUser} />
-      </div>
+      {window.innerWidth > 1024 && (
+        <div className="map-container">
+          <SearchResultsMap mappedHouses={mappedHouses} goToUser={goToUser} />
+        </div>
+      )}
     </div>
   );
 };

@@ -107,11 +107,11 @@ const MarkerComponent = ({home, index, mappedHouses, goToUser}) => {
                     className="home-info-container"
                     onClick={() => goToUser(home)}
                   >
-                    <h5> {home.name}'s home </h5>
+                  
                     <div
                       className="user-images-container"
                       style={{
-                        height: "70%",
+                        height: "85%",
                         width: "100%",
                         backgroundImage: home.homeImages[0]
                           ? `url(${home.homeImages[0].url})`
@@ -122,19 +122,21 @@ const MarkerComponent = ({home, index, mappedHouses, goToUser}) => {
                       }}
                     >
                       <img
+                      className ="user-image"
                         src={home.profileImg ? home.profileImg : defaultImage}
                         alt="profile pic"
-                        width="50px"
-                        height="50px"
+                     
                       ></img>
                     </div>
-
+                    <div className="home-info" > 
+                    <h5 className="user-home-text" > {home.name}'s home  </h5>
                     {home.homeDetails.sleeps && (
-                      <p>
+                      <p className= "sleeps-text">
                         <PersonOutlineIcon fontSize="small" />
                         {home.homeDetails.sleeps}
                       </p>
                     )}
+                    </div>
                   </div>
                 </InfoWindow>
               )}

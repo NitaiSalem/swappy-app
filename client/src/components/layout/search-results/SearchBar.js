@@ -1,10 +1,10 @@
 ///////////bla bla commit this number 2
 
 import React, { useState } from "react";
-// import "./welcome.style.scss";
 import { Button } from "@mui/material";
 import Autocomplete from "react-google-autocomplete";
-import { useNavigate } from "react-router-dom";
+import SearchIcon from '@mui/icons-material/Search';
+
 // import {getSearchResults} from "../../../../utils/getHomes";
 import { getSearchResults } from "../../../utils/getHomes";
 // import {getSearchResults} from "../../../../utils/getHomes";
@@ -17,6 +17,21 @@ const SearchBar = ({ searchValue, setFilteredHomes }) => {
   //   const navigate = useNavigate();
   // const dispatch = useDispatch();
   // const searchValue = useSelector((state) => state.searchResults);
+
+  const handlePlaceSelected = (place, event) => {
+    console.log("this is event value", event.value);
+    // event.preventDefault();
+    console.log("on place selected fired");
+    console.log({ place });
+    if (place !== undefined) {
+      setSearchText(place);
+      console.log("entered place true condition", { place });
+      searchHomes(place);
+    } else {
+      // console.log('entered else condition ', {searchText})
+      searchHomes(event.value);
+    }
+  };
 
   const onTextChange = ({ target: { value } }) => {
     console.log(value);
@@ -38,23 +53,29 @@ const SearchBar = ({ searchValue, setFilteredHomes }) => {
     <div className="search-box-container">
       {/* <form action={`/api/search/${searchText}`} method="get"> */}
       {/* <input id="search" type="text" placeholder="Go anywhere" /> */}
+
       <Autocomplete
         // id="search-bar"
         apiKey={process.env.REACT_APP_MAPS_API_KEY}
         value={searchText}
-        placeholder="Where to?"
+        placeholder=" Where to?"
         options={{
           componentRestrictions: { country: "isr" },
         }}
         onChange={onTextChange}
-        onPlaceSelected={(place) => setSearchText(place.formatted_address)}
+        onPlaceSelected={(place, event) =>
+          handlePlaceSelected(place.formatted_address, event)
+        }
+        //* onPlaceSelected={(place) => setSearchText(place.formatted_address)}
         // onPlaceSelected= {(place) => setSearchText(place.formatted_address.replace(', Israel', ""))}
-        onKeyDown={async ({ code }) => {
-          //!enter here searches the text entered before the autocomplete
-          if (code === "Enter") {
-            searchHomes(searchText);
-          }
-        }}
+
+        // onKeyDown={async ({ code }) => {
+        //   //!enter here searches the text entered before the autocomplete
+        //   if (code === "Enter") {
+        //     console.log("this is search text ", searchText);
+        //     searchHomes(searchText);
+        //   }
+        // }}
       />
 
       <Button
@@ -63,7 +84,7 @@ const SearchBar = ({ searchValue, setFilteredHomes }) => {
         className="submit-search"
         type="submit"
       >
-        Search
+      <SearchIcon/>
       </Button>
       {/* </form> */}
     </div>

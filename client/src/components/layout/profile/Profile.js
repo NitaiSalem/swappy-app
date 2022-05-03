@@ -10,9 +10,9 @@ import {
 import Details from "./details/Details";
 import ProfileEdit from "./profile-edit/ProfileEdit";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import Map from "../../map/Map";
+// import Map from "../../map/Map";
 import HomeMap from "../../map/homeMap";
-import GuideMap from "../../map/guideMap";
+// import GuideMap from "../../map/guideMap";
 
 //store the API key in a .env file
 

@@ -2,18 +2,28 @@
 .container-fluid{
     display: flex;
     justify-content: space-between;
+    flex-wrap: nowrap;
+    // margin-right:27px !important;
 }
 
 .navbar-container{
     z-index: 1000; 
+   display:flex; 
+   
     position: fixed; /* Set the navbar to fixed position */
     top: 0; /* Position the navbar at the top of the page */
     width: 100%; /* Full width */
-    background-color: #B64201;
+    background-color: #ffffff;
+    // background-color: #B64201;
     box-shadow: 0 2px 5px 0 rgba(0,0,0,.2);
-}
-a{
-    margin: 0px 16px 0px 16px;
-    text-decoration: none;
-    color:rgb(0, 0, 0); 
+
+    a{
+        margin: 0px 16px 0px 16px;
+        text-decoration: none;
+        color:#565662; 
+    }
+    
+    a:hover{
+        color:rgb(0, 0, 0); 
+    }
 }

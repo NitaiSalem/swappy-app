@@ -4,7 +4,7 @@ const User = require("../../models/User");
 //*defined schema index for which fields to search in user model file
 
 router.get("/", async (req, res) => {
-  console.log(req.params, " here is req.params");
+  console.log(req.params, " here is req.params when no text");
   const {location} = req.params;
   try {
     const homes = await User.find();

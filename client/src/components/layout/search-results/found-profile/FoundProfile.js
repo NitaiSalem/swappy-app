@@ -3,55 +3,48 @@ import "./found-profile.style.scss";
 import ImageCarousel from "./ImageCarousel";
 import defaultImage from "../../../../site images/user-icon.png";
 import defaultHomeImage from "../../../../../src/site images/home-default.jpg";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import MapsHomeWorkIcon from "@mui/icons-material/MapsHomeWork";
-import { Bed, SingleBed } from "@mui/icons-material";
-import GroupIcon from '@mui/icons-material/Group';
+import {
+  Bed,
+  SingleBed,
+  SmokingRooms,
+  Pets,
+  LocalFlorist,
+  ChildCare,
+} from "@mui/icons-material";
+import GroupIcon from "@mui/icons-material/Group";
 import { useEffect, useState, useRef, useCallback } from "react";
-import { Button, Grid } from "@mui/material";
+import { Button, createTheme, Grid } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import WcIcon from "@mui/icons-material/Wc";
 import CheckIcon from "@mui/icons-material/Check";
-import MeetingRoomIcon from '@mui/icons-material/MeetingRoom';
+import MeetingRoomIcon from "@mui/icons-material/MeetingRoom";
 import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
 import RuleIcon from "@mui/icons-material/Rule";
 import MapIcon from "@mui/icons-material/Map";
-// import {
-// CheckIcon
-// } from "@mui/icons-material";
-
-const defaultStyle = {
-  boxShadow: "3px 0px 5px 0 rgba(0, 0, 0, 0.2)",
-  width: "30%",
-  display: "flex",
-  padding: "15px",
-};
-
-const scrollStyle = {
-  // zIndex: "0 !important",
-  position: "absolute",
-  zIndex: "3",
-  // position: "fixed",
-  top: "40px",
-  boxShadow:
-    "3px 0px 5px 0 rgba(0, 0, 0, 0.2),-3px 0px 5px 0 rgba(0, 0, 0, 0.2)",
-  right: "16px",
-  height: "70vh",
-  width: "20%",
-  display: "flex",
-  padding: "15px",
-};
+import UserAmneties from "./UserAmneties";
+import HomeMap from "../../../map/homeMap";
+import Footer from "../../footer/Footer";
 
 const useStyles = makeStyles({
   root: {},
   table: {},
   button: {
-    backgroundColor: "rgb(32, 78, 204) !important",
-    position: "static !important",
-    color: "#fff",
+    width: "70%",
+    margin: "auto !important",
+    color: " #fff !important",
+    backgroundColor: "#f7a800 !important",
+    borderColor: "#f7a800 !important",
+    position: "static",
+
+    "@media (max-width: 1024px)": {
+      width: "140px",
+    },
+
     "&:hover": {
-      backgroundColor: "rgb(96, 133, 235) !important",
-      color: "#fff",
+      backgroundColor: "rgb(182, 119, 2) !important",
+      color: "#fff !important",
     },
   },
 
@@ -63,13 +56,26 @@ const useStyles = makeStyles({
 const FoundProfile = () => {
   const classes = useStyles();
   const [isScrolled, setIsScrolled] = useState(false);
-  const scrollContainerWrapper = useRef(null);
+  // const scrollContainerWrapper = useRef(null);
 
   const onScroll = useCallback((event) => {
     // console.log("onscroll method fired")
+    console.log("onscroll method fired");
+    console.log("this is event target scrolltop", event.target);
+    //window.scrollY > 0
+    /*
+
     if (event.target.scrollTop > 25) {
       setIsScrolled(true);
     } else if (event.target.scrollTop < 25) {
+      setIsScrolled(false);
+    }
+  }, []);
+*/
+
+    if (window.scrollY > 0) {
+      setIsScrolled(true);
+    } else if (window.scrollY === 0) {
       setIsScrolled(false);
     }
   }, []);
@@ -80,13 +86,19 @@ const FoundProfile = () => {
     ? state.homeDetails.houseLocation
     : {};
 
+  const homeDetails = state.homeDetails ? state.homeDetails : "";
+  const homeAmneties = state.homeDetails?.amneties
+    ? state.homeDetails.amneties
+    : "";
+
   const [isCarouselOpen, setIsCarouselOpen] = useState(false); //this is show from examle!
 
   console.log("this is state ", state);
 
   useEffect(() => {
     // clean up code
-    scrollContainerWrapper.current.addEventListener("scroll", onScroll, {
+    // scrollContainerWrapper.current.addEventListener
+    window.addEventListener("scroll", onScroll, {
       passive: true,
     });
     return () => window.removeEventListener("scroll", onScroll);
@@ -94,9 +106,10 @@ const FoundProfile = () => {
 
   return (
     <div
-      ref={scrollContainerWrapper}
+      // ref={scrollContainerWrapper}
       className="found-profile-container"
-      style={{ overflowY: isCarouselOpen ? "hidden" : "auto" }}
+
+      // style={{ overflowY: isCarouselOpen ? "hidden" : "auto" }}
     >
       <div className="top-view-container">
         <div className="found-home-img-container">
@@ -123,12 +136,9 @@ const FoundProfile = () => {
         </div>
         {!isCarouselOpen && (
           <div
-            className="user-column"
-            style={isScrolled ? scrollStyle : defaultStyle}
+            className={isScrolled ? "scrolled-column" : "user-column"}
+            // style={isScrolled ? scrollStyle : defaultStyle}
           >
-            {/* <h2 className="home-title">
-            {state.name}`s Home in {houseLocation.area}
-          </h2> */}
             <div className="profile-info-container">
               <div className="profile-pic-container">
                 <img
@@ -183,37 +193,48 @@ const FoundProfile = () => {
 
       <div className="found-home-info-section-container">
         <Grid container className="grid-container">
-          <Grid item xs={6} md={6} className="my-grid-column">
+          <Grid item xs={12} md={6} className="my-grid-column">
             <div className="info-section-box">
               <h5>
                 <AssignmentTurnedInIcon /> Details
               </h5>
               <ul className="details-list">
                 <li>
-                  <div className="icon-and-detail"> 
+                  <div className="icon-and-detail">
                     <MapsHomeWorkIcon className="icon" /> Home type
-                  </div><span> 2</span>
+                  </div>
+                  <span> {state.homeDetails?.homeType}</span>
                 </li>
                 <li>
-                <div className="icon-and-detail">
-                  <GroupIcon className="icon"/> Sleeps </div><span> 2</span>
+                  <div className="icon-and-detail">
+                    <GroupIcon className="icon" /> Sleeps{" "}
+                  </div>
+                  <span>{homeDetails?.sleeps}</span>
                 </li>
                 <li>
-                <div className="icon-and-detail">
-                  <SingleBed className="icon" /> Single beds </div><span> 2</span>
+                  <div className="icon-and-detail">
+                    <SingleBed className="icon" /> Single beds{" "}
+                  </div>
+                  <span> {homeDetails?.singleBeds}</span>
                 </li>
                 <li>
-                <div className="icon-and-detail">
-                  <Bed  className="icon"/>  Double beds </div><span> 2</span>
+                  <div className="icon-and-detail">
+                    <Bed className="icon" /> Double beds{" "}
+                  </div>
+                  <span> {homeDetails?.doubleBeds}</span>
                 </li>
                 <li>
-                <div className="icon-and-detail">
-                  <MeetingRoomIcon className="icon"/>   Bedrooms </div><span> 2</span>
+                  <div className="icon-and-detail">
+                    <MeetingRoomIcon className="icon" /> Bedrooms{" "}
+                  </div>
+                  <span> {homeDetails?.bedRooms}</span>
                 </li>
 
                 <li>
-                <div className="icon-and-detail">
-                  <WcIcon className="icon" />   Bathrooms </div><span> 2</span>
+                  <div className="icon-and-detail">
+                    <WcIcon className="icon" /> Bathrooms{" "}
+                  </div>
+                  <span> {homeDetails?.bathRooms}</span>
                 </li>
               </ul>
             </div>
@@ -222,34 +243,81 @@ const FoundProfile = () => {
               <h5>
                 <RuleIcon /> House rules
               </h5>
-              <h1>header for scroll</h1>
-              <h1>header for scroll</h1>
+              {/*  string.charAt(0).toUpperCase() + string.slice(1); */}
+
+              <ul className="details-list">
+                {homeDetails.houseRules?.smoking === true && (
+                  <li>
+                    <div className="icon-and-detail">
+                      <SmokingRooms className="icon" />
+                      <span> Smokers welcome</span>
+                    </div>
+                  </li>
+                )}
+
+                {homeDetails.houseRules?.pets === true && (
+                  <li>
+                    <div className="icon-and-detail">
+                      <Pets className="icon" /> <span>Pets welcome </span>
+                    </div>
+                  </li>
+                )}
+
+                {homeDetails.houseRules?.plants === true && (
+                  <li>
+                    <div className="icon-and-detail">
+                      <LocalFlorist className="icon" />
+                      <span> Plants to water </span>
+                    </div>
+                  </li>
+                )}
+
+                {homeDetails.houseRules?.children === true && (
+                  <li>
+                    <div className="icon-and-detail">
+                      <ChildCare className="icon" />
+                      <span>Children welcome</span>
+                    </div>
+                  </li>
+                )}
+              </ul>
+
+              {/* {homeDetails&& Object.keys(homeDetails.houseRules).map((key,i)=> {
+  return(
+<div key={i}>
+  {homeDetails.houseRules[key]&&  <p>{key.charAt(0).toUpperCase() + key.slice(1)} </p>}
+   </div>
+
+  )
+})} */}
             </div>
           </Grid>
-          <Grid item xs={6} md={6} className="my-grid-column">
+          <Grid item xs={12} md={6} className="my-grid-column">
             <div className="info-section-box">
               <h5>
                 {" "}
                 <CheckIcon /> Home amenities
               </h5>
-              <h1>header for scroll</h1>
-              <h1>header for scroll</h1>
-              <h1>header for scroll</h1>
-              <h1>header for scroll</h1>
-              <h1>header for scroll</h1>
+
+              <UserAmneties amneties={homeAmneties} />
             </div>
 
             <div className="info-section-box">
               <h5>
                 <MapIcon /> Location
               </h5>
-              <h1>header for scroll</h1>
-              <h1>header for scroll</h1>
-              <h1>header for scroll</h1>
+              {!isCarouselOpen && (
+                <HomeMap
+                  houseLocation={houseLocation}
+                  height="400px"
+                  zoom={15}
+                />
+              )}
             </div>
           </Grid>
         </Grid>
       </div>
+      <Footer />
     </div>
   );
 };

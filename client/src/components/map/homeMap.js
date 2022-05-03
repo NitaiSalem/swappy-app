@@ -5,11 +5,10 @@ import {
   GoogleMap,
   withScriptjs,
   Circle,
-  Marker,
 } from "react-google-maps";
 import Geocode from "react-geocode";
 // import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import React, {memo, useCallback, useEffect} from "react";
+import React, {memo} from "react";
 
 const API_Key = process.env.REACT_APP_MAPS_API_KEY;
 Geocode.setApiKey(API_Key);
@@ -97,9 +96,9 @@ const HomeMap = (props) => {
         googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${API_Key}&v=3.exp&libraries=geometry,drawing,places`}
         loadingElement={<div style={{height: `100%`}} />}
         containerElement={
-          <div style={{height: props.height, marginBottom: "150px"}} />
+          <div style={{height: props.height}} />
         }
-        mapElement={<div style={{height: `100%`}} />}
+        mapElement={<div style={{height: `100%`, borderRadius:"3px" }} />}
         zoom={zoom}
       />
     </div>

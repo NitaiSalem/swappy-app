@@ -1,17 +1,19 @@
 #justcolor {
-  color: rgb(90, 92, 100);
+  color: rgb(182, 119, 2);
 }
 
 .found-profile-container {
-  width: 100vw;
+  // overflow-y: scroll;
+  width: 100%;
   height: 100vh;
   // background-color: blueviolet;
 }
 
 .top-view-container {
   display: flex;
+  //  height: 50vw !important;
 
-  // margin-left: 13vw;
+  // margin-left: 13vw
   margin-right: 13vw;
   //   margin-left: 150px;
   //   margin-right: 150px;
@@ -28,7 +30,6 @@
     //   margin-top:40px;
     width: 70% !important;
     height: 50vw !important;
-    max-height: 70vh;
   }
 
   .found-profile-homeimg {
@@ -36,7 +37,6 @@
     // width: auto !important;
     // height: auto !important;
     object-fit: cover;
-
     height: 100%;
     width: 100%;
   }
@@ -93,7 +93,7 @@
   left: 0;
   width: 100%;
   // height: 100%;
-  // background: 'white';
+  //  background:rgba(255, 255, 255, 0.9);
   background-color: rgba(43, 40, 40, 0.9);
   display: flex;
   flex-direction: column;
@@ -172,56 +172,82 @@ li.thumb.selected {
   max-height: 100%;
 }
 
+//for user  column instead of inline change the class then adjust class with media query
 .user-column {
   display: flex;
   flex-direction: column;
-  background-color: rgb(252, 218, 175);
-  .profile-info-container {
-    display: flex;
-    align-items: center;
-    height: 115px;
+  box-shadow: 3px 0px 5px 0 rgba(0, 0, 0, 0.2);
+  width: 30%;
+  background-color: #f4f4f4;
+  display: flex;
+  padding: 15px;
+  max-height: 50vw;
+}
+
+.scrolled-column {
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(255, 255, 255, 0.9);
+  position: fixed;
+  z-index: 3;
+  top: "40px";
+  box-shadow: 3px 0px 5px 0 rgba(0, 0, 0, 0.2),
+    -3px 0px 5px 0 rgba(0, 0, 0, 0.2);
+  right: 0px;
+  // height: 70vh;
+  width: 20%;
+  display: flex;
+  padding: 15px;
+}
+
+// background-color: rgb(252, 218, 175);
+.profile-info-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  border-bottom: 1px solid rgb(204, 203, 203);
+
+  .home-title {
+    font-size: 2vw;
+  }
+  p {
+    font-size: 1.2vw;
+  }
+}
+
+.profile-pic-container {
+  height: 8vw;
+  width: 80px;
+
+  max-height: 80px;
+  max-width: 80px;
+  margin: 9px;
+
+  .profile-pic {
+    height: 100%;
     width: 100%;
-    border-bottom: 1px solid rgb(204, 203, 203);
+    object-fit: cover;
+    border-radius: 60px;
+  }
+}
 
-    .home-title {
-      font-size: 2.2vw;
-    }
+.hometype-area {
+  font-size: 21px;
+  padding: 10px 0px 10px 0px;
+  margin-bottom: 0;
+  border-bottom: 1px solid rgb(204, 203, 203);
+}
+
+.about-home-section {
+  padding: 10px 0px 10px 0px;
+  border-bottom: 1px solid rgb(204, 203, 203);
+
+  .about-home-title {
+    font-size: 20px;
   }
 
-  .profile-pic-container {
-    height: 8vw;
-    width: 8vw;
-
-    max-height: 80px;
-    max-width: 80px;
-    margin: 9px;
-
-    .profile-pic {
-      height: 100%;
-      width: 100%;
-      object-fit: cover;
-      border-radius: 60px;
-    }
-  }
-
-  .hometype-area {
-    font-size: 21px;
-    padding: 10px 0px 10px 0px;
-    margin-bottom: 0;
-    border-bottom: 1px solid rgb(204, 203, 203);
-  }
-
-  .about-home-section {
-    padding: 10px 0px 10px 0px;
-    border-bottom: 1px solid rgb(204, 203, 203);
-
-    .about-home-title {
-      font-size: 20px;
-    }
-
-    .about-home-text {
-      font-size: 17px;
-    }
+  .about-home-text {
+    font-size: 17px;
   }
 }
 
@@ -236,42 +262,217 @@ li.thumb.selected {
       padding: 25px 10px 0px 10px;
 
       .info-section-box {
-        display:flex; 
+        display: flex;
         flex-direction: column;
         background: #fff;
         padding: 20px;
         margin-bottom: 25px;
         border: 1px solid #ebebeb;
         border-radius: 5px;
+        width: 100%;
 
-.details-list{
-  list-style-type: none;
+        .user-amneties-wrapper {
+          display: flex;
+          flex-wrap: wrap;
+          // padding-left: 2rem;
 
-li{
-display:flex;
-justify-content: space-between;
-align-items: center;
-  border-bottom:1px solid #cccbcb; 
-  padding-bottom: 8px;
-  padding-top: 8px;
-  
-// .icon{
-//   margin-right: 10px;
-//   width:30px;
-//   // font-size: 34px !important;
-// }
+          .user-amnety-box {
+            padding: 0 10px 10px 0;
+            display: flex;
+            flex-wrap: nowrap;
+            align-items: center;
+            width: 33.3%;
+            //make 50% in media query
+          }
 
-path{
-width:25px;
-}
+          .amnety-text {
+            flex-wrap: wrap;
+          }
+        }
 
-}
+        .icon-and-detail {
+          display: flex;
+          align-items: center;
+        }
 
-}
+        .details-list {
+          list-style-type: none;
+          margin-bottom: 0;
 
+          li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #cccbcb;
+            padding-bottom: 8px;
+            padding-top: 8px;
+          }
+        }
 
+        .icon {
+          margin-right: 8px;
+          width: 40px;
+          height: 40px;
+          // width:36px;
+          border-radius: 160px;
+          padding: 6px;
+          // background-color:#9b0000;
 
+          background-color: #f4f4f4;
+        }
       }
     }
   }
+}
+
+@media (max-width: 1400px) {
+  .grid-container {
+    padding: 0px 20px 0px 20px !important;
+  }
+
+  dfssvbds {
+    background-color: lightblue;
+  }
+}
+
+@media (max-width: 1024px) {
+  .grid-container {
+    padding: 0px 20px 0px 20px !important;
+  }
+
+  dfssvbds {
+    background-color: lightblue;
+  }
+}
+
+@media (max-width: 1200px) and (min-width: 1024px) {
+  .user-column {
+    .profile-info-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      .name-email-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .profile-pic-container {
+        height: 100px !important;
+      }
+    }
+    .about-home-section {
+      p {
+        font-size: 15px !important;
+        margin-bottom: 3px !important;
+      }
+    }
+
+    .contact-section {
+      p {
+        font-size: 15px !important;
+        margin-bottom: 3px !important;
+      }
+    }
+  }
+
+  .found-home-info-section-container {
+    .user-amneties-wrapper {
+      .user-amnety-box {
+        // padding: 0 10px 10px 0;
+        // display: flex;
+        // flex-wrap: nowrap;
+        // align-items: center;
+        width: 50% !important;
+        //make 50% in media query
+      }
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .top-view-container {
+    display: flex;
+    flex-direction: column;
+    margin-right: 0;
+    // height: 100% !important;
+
+    .found-home-img-container {
+      border: none !important;
+      //   margin-top:40px;
+      width: 100% !important;
+      height: 50vw !important;
+      // max-height: 70vh;
+    }
+
+    .user-column {
+      display: flex;
+      // flex-direction: row;
+      box-shadow: 3px 0px 5px 0 rgba(0, 0, 0, 0.2);
+      width: 100%;
+      background-color: #f4f4f4;
+      display: flex;
+      padding: 15px;
+      max-height:100%;
+    }
+
+    .scrolled-column {
+      display: flex;
+      // flex-direction: row;
+      position: relative;
+      // background-color:rgba(255, 255, 255, 0.9);
+      // position: fixed;
+      // z-index: 3;
+      // top: "40px";
+      box-shadow: 3px 0px 5px 0 rgba(0, 0, 0, 0.2),
+        -3px 0px 5px 0 rgba(0, 0, 0, 0.2);
+      // right: 0px;
+      // height: 45vh;
+      width: 100%;
+      padding: 15px;
+    }
+
+    .profile-info-container {
+      .profile-pic-container {
+        height: 100px !important;
+      }
+
+      h2 {
+        font-size: 24px;
+      }
+
+      p {
+        font-size: 18px;
+      }
+    }
+
+    .about-home-section {
+      padding: 20px 20px 0px 20px;
+    }
+    .contact-section {
+      padding: 20px 20px 0px 20px;
+    }
+  }
+  .found-home-info-section-container {
+padding-right: 0; 
+
+    .user-amneties-wrapper {
+      .user-amnety-box {
+        // padding: 0 10px 10px 0;
+        // display: flex;
+        // flex-wrap: nowrap;
+        // align-items: center;
+        width: 50% !important;
+        //make 50% in media query
+      }
+    }
+  
+
+  }
+
+
+
 }
