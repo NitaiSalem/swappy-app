@@ -1,5 +1,5 @@
 .welcome-container {
-    margin-top: 55px;
+    margin-top: 40px;
     height: 70vh;
     width: 100%;
     background: url("background-tlv.jpg") no-repeat center center fixed;
@@ -54,3 +54,14 @@ margin-top:50px;
     padding-left: 12px;
     width:220px;
 }
+
+
+
+
+@media (max-width: 600px) {
+    .welcome-container {
+        margin-top: 0;
+     
+    }
+    }
+  

@@ -17,9 +17,9 @@ const ImageCarousel = ({
     console.log("iscarousel open in useffect", isCarouselOpen);
     if (isCarouselOpen) {setRender(true)
     
-    document.getElementById("navbar").style.display= "none"; 
+    document.getElementById("navigation-bar").style.display= "none"; 
     }
-    else {document.getElementById("navbar").style.display= "flex"}; 
+    else {document.getElementById("navigation-bar").style.display= "flex"}; 
 
   }, [isCarouselOpen]);
 

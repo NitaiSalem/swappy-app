@@ -1,25 +1,74 @@
-@use '../../../sassStyles/variables'; 
+@use "../../../sassStyles/variables";
 
+.about-container {
+  margin-top: 46px;
 
-.steps-title{
-    color: variables.$orange-color; 
-}
+  .title {
+    padding: 15px 15px 15px 15px;
+  }
 
-.steps-container{
-    display: grid; 
+  .under-title {
+    padding: 5px 0 15px 15px;
+  }
+
+  .info-container {
+    padding: 20px 30px 30px 30px;
+  }
+  .steps-title {
+      font-size: 22px;
+    color: variables.$orange-color;
+  }
+
+  .steps-container {
+    padding: 10px 15vw 20px 15vw;
+
+    display: grid;
     grid-template-columns: 50% 50%;
-}
+  }
 
-.steps-image{
+  .steps-image {
     height: 400px;
-    width:100%;
-}
-.step-text{
-    display:flex;
+    width: 100%;
+    object-fit: cover;
+  }
+  .step-text {
+    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-   text-align: center;
-
+    text-align: center;
+  }
 }
 
+@media (max-width: 1024px) {
+  .about-container {
+    .steps-container {
+      padding: 10px 5vw 20px 5vw;
+
+      display: grid;
+      grid-template-columns: 50% 50%;
+    }
+  }
+}
+
+
+@media (max-width: 700px) {
+    .about-container {
+      .steps-container {
+        padding: 10px 5vw 20px 5vw;
+  
+        display: grid;
+        grid-template-columns:  100%;
+      }
+
+
+      .step-text{
+          margin: 20px 10px 20px 10px; 
+      }
+    }
+.steps-image{
+    margin:15px 0 15px 0;
+}
+
+  }
+  

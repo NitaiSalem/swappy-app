@@ -6,7 +6,7 @@ const Benefits = () => {
     return (
 
         <div className= 'benefits-container'> 
-        <h1 className='benefits-header'> Why Homies</h1>
+        <h1 className='benefits-header'> Why Swappy</h1>
         <h5 className='benefits-header'>3 good reasons to exchange your apartment</h5>
 
 

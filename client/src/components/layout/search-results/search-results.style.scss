@@ -3,7 +3,7 @@
   height: 100vh;
   display: flex;
   flex-direction: column;
-  padding-top: 40px;
+  padding-top: 46px;
   overflow: hidden !important;
 
   .found-homes-title {
@@ -15,14 +15,14 @@
     margin-left: 20px;
 
     .submit-search {
-      color: #f7a800;
+      color: rgb(226, 136, 17);
       border-color: #9c9c9c;
       margin-left: 10px;
     }
 
     .submit-search:hover {
-      color: #f7a800;
-      border-color: #f7a800;
+      color: rgb(226, 136, 17);
+      border-color: rgb(226, 136, 17);
     }
   }
   .filter-button {
@@ -37,10 +37,11 @@
   .map-container {
     width: 35vw;
     margin-top: 0px;
-    height: 100%;
+    height: 100%; 
     position: fixed;
     right: 0 !important;
     // padding: 2em;
+    padding-bottom: 6px;
     .map-wrapper {
       height: 100%;
     }
@@ -74,8 +75,12 @@
         padding-left: 12px;
 
         .location-text {
+          display:flex;
           margin: 0;
+          font-size:15px;
           padding-bottom: 5px;
+
+
         }
       }
 
@@ -97,6 +102,7 @@
   .user-home-text {
     margin-bottom: 0;
     margin-left: 5px;
+    font-size: 17px;
   }
   .home-info-container {
     height: 160px;
@@ -162,14 +168,14 @@
     outline: none;
   }
   .pagination > .active > a {
-    background-color: #f7a800;
-    border-color: #f7a800;
+    background-color: rgb(226, 136, 17);
+    border-color: rgb(226, 136, 17);
     color: #fff;
   }
   .pagination > li > a {
     margin: 0 5px 0 5px;
 
-    border: 1px solid #f7a800;
+    border: 1px solid rgb(226, 136, 17);
     border-radius: 3px;
     padding: 5px 10px;
     outline: none;
@@ -186,13 +192,13 @@
   .pagination > .active > span:hover,
   .pagination > .active > a:focus,
   .pagination > .active > span:focus {
-    background-color: #f7a800;
-    border-color: #f7a800;
+    background-color: rgb(226, 136, 17);
+    border-color: rgb(226, 136, 17);
     outline: none;
   }
   .pagination > li > a,
   .pagination > li > span {
-    color: #f7a800;
+    color: rgb(226, 136, 17);
   }
   // .pagination > li:first-child > a,
   // .pagination > li:first-child > span,
@@ -207,6 +213,11 @@
 // }
 
 @media (max-width: 1024px) {
+
+
+
+
+  
   .search-results-container {
     .all-homes-container {
       width: 100% !important;
@@ -215,6 +226,12 @@
       overflow-y: scroll;
       // padding-bottom: 60px !important;
     }
+
+
+     .map-container{
+       display:none; 
+     }
+
   }
 
   .homes-grid-container {

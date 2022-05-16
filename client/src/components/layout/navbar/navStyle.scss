@@ -1,29 +1,186 @@
+// .container-fluid {
+//   display: flex;
+//   justify-content: space-between;
+//   flex-wrap: nowrap;
+//   // margin-right:27px !important;
+// }
 
-.container-fluid{
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: nowrap;
-    // margin-right:27px !important;
+// .navbar-container {
+//   z-index: 1000;
+//   display: flex !important;
+//   flex-wrap: nowrap !important;
+//   height: 40px !important;
+//   padding: 0.5rem 24px 0.5rem 24px;
+
+//   position: fixed; /* Set the navbar to fixed position */
+//   top: 0; /* Position the navbar at the top of the page */
+//   width: 100%; /* Full width */
+//   // background-color: #ffffff;
+//   // background-color: #B64201;
+//   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
+
+//   a {
+//     margin: 0px 16px 0px 16px;
+//     text-decoration: none;
+//     color: #565662;
+//   }
+
+//   a:hover {
+//     color: rgb(0, 0, 0);
+//   }
+// }
+
+// .css-1t29gy6-MuiToolbar-root {
+//   display: flex;
+//   justify-self: flex-end;
+//   // color:#565662 ;
+//   // background-color:
+//   height: 40px;
+// }
+
+// .css-k008qs {
+//   height: 40px !important;
+// }
+
+// .css-1q14hl0 {
+//   padding: 0 !important;
+// }
+
+// // .css-11zb8y7{
+// //     height:40px !important;
+// //     display:flex;
+// // }
+
+// .css-1ei1svh-MuiButtonBase-root-MuiIconButton-root {
+//   color: #565662 !important;
+// }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+.navigation-bar {
+  position: fixed !important;
+  top: 0; /* Position the navbar at the top of the page */
+  // height:40px;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
+  background-color: #ffffff;
+  padding: 3px 10px 3px 10px;
+  z-index:100000; 
 }
 
-.navbar-container{
-    z-index: 1000; 
-   display:flex; 
-   
-    position: fixed; /* Set the navbar to fixed position */
-    top: 0; /* Position the navbar at the top of the page */
-    width: 100%; /* Full width */
-    background-color: #ffffff;
-    // background-color: #B64201;
-    box-shadow: 0 2px 5px 0 rgba(0,0,0,.2);
+.navigation-bar a {
+  // margin: 0px 16px 0px 16px;
+  color: #565662;
+  text-decoration: none;
+}
 
-    a{
-        margin: 0px 16px 0px 16px;
-        text-decoration: none;
-        color:#565662; 
+.navigation-bar a:hover {
+  color: rgb(0, 0, 0);
+}
+
+.logo-container {
+  margin-bottom: auto;
+  height: 40px;
+  width: 40px;
+}
+.logo-image {
+  height: 100%;
+  width: 100%;
+  margin-right: 50px;
+}
+
+.list {
+  list-style: none;
+  display: flex;
+  gap: 25px;
+}
+
+#toggler {
+  display: none;
+}
+
+@media screen and (max-width: 500px) {
+  .closed-menu {
+    width: 100%;
+    // transition: ease;
+    // display:none;
+    opacity: 0;
+    // visibility:hidden;
+    height: 0;
+    overflow: hidden;
+    transition: all 0.5s ease;
+    // position: relative; /* <-- Added */
+    //  z-index: 10000; /* <-- Added */
+  }
+
+  .closed-menu > .list {
+    opacity: 0;
+    // visibility: hidden;
+    transition: all 0.5s ease;
+  }
+
+  @keyframes appearanceOpacity {
+    0% {
+      opacity: 0;
     }
-    
-    a:hover{
-        color:rgb(0, 0, 0); 
+
+    70% {
+      opacity: 0;
     }
+
+    100% {
+      opacity: 1;
+    }
+  }
+
+  .open-menu {
+    opacity: 1;
+    animation-name: appearanceOpacity;
+    animation-duration: 1000ms;
+    // visibility:visible;
+    height: 150px;
+    transition: height 0.3s ease;
+  }
+
+  .open-menu > .list {
+    opacity: 1;
+    transition: opacity 0.8s ease;
+  }
+
+  .list {
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    //  visibility: hidden;
+    // transition: height 0.5s ease-in;
+  }
+
+  // .list-show {
+  //   flex-direction: column;
+  //   align-items: center;
+  //   padding: 20px;
+  //   // height:155px;
+  //   // transition: height 0.5s ease-in;
+  // }
+
+  #toggler {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+
+  .responsive-menu-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  // #toggler:checked ~ .menu {
+  //   max-height: 100%;
+  // }
 }

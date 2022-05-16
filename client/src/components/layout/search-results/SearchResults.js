@@ -21,7 +21,6 @@ const SearchResults = () => {
   const { state } = useLocation();
   const [offset, setOffset] = useState(0);
   const perPage = 6;
-  console.log({ offset });
   //*use these not in state
   //!these are causing the map rerender.
   const checkedLifeStyle = useSelector((state) => state.lifeStyleFilter);
@@ -71,16 +70,15 @@ const SearchResults = () => {
     //must update sliced home
     console.log("event page here ", e);
     // const selectedPage = e.selected;
-    console.log("e selected " ,e.selected)
+    console.log("e selected ", e.selected);
 
-    //?if modulo gives us the first number than modulo part unneccersary? 
+    //?if modulo gives us the first number than modulo part unneccersary?
     // const newOffset = (e.selected * perPage) % filteredHomes.length;
-    const newOffset = (e.selected * perPage);
-
+    const newOffset = e.selected * perPage;
 
     // setOffset(selectedPage + 1); //? because of index difference add 1?
- 
-    setOffset(newOffset); 
+
+    setOffset(newOffset);
 
     executeScroll();
   };
@@ -119,30 +117,29 @@ const SearchResults = () => {
     );
   }, [offset, filteredHomes]);
 
-  console.log("window inner width value ", window.innerWidth  )
+  console.log("window inner width value ", window.innerWidth);
   return (
     <div className="search-results-container">
       <div id="all-homes-container" className="all-homes-container">
         <h3 className="found-homes-title" ref={myScrollRef}>
           Found {filteredHomes.length} homes{" "}
-    
         </h3>
         <SearchBar
-            // filteredHomes={filteredHomes}
-            setFilteredHomes={setFilteredHomes}
-            searchValue={searchValue}
-          />
-          <FilterModal
-            searchValue={searchValue}
-            foundHomes={foundHomes}
-            perPage={perPage}
-            setSlicedHomes={setSlicedHomes}
-            setFilteredHomes={setFilteredHomes}
-            filterAccessibility={filterAccessibility}
-            setFilterAccessibility={setFilterAccessibility}
-            setPageCount={setPageCount}
-          />
-          
+          // filteredHomes={filteredHomes}
+          setFilteredHomes={setFilteredHomes}
+          searchValue={searchValue}
+        />
+        <FilterModal
+          searchValue={searchValue}
+          foundHomes={foundHomes}
+          perPage={perPage}
+          setSlicedHomes={setSlicedHomes}
+          setFilteredHomes={setFilteredHomes}
+          filterAccessibility={filterAccessibility}
+          setFilterAccessibility={setFilterAccessibility}
+          setPageCount={setPageCount}
+        />
+
         <Grid container spacing={2} className="homes-grid-container">
           {Array.isArray(slicedHomes) &&
             slicedHomes.map((home, i) => {
@@ -175,19 +172,21 @@ const SearchResults = () => {
                       }}
                     >
                       <img
-                      className= "user-image"
+                        className="user-image"
                         src={home.profileImg ? home.profileImg : defaultImage}
                         alt="profile pic"
                         width="50px"
                         height="50px"
                       ></img>
                     </div>
-                    <div className= "user-text-box"> 
-                    <h5 className="user-home-text ">{home.name + `'s`} Home</h5>
-                    <p className="location-text">
-                      <LocationOnIcon />
-                      {houseLocation.area + ", Israel"}
-                    </p>
+                    <div className="user-text-box">
+                      <h5 className="user-home-text ">
+                        {home.name + `'s`} Home
+                      </h5>
+                      <p className="location-text">
+                        <LocationOnIcon />
+                        {houseLocation.area + ", Israel"}
+                      </p>
                     </div>
                   </div>
                 </Grid>
@@ -208,11 +207,10 @@ const SearchResults = () => {
           activeClassName={"active"}
         />
       </div>
-      {window.innerWidth > 1024 && (
-        <div className="map-container">
-          <SearchResultsMap mappedHouses={mappedHouses} goToUser={goToUser} />
-        </div>
-      )}
+
+      <div className="map-container">
+        <SearchResultsMap mappedHouses={mappedHouses} goToUser={goToUser} />
+      </div>
     </div>
   );
 };

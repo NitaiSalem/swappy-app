@@ -58,7 +58,7 @@ else  {
   return (
     <div className="welcome-container">
       <h1 id="header">
-        Explore Israel with <span style={{ color: "#DB8200" }}> Homies</span>
+        Explore Israel with <span style={{ color: "#DB8200" }}> Swappy</span>
       </h1>
 
       <div className="search-form-container">
@@ -102,7 +102,7 @@ else  {
           className="submit-search"
           // type="submit"
         >
-          Find my Homies
+          Find my swaps
         </Button>
         {/* </form> */}
       </div>

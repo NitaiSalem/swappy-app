@@ -12,11 +12,10 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ListItem from "@mui/material/ListItem";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
 import { useState } from "react";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Navbar } from "react-bootstrap";
 
 const drawerWidth = 240;
 
@@ -62,10 +61,12 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   padding: theme.spacing(0, 1),
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
-  justifyContent: "flex-start",
+  justifyContent: "space-between",
 }));
 
 const NavDrawer = ()=>  {
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+
   const theme = useTheme();
   const [open, setOpen] = useState(false);
 
@@ -80,11 +81,13 @@ const NavDrawer = ()=>  {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open}>
-        <Toolbar>
-          <Typography variant="h6" noWrap sx={{ flexGrow: 1 }} component="div">
+      <Navbar bg="light" variant="light"  id ="navbar" fixed="top" expand="sm" className="navbar-container">
+      {/* <AppBar position="fixed" open={open}> */}
+        {/* <Toolbar> */}
+        <Link to="/"> Logo</Link>
+          {/* <Typography variant="h6" noWrap sx={{ flexGrow: 1 }} component="div">
             Persistent drawer
-          </Typography>
+          </Typography> */}
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -94,8 +97,9 @@ const NavDrawer = ()=>  {
           >
             <MenuIcon />
           </IconButton>
-        </Toolbar>
-      </AppBar>
+        {/* </Toolbar> */}
+      {/* </AppBar> */}
+      </Navbar>
       <Main open={open}>
         <DrawerHeader />
       </Main>
@@ -121,28 +125,39 @@ const NavDrawer = ()=>  {
           </IconButton>
         </DrawerHeader>
         <Divider />
+        {/* <Navbar bg="light" variant="light"  id ="navbar" fixed="top" expand="sm" className="navbar-container">
+      <Container fluid className="container-fluid">
+        <Link to="/"> Logo</Link>
+        <Nav> 
+          <Link to="/about">How it works</Link>
+          { !isAuthenticated? <Link to="/login">Login</Link> :<Link to="/profile">Profile</Link> }
+          <Link  to="/">Home</Link>
+        </Nav>
+      </Container>
+    </Navbar> */}
         <List>
-          {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
+
+{/* <Link to="/about">How it works</Link> */}
+
+<ListItem >
+<Link to="/about">How it works</Link>
+</ListItem>
+
+<ListItem >
+{ !isAuthenticated? <Link to="/login">Login</Link> :<Link to="/profile">Profile</Link> }</ListItem>
+<ListItem >
+<Link  to="/">Home</Link>
+</ListItem>
+
+            {/* // <ListItem button key={text}>
+            //   <ListItemIcon>
+            //     {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+            //   </ListItemIcon>
+            //   <ListItemText primary={text} />
+            // </ListItem>
+      */}
         </List>
         {/* <Divider /> */}
-
-        <List>
-          {["All mail", "Trash", "Spam"].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
 
       </Drawer>
     </Box>

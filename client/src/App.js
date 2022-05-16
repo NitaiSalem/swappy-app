@@ -14,7 +14,7 @@ import Profile from "./components/layout/profile/Profile";
 import HomePage from "./components/layout/home-page/Home";
 import Footer from "./components/layout/footer/Footer";
 import About from "./components/layout/about/About";
-import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+// import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import SearchResults from "./components/layout/search-results/SearchResults";
 // import FoundProfile from "./components/layout/search-results/FoundProfile";
 import { persistStore } from 'redux-persist';
