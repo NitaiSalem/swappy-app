@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import PropTypes from "prop-types";
 
 const PrivateRoute = ({children, auth, ...rest}) => {
-  return auth.isAuthenticated ? children : <Navigate to="/login" />;
+  return auth.isAuthenticated ? children : <Navigate to="/" />;
 };
 
 //   <Route

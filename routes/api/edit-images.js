@@ -40,8 +40,6 @@ router.post(
   profileUpload.single("profileImg"),
   (req, res, next) => {
     const url = req.protocol + "://" + req.get("host");
-    // console.log(req.user, "this is req.user!");
-    // console.log(req.user.id, "this is req.user.id  !");
     User.findOneAndUpdate(
       {_id: req.user.id},
       {profileImg: url + "/public/profile-images/" + req.file.filename},

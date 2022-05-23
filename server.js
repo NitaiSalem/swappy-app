@@ -13,13 +13,13 @@ const search = require("./routes/api/search");
 const path = require("path");
 // app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(cors());
 app.use(bodyParser.json());
 app.use(
   bodyParser.urlencoded({
     extended: true,
   })
 );
-app.use(cors());
 // Connect to MongoDB
 mongoose
   .connect(process.env.MONGODB_CONNECTION_STRING, {

@@ -1,10 +1,20 @@
 import {SmokingRooms, Pets, LocalFlorist, ChildCare} from "@mui/icons-material";
-import { memo } from "react";
+import { memo, useEffect } from "react";
+import { useInView } from 'react-intersection-observer';
 
-const HouseRulesUpload = ({houseRules, setHouseRules}) => {
-  console.log("house rules rendered")
+const HouseRulesUpload = ({houseRules, setHouseRules,setInViewComponent}) => {
+  
+  const { ref, inView, entry } = useInView({
+    threshold: 0,
+  });
+
+  useEffect(() => {
+    inView&& setInViewComponent("house-rules-upload"); 
+    
+    }, [inView]);
+
   return (
-    <div className="house-rules-upload-container">
+    <div className="house-rules-upload-container" id="house-rules-upload" ref={ref}>
       <h2>Lifestyle</h2>
 
       <button

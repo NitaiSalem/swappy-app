@@ -8,7 +8,8 @@
 // } from "@mui/material";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {Bed, SingleBed} from "@mui/icons-material";
-import { memo } from "react";
+import { memo, useEffect } from "react";
+import { useInView } from 'react-intersection-observer';
 
 const DetailsUpload = ({
   setHomeType,
@@ -22,8 +23,13 @@ const DetailsUpload = ({
   setDoubleBeds,
   bathRooms,
   setBathRooms,
+  setInViewComponent,
 }) => {
   //recieve state and increment?
+  const { ref, inView, entry } = useInView({
+    /* Optional options */
+    threshold: 0,
+  });
   const handleIncrement = (state) => {
     if (state < 20) {
       return state + 1;
@@ -35,8 +41,17 @@ const DetailsUpload = ({
     else return state;
   };
 console.log("details upload render")
+
+
+useEffect(() => {
+ console.log( "this is in view",inView)
+inView&& setInViewComponent("details-upload"); 
+
+}, [inView]);
+
+
   return (
-    <div className="details-upload-container">
+    <div id="details-upload" className="details-upload-container" ref={ref}>
       {/*add 2 icons here */}
       <h2>upload home details</h2>
       <button onClick={() => setHomeType("Appartment")}>

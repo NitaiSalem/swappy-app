@@ -68,7 +68,7 @@
   justify-content: space-between;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
   background-color: #ffffff;
-  padding: 3px 10px 3px 10px;
+  padding: 8px 15px 8px 15px;
   z-index:100000; 
 }
 
@@ -96,7 +96,48 @@
 .list {
   list-style: none;
   display: flex;
+  align-items:center; 
   gap: 25px;
+
+  .profile-logout-container{
+    display:flex; 
+align-items: center;
+    .logout-button{
+      // font-size: 12px; 
+      margin-left: 40px;
+      display: flex;
+      align-items: center;
+
+      .css-i4bv87-MuiSvgIcon-root{
+// height:20px;
+width:20px;
+      }
+
+      .tooltiptext {
+        visibility: hidden;
+        width: 70px;
+        background-color: #565662;
+        color: #fff;
+        text-align: center;
+        padding: 5px 5px;
+        border-radius: 3px;
+       
+        /* Position the tooltip text - see examples below! */
+        position: absolute;
+        z-index: 1;
+
+        top: 100%;
+        // left: 50%;
+        margin-left: -37px; /* Use half of the width (120/2 = 60), to center the tooltip */
+      }
+
+    }
+
+    .logout-button:hover .tooltiptext {
+      visibility: visible;
+    }
+  }
+
 }
 
 #toggler {
@@ -104,6 +145,10 @@
 }
 
 @media screen and (max-width: 500px) {
+
+
+
+
   .closed-menu {
     width: 100%;
     // transition: ease;
@@ -154,9 +199,18 @@
   .list {
     flex-direction: column;
     align-items: center;
-    padding: 20px;
+
+    // padding: 20px;
     //  visibility: hidden;
     // transition: height 0.5s ease-in;
+
+    .profile-logout-container{
+      flex-direction: column;
+      .logout-button{
+        margin-left: 0px;
+        margin-top:15px;
+      }
+    }
   }
 
   // .list-show {
@@ -178,6 +232,8 @@
     display: flex;
     flex-direction: column;
     width: 100%;
+
+
   }
 
   // #toggler:checked ~ .menu {

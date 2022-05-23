@@ -8,21 +8,30 @@ import {
 } from "react-google-maps";
 import Autocomplete from "react-google-autocomplete";
 import Geocode from "react-geocode";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import React, {useCallback, useEffect, useState} from "react";
-import {memo} from "react";
+// import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import React, { useCallback, useEffect } from "react";
+import { memo } from "react";
+import { useInView } from "react-intersection-observer";
 const API_Key = process.env.REACT_APP_MAPS_API_KEY;
 Geocode.setApiKey(API_Key);
 Geocode.enableDebug();
 
-const Map = (props) => {
+const Map = ({
+  setInViewComponent,
+  houseLocation,
+  setHouseLocation,
+  height,
+}) => {
   const zoom = 13;
   let markerPosition = {
-    lat: props.houseLocation.lat,
-    lng: props.houseLocation.lng,
+    lat: houseLocation.lat,
+    lng: houseLocation.lng,
   };
-
-  let address = props.houseLocation.address;
+  const { ref, inView, entry } = useInView({
+    /* Optional options */
+    threshold: 0,
+  });
+  let address = houseLocation.address;
   console.log(address, " this is address, means map rendered ");
   // const onChange = (event) => {
   //   // setState({[event.target.name]: event.target.value});
@@ -60,7 +69,7 @@ const Map = (props) => {
 
       console.log("latvalue", latValue);
       console.log("lngValue", lngValue);
-      props.setHouseLocation({
+      setHouseLocation({
         lat: latValue,
         lng: lngValue,
         address: updatedAddress ? updatedAddress : "",
@@ -106,7 +115,7 @@ const Map = (props) => {
           addressArray = response.results[0].address_components;
         const area = getArea(addressArray);
         console.log(area, " area in onmarkerdragend");
-        props.setHouseLocation({
+        setHouseLocation({
           lat: newLat,
           lng: newLng,
           address: updatedAddress ? updatedAddress : "",
@@ -119,13 +128,18 @@ const Map = (props) => {
       }
     );
   }, []);
+
+  useEffect(() => {
+    inView && setInViewComponent("location-upload");
+  }, [inView]);
+
   return (
-    <div>
+    <div id="location-upload" ref={ref}>
       <h3>Search Location below:</h3>
       <Autocomplete
         options={{
           types: [["address"], ["cities"]],
-          componentRestrictions: {country: "isr"},
+          componentRestrictions: { country: "isr" },
         }}
         style={{
           width: "100%",
@@ -148,11 +162,11 @@ const Map = (props) => {
       {/* check googlemapurl for options in api call */}
       <AsyncMap
         googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${API_Key}&v=3.exp&libraries=geometry,drawing,places`}
-        loadingElement={<div style={{height: `100%`}} />}
+        loadingElement={<div style={{ height: `100%` }} />}
         containerElement={
-          <div style={{height: props.height, marginBottom: "150px"}} />
+          <div style={{ height: height, marginBottom: "150px" }} />
         }
-        mapElement={<div style={{height: `100%`}} />}
+        mapElement={<div style={{ height: `100%` }} />}
         zoom={zoom}
       />
     </div>

@@ -1,28 +1,25 @@
 //make as a component that renders when you click edit profile from inside profile comp.
-import {useSelector, useDispatch} from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import DetailsUpload from "./DetailsUpload";
 import AmnetiesUpload from "./AmnetiesUpload";
 import HouseRulesUpload from "./HouseRulesUpload";
 import HomeImgUpload from "./HomeImgUpload";
 import ProfileImgUpload from "./ProfileImgUpload";
-import {Button, TextField} from "@mui/material";
-import {useEffect, useState} from "react";
+import { Button, Grid, TextField } from "@mui/material";
+import { useEffect, useState } from "react";
+
 import {
   getHomeDetails,
   uploadHomeDetails,
+  uploadProfileImage,
 } from "../../../../actions/profileDataActions";
 import Map from "../../../map/Map";
-//import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-//import BedroomChildIcon from "@mui/icons-material/BedroomChild";
-//import Add from "@material-ui/icons/Add";
+import "./profile-edit.style.scss";
 
-//maybe a Next button instead to move between components? with nice transition? check if possible to make css transition on new render? maybe changing the className?
-//we can define a "Step" state here to move us between the edit components, the "Next" click will change the string value of state,
-// => the "Back each component will be rendered if the state matches the condition.
-//the state should remain between back and next because it is stored higher in "profileEdit."
-//devide to 3 object: homeInfo: homeDetails,
+const ProfileEdit = ({ toggleEdit }) => {
+  const [selectedImage, setSelectedImage] = useState();
+  //! pass al states to one object maybe?
 
-const ProfileEdit = (props) => {
   const [homeType, setHomeType] = useState("");
   const [sleeps, setSleeps] = useState(1);
   const [bedRooms, setBedRooms] = useState(1);
@@ -31,6 +28,10 @@ const ProfileEdit = (props) => {
   const [bathRooms, setBathRooms] = useState(1);
   const [amneties, setAmneties] = useState({});
   const [houseRules, setHouseRules] = useState({});
+  const [inViewComponent, setInViewComponent] = useState(
+    "profile-image-upload"
+  );
+
   const homeDetails = useSelector((state) => state.homeDetails);
   const lat = homeDetails.houseLocation
     ? homeDetails.houseLocation.lat
@@ -49,8 +50,6 @@ const ProfileEdit = (props) => {
   );
 
   const dispatch = useDispatch();
-  //res => history.push("/profile") to use after edit
-  //need an add about home section with textfield.
 
   useEffect(() => {
     dispatch(getHomeDetails());
@@ -58,6 +57,11 @@ const ProfileEdit = (props) => {
 
   const onSubmit = (e) => {
     e.preventDefault(); //we’ll use e.preventDefault() to stop the page from reloading when the submit button is clicked
+    //!all uploads here but images
+    // const formData = new FormData();
+    const profileImg = new FormData();
+    // const homeImg = new FormData();
+    profileImg.append("profileImg", selectedImage);
 
     const homeDetails = {
       homeType: homeType,
@@ -71,50 +75,143 @@ const ProfileEdit = (props) => {
       houseLocation: houseLocation,
       aboutHome: aboutHome,
     };
+    dispatch(uploadProfileImage(profileImg));
     dispatch(uploadHomeDetails(homeDetails));
-    props.toggleEdit(false);
   };
   //add map here, pass it
   return (
     <div className="profile-edit-container">
-      <ProfileImgUpload />
-      <h3>Tell others about your Home</h3>
-      <TextField
-        style={{width: "100%"}}
-        value={aboutHome}
-        onChange={(e) => setAboutHome(e.target.value)}
-        label="My Home..."
-        multiline
-        rows={4}
-      />
-      <HomeImgUpload />
-      <Map
-        setHouseLocation={setHouseLocation}
-        houseLocation={
-          houseLocation.lat
-            ? houseLocation
-            : {lat: 32.079918405524154, lng: 34.77430033010254}
-        }
-        height="300px"
-        zoom={13}
-      />
-      <DetailsUpload
-        setHomeType={setHomeType}
-        sleeps={sleeps}
-        setSleeps={setSleeps}
-        bedRooms={bedRooms}
-        setBedRooms={setBedRooms}
-        singleBeds={singleBeds}
-        setSingleBeds={setSingleBeds}
-        doubleBeds={doubleBeds}
-        setDoubleBeds={setDoubleBeds}
-        bathRooms={bathRooms}
-        setBathRooms={setBathRooms}
-      />
-      <AmnetiesUpload amneties={amneties} setAmneties={setAmneties} />
-      <HouseRulesUpload houseRules={houseRules} setHouseRules={setHouseRules} />
-      <Button onClick={onSubmit}>Done!</Button>
-      <h2> h2</h2>
+      <form onSubmit={onSubmit}>
+        <Grid container className="grid-container-edit">
+          <Grid item md={4} className="nav-grid-column">
+            <div className="nav-links-container">
+              <a
+                href="#profile-image-upload"
+                className={
+                  inViewComponent === "profile-image-upload"
+                    ? "active-nav-link"
+                    : "nav-link-regular"
+                }
+              >
+                Profile/about
+              </a>
+              <a
+                href="#home-images-upload"
+                className={
+                  inViewComponent === "home-images-upload"
+                    ? "active-nav-link"
+                    : "nav-link-regular"
+                }
+              >
+                photos
+              </a>
+
+              <a
+                href="#location-upload"
+                className={
+                  inViewComponent === "location-upload"
+                    ? "active-nav-link"
+                    : "nav-link-regular"
+                }
+              >
+                Location
+              </a>
+              <a
+                href="#details-upload"
+                className={
+                  inViewComponent === "details-upload"
+                    ? "active-nav-link"
+                    : "nav-link-regular"
+                }
+              >
+                Details
+              </a>
+              <a
+                href="#amneties-upload"
+                className={
+                  inViewComponent === "amneties-upload"
+                    ? "active-nav-link"
+                    : "nav-link-regular"
+                }
+              >
+                Amneties
+              </a>
+              <a
+                href="#house-rules-upload"
+                className={
+                  inViewComponent === "house-rules-upload"
+                    ? "active-nav-link"
+                    : "nav-link-regular"
+                }
+              >
+                Lifestyle
+              </a>
+            </div>
+          </Grid>
+
+          <Grid item md={8} className="home-edit-grid-column">
+            <div className="profile-about-container">
+              <div className="panel-heading">
+                <h3 id="profile-image-upload">Upload Profile Image</h3>
+              </div>
+              <div className="panel-body">
+                <ProfileImgUpload
+                  selectedImage={selectedImage}
+                  setSelectedImage={setSelectedImage}
+                  setInViewComponent={setInViewComponent}
+                />
+                <h3>What will your guests love about your home</h3>
+                <TextField
+                  style={{ width: "100%" }}
+                  value={aboutHome}
+                  onChange={(e) => setAboutHome(e.target.value)}
+                  label="My Home..."
+                  multiline
+                  rows={4}
+                />
+              </div>
+            </div>
+            <HomeImgUpload setInViewComponent={setInViewComponent} />
+            <Map
+              setInViewComponent={setInViewComponent}
+              setHouseLocation={setHouseLocation}
+              houseLocation={
+                houseLocation.lat
+                  ? houseLocation
+                  : { lat: 32.079918405524154, lng: 34.77430033010254 }
+              }
+              height="300px"
+              zoom={13}
+            />
+            <DetailsUpload
+              setInViewComponent={setInViewComponent}
+              setHomeType={setHomeType}
+              sleeps={sleeps}
+              setSleeps={setSleeps}
+              bedRooms={bedRooms}
+              setBedRooms={setBedRooms}
+              singleBeds={singleBeds}
+              setSingleBeds={setSingleBeds}
+              doubleBeds={doubleBeds}
+              setDoubleBeds={setDoubleBeds}
+              bathRooms={bathRooms}
+              setBathRooms={setBathRooms}
+            />
+            <AmnetiesUpload
+              amneties={amneties}
+              setAmneties={setAmneties}
+              setInViewComponent={setInViewComponent}
+            />
+            <HouseRulesUpload
+              setInViewComponent={setInViewComponent}
+              houseRules={houseRules}
+              setHouseRules={setHouseRules}
+            />
+
+            <Button type="submit">Done!</Button>
+          </Grid>
+        </Grid>
+      </form>
     </div>
   );
 };

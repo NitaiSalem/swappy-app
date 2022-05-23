@@ -1,5 +1,5 @@
 import { useLocation } from "react-router-dom";
-import "./found-profile.style.scss";
+import "./profile.style.scss";
 import ImageCarousel from "./ImageCarousel";
 import defaultImage from "../../../../site images/user-icon.png";
 import defaultHomeImage from "../../../../../src/site images/home-default.jpg";
@@ -146,7 +146,7 @@ const FoundProfile = () => {
               </p>
             </div>
             <div className="contact-section">
-              <h5 className="cotact-title">Contact: </h5>
+              <h5 className="contact-title">Contact: </h5>
               <p>
                 {" "}
                 Send {state.name} a swap suggestion. you could suggest precise
@@ -176,7 +176,7 @@ const FoundProfile = () => {
 
             <div className="info-section-box">
               <h5 className= "info-section-title">
-                <MapIcon /> Location
+                <MapIcon /> &nbsp;  Location
               </h5>
               {!isCarouselOpen && (
                 <HomeMap

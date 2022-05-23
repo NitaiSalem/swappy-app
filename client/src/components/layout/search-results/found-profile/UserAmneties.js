@@ -29,7 +29,7 @@ const UserAmneties = ({ amneties }) => {
   return (
     <div className="info-section-box">
       <h5 className= "info-section-title">
-        <CheckIcon /> Home amenities
+        <CheckIcon /> &nbsp; Home amenities
       </h5>
       <div className="user-amneties-wrapper">
         {amneties.tv === true && (

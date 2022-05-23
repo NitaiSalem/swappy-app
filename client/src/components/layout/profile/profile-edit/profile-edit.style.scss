@@ -1,0 +1,157 @@
+@import "../../../../sassStyles/variables";
+
+.profile-edit-container {
+  padding-right: 15px;
+  padding-left: 15px;
+  padding-top: 20px;
+  margin-top: 56px;
+  margin-right: auto;
+  margin-left: auto;
+
+  .grid-container-edit {
+    .nav-grid-column {
+      .nav-links-container {
+        position: fixed;
+        display: flex;
+        flex-direction: column;
+
+        .active-nav-link {
+          color: $darkerOrange;
+        }
+
+        .nav-link-regular {
+          color: $font-color;
+        }
+        //    a{
+        //        color:goldenrod;
+        //    }
+
+        //    a:visited{
+        //        color:aqua;
+        //    }
+      }
+    }
+
+    .profile-about-container {
+      margin-bottom: 40px;
+      .panel-heading {
+        color: #191d1f;
+        padding: 15px 30px;
+        font-weight: 700;
+        border: 1px solid #e3e3e3;
+
+        // border-bottom: 1px solid transparent;
+        // border-top-left-radius: 1px;
+        // border-top-right-radius: 1px;
+      }
+      .panel-body {
+        padding: 15px 30px;
+
+        border: 1px solid #e3e3e3;
+        border-top: none;
+
+        .profile-image-upload-container {
+          display: flex;
+          width: 100%;
+          // height: 99px;
+          .profile-image-box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            width: 150px;
+            height: 99px;
+
+            .delete-button-container {
+                position: absolute;
+                text-align: center;
+                opacity: 0  ;
+                transition: opacity 0.45s ease;
+                height: 100%;
+                width: 100%;
+
+         .delete-button {
+            top: 20%;
+                // position: absolute;
+                // top: 50%;
+                // left: 50%;
+                margin-top: auto;
+                // display:flex;
+                // justify-self: center;
+                // position: relative;
+                // margin-top: auto;
+              }
+
+
+            //   position: relative;
+              //   text-align: center;
+              //   justify-content:center;
+              //   display:flex;
+              //   opacity: 0;
+              //   opacity: 1;
+            //   transition: opacity 0.45s ease;
+              //   transition: opacity 0.45s ease;
+            //   height: 100%;
+            //   width: 100%;
+              //   margin-left: auto;
+              //   margin-right: auto;
+              //   left: 0;
+              //   right: 0;
+              //   text-align: center;
+
+     
+            }
+
+            .profile-img {
+              object-fit: cover;
+            }
+            // .delete-button-container:hover {
+            //     display: flex;
+            //     text-align: center;
+            //     justify-content: center;
+
+            //   background: rgba(250, 244, 244, 0.8);
+            // }
+          }
+
+          .profile-image-box:hover {
+            // .profile-img {
+            //  visibility:hidden;
+            // }
+            .delete-button-container {
+              //   display: flex;
+              //   text-align: center;
+              //   justify-content: center;
+              opacity: 1;
+              //   transition: opacity 1.45s ease;
+              //   background: rgba(250, 244, 244, 0.8);
+              background: rgba(250, 244, 244, 0.8);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  //   .myDivClass a:visited {
+  //     color: white;
+  //   }
+}
+
+@media (min-width: 768px) {
+  .profile-edit-container {
+    width: 750px;
+  }
+}
+
+@media (min-width: 992px) {
+  .profile-edit-container {
+    width: 970px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .profile-edit-container {
+    width: 1170px;
+  }
+}

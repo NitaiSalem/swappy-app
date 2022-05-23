@@ -20,6 +20,7 @@ import SearchResults from "./components/layout/search-results/SearchResults";
 import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
 import FoundProfile from "./components/layout/search-results/found-profile/FoundProfile";
+import ProfileEdit from "./components/layout/profile/profile-edit/ProfileEdit";
 let persistor = persistStore(store);
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -67,6 +68,15 @@ function App() {
               element={
                 <PrivateRoute>
                   <Profile />
+                </PrivateRoute>
+              }
+            />
+                  <Route
+              exact
+              path="/Profile/edit"
+              element={
+                <PrivateRoute>
+                  <ProfileEdit />
                 </PrivateRoute>
               }
             />

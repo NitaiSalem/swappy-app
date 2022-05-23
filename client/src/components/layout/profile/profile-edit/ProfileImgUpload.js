@@ -1,71 +1,136 @@
 import axios from "axios";
-import {memo, useState} from "react";
-import {getProfileImg} from "../../../../actions/profileDataActions";
-import { useDispatch, useSelector} from "react-redux";
-
+import { memo, useEffect, useRef, useState } from "react";
+import { getProfileImg } from "../../../../actions/profileDataActions";
+import { useDispatch, useSelector } from "react-redux";
+import { useInView } from "react-intersection-observer";
+import { Button, IconButton } from "@mui/material";
+import DeleteIcon from "@material-ui/icons/Delete";
+import CameraAltIcon from "@mui/icons-material/CameraAlt";
 //to fix updating profileimg not rerendering we had to connect the FilesUploadComponent to redux store,
 // pass it the profileimg state as props and after posting, making get request to get updated image!
 
-const ProfileImgUpload = () => {
-  const [profileImg, setProfileImg] = useState("");
+const ProfileImgUpload = ({ setInViewComponent,selectedImage,setSelectedImage }) => {
+  // const [selectedImage, setSelectedImage] = useState();
+  const [previewImage, setPreviewImage] = useState();
   const currProfileImg = useSelector((state) => state.profileImg);
+
   const dispatch = useDispatch();
-console.log('profile image upload rendered')
+  const hiddenFileInput = useRef(null);
+
   const onFileChange = (e) => {
-    setProfileImg(e.target.files[0]);
+    // e.target.value = null;
+    if (!e.target.files || e.target.files.length === 0) {
+      setSelectedImage(undefined);
+      return;
+    }
+
+    setSelectedImage(e.target.files[0]);
   };
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-    const formData = new FormData();
-    formData.append("profileImg", profileImg);
-    axios
-      .post("http://localhost:5000/api/user-edit-images/profile-image", formData, {})
-      .then((res) => {
-        console.log(res);
-        dispatch(getProfileImg());
-      });
-  };
+  const { ref, inView, entry } = useInView({
+    /* Optional options */
+    threshold: 0,
+  });
+
+  // create a preview as a side effect, whenever selected file is changed
+  useEffect(() => {
+    if (!selectedImage) {
+      setPreviewImage(undefined);
+      return;
+    }
+    const objectUrl = URL.createObjectURL(selectedImage);
+    setPreviewImage(objectUrl);
+
+    // free memory when ever this component is unmounted
+    return () => URL.revokeObjectURL(objectUrl);
+  }, [selectedImage]);
+
+  useEffect(() => {
+    console.log("this is in view", inView);
+    inView && setInViewComponent("profile-image-upload");
+  }, [inView]);
+
+  // const onSubmit = (e) => {
+  //   e.preventDefault();
+  //   const formData = new FormData();
+  //   formData.append("profileImg", selectedImage);
+  //   axios
+  //     .post(
+  //       "http://localhost:5000/api/user-edit-images/profile-image",
+  //       formData,
+  //       {}
+  //     )
+  //     .then((res) => {
+  //       console.log(res);
+  //       dispatch(getProfileImg());
+  //     });
+  // };
+
+
   const deleteProfileImg = () => {
-    axios
-      .delete("http://localhost:5000/api/user-edit-images/delete-profile-image")
-      .then((res) => {
-        console.log(res);
-        getProfileImg();
-      });
+    hiddenFileInput.current.value = "";
+    selectedImage
+      ? setSelectedImage(undefined)
+      : axios
+          .delete(
+            "http://localhost:5000/api/user-edit-images/delete-profile-image"
+          )
+          .then((res) => {
+            console.log(res);
+            dispatch(getProfileImg());
+          });
+  };
+
+  const handleClick = (event) => {
+    hiddenFileInput.current.click();
   };
 
   return (
-    <div className="image-upload-container">
-      
-        <img
-          src={currProfileImg}
-          alt="profile pic"
-          width="100px"
-          height="100px"
-        />
-        <button
-          onClick={deleteProfileImg}
-          type="button"
-          className="btn btn-danger btn-sm"
-        >
-          delete
-        </button>
-        <form onSubmit={onSubmit}>
-          <h3>Upload Profile-Image </h3>
-          <div className="form-group">
-            <input type="file" onChange={onFileChange} />
+    <div className="profile-image-upload-container" ref={ref}>
+      {(currProfileImg || selectedImage) && (
+        <div className="profile-image-box">
+          <div className="delete-button-container">
+            <IconButton
+              className="delete-button"
+              aria-label="delete"
+              size="large"
+              onClick={deleteProfileImg}
+            >
+              <DeleteIcon fontSize="large" style={{ fill: "#e85710" }} />
+            </IconButton>
           </div>
-          <div className="form-group">
-            <button className="btn btn-primary" type="submit">
-              Upload
-            </button>
-          </div>
-        </form>
-        <h2> h2</h2>
-        <h2> h2</h2>
-        <h2> h2</h2>
-      </div>
+          <img
+            className="profile-img"
+            src={selectedImage ? previewImage : currProfileImg}
+            alt="profile pic"
+            width="100%"
+            height="100%"
+          />
+        </div>
+      )}
+
+      {/* <form onSubmit={onSubmit}> */}
+        <div className="form-group">
+          {/* <label for="inputTag"> */}
+          {/* Select Image */}
+          {/* <input id="inputTag" type="file" onChange={onFileChange} /> */}
+          <input
+            type="file"
+            onChange={onFileChange}
+            ref={hiddenFileInput}
+            style={{ display: "none" }}
+          />
+          {/* </label>  */}
+        </div>
+        <Button onClick={handleClick}>
+          {" "}
+          <CameraAltIcon /> choose image
+        </Button>
+        {/* <Button className="btn btn-primary" type="submit">
+          Save image
+        </Button> */}
+      {/* </form> */}
+    </div>
   );
 };
 
@@ -75,6 +140,6 @@ console.log('profile image upload rendered')
 //   //this passes the auth state from the root reducer as props to component
 // });
 
-export default memo(ProfileImgUpload); 
+export default memo(ProfileImgUpload);
 
 //export default connect(mapStateToProps, {getProfileImg})(ProfileImgUpload);

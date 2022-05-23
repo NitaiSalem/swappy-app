@@ -9,7 +9,7 @@ const UserDetails = ({ homeDetails }) => {
   return (
     <div className="info-section-box">
       <h5 className= "info-section-title">
-        <AssignmentTurnedInIcon /> Details
+        <AssignmentTurnedInIcon /> &nbsp; Details
       </h5>
       <ul className="details-list">
         <li>

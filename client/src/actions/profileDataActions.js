@@ -29,16 +29,40 @@ export const setHomeDetails = (details) => {
 
 export const uploadHomeDetails = (userData) => async (dispatch) => {
   try {
-    const response = await axios.post(
+     await axios.post(
       "/api/user-edit-details/home-details",
       userData
     );
-    console.log(response.data, "this is response data");
+    // console.log(response.data, "this is response data");
     dispatch(setHomeDetails(userData));
   } catch (err) {
     console.error(err);
   }
 };
+
+
+export const uploadProfileImage = (profileImg) => async (dispatch) => {
+  //!need to make request localhost5000?
+  try {
+
+const response = await axios.post(
+      "http://localhost:5000/api/user-edit-images/profile-image",
+      profileImg,
+      {}
+    )
+
+    // await axios.post(
+    //   "/api/user-edit-images/profile-image",
+    //   selectedImage
+    // );
+    console.log( "response data here ",response.data)
+    dispatch(setProfileImg(profileImg));
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+
 
 export const getHomeDetails = () => async (dispatch) => {
   try {

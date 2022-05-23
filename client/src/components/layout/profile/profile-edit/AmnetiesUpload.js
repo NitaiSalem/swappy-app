@@ -15,16 +15,28 @@ import {
   LocalLaundryService,
   Accessible,
 } from "@mui/icons-material";
-import {memo} from "react";
+import {memo, useEffect} from "react";
+import { useInView } from 'react-intersection-observer';
+
 //tv, wifi, microwave, fridge, freezer, a/c, heating, pool, garden, BBQ, parking, video games, balcony, gym, elevator, dishwasher, washing machine, oven
 // each one button with div around as square make it grid.
 
 //just use map here instead?
 
-const AmnetiesUpload = ({amneties, setAmneties}) => {
-  console.log("amneties upload rendered ");
+const AmnetiesUpload = ({amneties, setAmneties,setInViewComponent}) => {
+  const { ref, inView, entry } = useInView({
+    /* Optional options */
+    threshold: 0,
+  });
+
+  useEffect(() => {
+    inView&& setInViewComponent("amneties-upload"); 
+    
+    }, [inView]);
+
+    
   return (
-    <div>
+    <div id="amneties-upload" ref={ref}>
       <h2> Amneties</h2>
       <h4> What type of amenities are in your home?</h4>
       <button

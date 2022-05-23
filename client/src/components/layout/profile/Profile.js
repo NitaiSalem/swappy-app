@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { logoutUser } from "../../../actions/authActions";
+// import { logoutUser } from "../../../actions/authActions";
 import {
   getHomeDetails,
   getProfileImg,
@@ -8,7 +8,7 @@ import {
 } from "../../../actions/profileDataActions";
 // import {getHomeImages} from "../../../actions/profileDataActions";
 // import Details from "./details/Details";
-// import ProfileEdit from "./profile-edit/ProfileEdit";
+import ProfileEdit from "./profile-edit/ProfileEdit";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import Map from "../../map/Map";
 import HomeMap from "../../map/homeMap";
@@ -23,37 +23,13 @@ import UserAmneties from "../search-results/found-profile/UserAmneties";
 import MapIcon from "@mui/icons-material/Map";
 import Footer from "../footer/Footer";
 import HouseRules from "../search-results/found-profile/HouseRules";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "react-router-dom";
 
-// const useStyles = makeStyles({
-//   root: {},
-//   table: {},
-//   button: {
-//     width: "70%",
-//     margin: "auto !important",
-//     color: " #fff !important",
-//     backgroundColor: "#f7a800 !important",
-//     borderColor: "#f7a800 !important",
-//     position: "static",
-
-//     "@media (max-width: 1024px)": {
-//       width: "140px",
-//     },
-
-//     "&:hover": {
-//       backgroundColor: "rgb(182, 119, 2) !important",
-//       color: "#fff !important",
-//     },
-//   },
-
-//   nameCell: {
-//     whiteSpace: "nowrap",
-//   },
-// });
+// import '../../layout/search-results/found-profile/profile.style.scss'
 
 const Profile = () => {
-  // const classes = useStyles();
-
-  const [edit, setEdit] = useState(false);
+  // const [edit, setEdit] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isCarouselOpen, setIsCarouselOpen] = useState(false); //this is show from examle!
   const profileImg = useSelector((state) => state.profileImg); //use these for rest of state from db
@@ -63,29 +39,13 @@ const Profile = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // clean up code
-    // scrollContainerWrapper.current.addEventListener
     window.addEventListener("scroll", onScroll, {
       passive: true,
     });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const onScroll = useCallback((event) => {
-    // console.log("onscroll method fired")
-    console.log("onscroll method fired");
-    console.log("this is event target scrolltop", event.target);
-    //window.scrollY > 0
-    /*
-
-    if (event.target.scrollTop > 25) {
-      setIsScrolled(true);
-    } else if (event.target.scrollTop < 25) {
-      setIsScrolled(false);
-    }
-  }, []);
-*/
-
+  const onScroll = useCallback(() => {
     if (window.scrollY > 0) {
       setIsScrolled(true);
     } else if (window.scrollY === 0) {
@@ -93,33 +53,15 @@ const Profile = () => {
     }
   }, []);
 
-  const toggleEdit = (view) => {
-    setEdit(view);
-  };
+  // const toggleEdit = (view) => {
+  //   setEdit(view);
+  // };
   useEffect(() => {
-    // console.log(props, "this is profile props");
     dispatch(getProfileImg());
     dispatch(getHomeImages());
     dispatch(getHomeDetails());
   }, []);
 
-  const onLogoutClick = (e) => {
-    e.preventDefault();
-    dispatch(logoutUser());
-  };
-
-  // if (!homeDetails.amneties) {
-  //   //this works, find a nice animation for profile load later...
-  //   return (
-  //     <div>
-  //       <p>loading...</p>
-  //       <p>loading...</p>
-  //       <p>loading...</p>
-  //       <p>loading...</p>
-  //       <p>loading...</p>
-  //     </div>
-  //   );
-  // }
   const lat = homeDetails.houseLocation
     ? homeDetails.houseLocation.lat
     : 32.077860051007875;
@@ -185,16 +127,14 @@ const Profile = () => {
                   : "you have not described their home "}
               </p>
             </div>
-            <div className="contact-section">
-              <h5 className="cotact-title">Contact: </h5>
-              {/* <p>
-              {" "}
-              Send {state.name} a swap suggestion. you could suggest precise
-              or flexible dates, supply the number of guests and add a
-              personal note{" "}
-            </p> */}
+            <div className="Update-profile-container">
+              {/* <h5 className="">edit profile: </h5> */}
+            {/* {edit && <ProfileEdit toggleEdit={toggleEdit} />} */}
+            <Link to="edit" className="edit-profile-button">
+              <FontAwesomeIcon className="edit-profile-icon"  icon="edit" /> &nbsp; Update profile
+            </Link>
             </div>
-            //!use the edit button here instead
+        
             {/* <Button
             className={classes.button}
             variant="contained"
@@ -216,8 +156,8 @@ const Profile = () => {
             <UserAmneties amneties={homeDetails.amneties} />
 
             <div className="info-section-box">
-              <h5>
-                <MapIcon /> Location
+              <h5 className="info-section-title">
+                <MapIcon /> &nbsp; Location
               </h5>
               {!isCarouselOpen && (
                 <HomeMap

@@ -10,7 +10,7 @@ const HouseRules = ({ houseRules }) => {
   return (
     <div className="info-section-box">
       <h5 className= "info-section-title">
-        <RuleIcon /> House rules
+        <RuleIcon /> &nbsp; House rules
       </h5>
       <ul className="details-list">
         {houseRules?.smoking === true && (

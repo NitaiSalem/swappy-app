@@ -61,6 +61,7 @@
       //   width: 40%;
       border: 1px solid rgb(209, 206, 206);
       border-radius: 4px;
+      z-index:20; 
       // padding-top: 2px;
 
       .home-image-container {
@@ -84,9 +85,10 @@
         }
       }
 
-      .found-home-container :hover {
-        cursor: pointer;
-      }
+    
+    }
+    .found-home-container:hover {
+      cursor: pointer;
     }
   }
 

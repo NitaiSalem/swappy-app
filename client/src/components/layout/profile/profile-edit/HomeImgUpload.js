@@ -1,16 +1,26 @@
 import axios from "axios";
-import {memo, useState} from "react";
+import {memo, useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {getHomeImages} from "../../../../actions/profileDataActions";
+import { useInView } from 'react-intersection-observer';
 
-const HomeImgUpload = () => {
+const HomeImgUpload = ({setInViewComponent}) => {
   const [images, setImages] = useState([]);
   const homeImg = useSelector((state) => state.homeImages);
   const dispatch = useDispatch();
-
+  const { ref, inView, entry } = useInView({
+    /* Optional options */
+    threshold: 0,
+  });
   const onFileChange = (e) => {
     setImages(e.target.files);
   };
+
+  useEffect(() => {
+   inView&& setInViewComponent("home-images-upload"); 
+   
+   }, [inView]);
+
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -43,7 +53,7 @@ const HomeImgUpload = () => {
   };
 
   return (
-    <div className="image-upload-container">
+    <div className="home-images-upload-container" id="home-images-upload" ref={ref}>
       <div className="row">
         {Array.isArray(homeImg) === true &&
           homeImg.map((img, i) => {
