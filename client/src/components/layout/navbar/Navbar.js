@@ -97,7 +97,7 @@ const NavigationBar = () => {
                 {/* &nbsp; &nbsp; &nbsp; &nbsp; */}
                 <Link className="logout-button" to="/" onClick={onLogoutClick}>
                   <LogoutIcon />
-                  <span class="tooltiptext">Logout</span>
+                  <span className="tooltiptext">Logout</span>
                 </Link>
               </div>
             )}

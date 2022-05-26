@@ -1,11 +1,11 @@
 import axios from "axios";
-import {memo, useEffect, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {getHomeImages} from "../../../../actions/profileDataActions";
-import { useInView } from 'react-intersection-observer';
+import { memo, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getHomeImages } from "../../../../actions/profileDataActions";
+import { useInView } from "react-intersection-observer";
 
-const HomeImgUpload = ({setInViewComponent}) => {
-  const [images, setImages] = useState([]);
+const HomeImgUpload = ({ setInViewComponent, homeImages, setHomeImages }) => {
+  // const [images, setImages] = useState([]);
   const homeImg = useSelector((state) => state.homeImages);
   const dispatch = useDispatch();
   const { ref, inView, entry } = useInView({
@@ -13,33 +13,31 @@ const HomeImgUpload = ({setInViewComponent}) => {
     threshold: 0,
   });
   const onFileChange = (e) => {
-    setImages(e.target.files);
+    setHomeImages(e.target.files);
   };
 
   useEffect(() => {
-   inView&& setInViewComponent("home-images-upload"); 
-   
-   }, [inView]);
+    inView && setInViewComponent("home-images-upload");
+  }, [inView]);
 
-
-  const onSubmit = (e) => {
-    e.preventDefault();
-    const formData = new FormData();
-    for (const key of Object.keys(images)) {
-      formData.append("homeImages", images[key]);
-      console.log(formData, "form data");
-    }
-    axios
-      .post(
-        "http://localhost:5000/api/user-edit-images/home-images",
-        formData,
-        {}
-      )
-      .then((res) => {
-        console.log(res);
-        dispatch(getHomeImages());
-      });
-  };
+  // const onSubmit = (e) => {
+  //   e.preventDefault();
+  //   const formData = new FormData();
+  //   for (const key of Object.keys(homeImages)) {
+  //     formData.append("homeImages", homeImages[key]);
+  //     console.log(formData, "form data");
+  //   }
+  //   axios
+  //     .post(
+  //       "http://localhost:5000/api/user-edit-images/home-images",
+  //       formData,
+  //       {}
+  //     )
+  //     .then((res) => {
+  //       console.log(res);
+  //       dispatch(getHomeImages());
+  //     });
+  // };
 
   const deleteHomeImg = (imageName) => {
     axios
@@ -53,7 +51,11 @@ const HomeImgUpload = ({setInViewComponent}) => {
   };
 
   return (
-    <div className="home-images-upload-container" id="home-images-upload" ref={ref}>
+    <div
+      className="home-images-upload-container"
+      id="home-images-upload"
+      ref={ref}
+    >
       <div className="row">
         {Array.isArray(homeImg) === true &&
           homeImg.map((img, i) => {
@@ -77,26 +79,22 @@ const HomeImgUpload = ({setInViewComponent}) => {
               </div>
             );
           })}
-        <form onSubmit={onSubmit}>
-          <h3>Upload Home Image/s </h3>
-          <div className="form-group">
-            <input
-              type="file"
-              name="homeImages"
-              onChange={onFileChange}
-              multiple
-            />
-          </div>
-          <div className="form-group">
-            <button className="btn btn-primary" type="submit">
-              Upload
-            </button>
-          </div>
-        </form>
+
+        <h3>Upload Home Image/s </h3>
+        <div >
+          <input
+            type="file"
+            name="homeImages"
+            onChange={onFileChange}
+            multiple
+          />
+        </div>
+        <div>
+          {/* <button className="btn btn-primary">
+            Upload
+          </button> */}
+        </div>
       </div>
-      <h2> h2</h2>
-      <h2> h2</h2>
-      <h2> h2</h2>
     </div>
   );
 };

@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import {
   getHomeDetails,
   uploadHomeDetails,
+  uploadHomeImages,
   uploadProfileImage,
 } from "../../../../actions/profileDataActions";
 import Map from "../../../map/Map";
@@ -19,6 +20,7 @@ import "./profile-edit.style.scss";
 const ProfileEdit = ({ toggleEdit }) => {
   const [selectedImage, setSelectedImage] = useState();
   //! pass al states to one object maybe?
+  const [homeImages, setHomeImages] = useState([]);
 
   const [homeType, setHomeType] = useState("");
   const [sleeps, setSleeps] = useState(1);
@@ -62,6 +64,13 @@ const ProfileEdit = ({ toggleEdit }) => {
     const profileImg = new FormData();
     // const homeImg = new FormData();
     profileImg.append("profileImg", selectedImage);
+    console.log(profileImg, "form data profile-image");
+
+    const homeImgData = new FormData();
+    for (const key of Object.keys(homeImages)) {
+      homeImgData.append("homeImages", homeImages[key]);
+    }
+    console.log(homeImgData, "form data home-images");
 
     const homeDetails = {
       homeType: homeType,
@@ -75,8 +84,13 @@ const ProfileEdit = ({ toggleEdit }) => {
       houseLocation: houseLocation,
       aboutHome: aboutHome,
     };
-    dispatch(uploadProfileImage(profileImg));
+
+    selectedImage && dispatch(uploadProfileImage(profileImg));
+
+    homeImages.length > 0 && dispatch(uploadHomeImages(homeImgData));
     dispatch(uploadHomeDetails(homeDetails));
+
+    //! redirect to profile on submit
   };
   //add map here, pass it
   return (
@@ -171,7 +185,11 @@ const ProfileEdit = ({ toggleEdit }) => {
                 />
               </div>
             </div>
-            <HomeImgUpload setInViewComponent={setInViewComponent} />
+            <HomeImgUpload
+              homeImages={homeImages}
+              setHomeImages={setHomeImages}
+              setInViewComponent={setInViewComponent}
+            />
             <Map
               setInViewComponent={setInViewComponent}
               setHouseLocation={setHouseLocation}

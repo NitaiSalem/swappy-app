@@ -23,7 +23,6 @@ const ProfileImgUpload = ({ setInViewComponent,selectedImage,setSelectedImage })
       setSelectedImage(undefined);
       return;
     }
-
     setSelectedImage(e.target.files[0]);
   };
 

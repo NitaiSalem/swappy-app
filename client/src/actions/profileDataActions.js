@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import {SET_HOME_IMG, SET_PROFILE_IMG, SET_HOME_DETAILS} from "./types";
+import { SET_HOME_IMG, SET_PROFILE_IMG, SET_HOME_DETAILS } from "./types";
 
 export const setProfileImg = (img) => {
   return {
@@ -29,10 +29,7 @@ export const setHomeDetails = (details) => {
 
 export const uploadHomeDetails = (userData) => async (dispatch) => {
   try {
-     await axios.post(
-      "/api/user-edit-details/home-details",
-      userData
-    );
+    await axios.post("/api/user-edit-details/home-details", userData);
     // console.log(response.data, "this is response data");
     dispatch(setHomeDetails(userData));
   } catch (err) {
@@ -40,29 +37,31 @@ export const uploadHomeDetails = (userData) => async (dispatch) => {
   }
 };
 
-
 export const uploadProfileImage = (profileImg) => async (dispatch) => {
-  //!need to make request localhost5000?
+
+  console.log("uploading profile image entere: ", profileImg)
   try {
-
-const response = await axios.post(
+    await axios.post(
       "http://localhost:5000/api/user-edit-images/profile-image",
-      profileImg,
-      {}
-    )
-
-    // await axios.post(
-    //   "/api/user-edit-images/profile-image",
-    //   selectedImage
-    // );
-    console.log( "response data here ",response.data)
-    dispatch(setProfileImg(profileImg));
+      profileImg
+    );
+    dispatch(getProfileImg());
   } catch (err) {
     console.error(err);
   }
 };
 
-
+export const uploadHomeImages = (homeImages) => async (dispatch) => {
+  try {
+    await axios.post(
+      "http://localhost:5000/api/user-edit-images/home-images",
+      homeImages
+    );
+    dispatch(getHomeImages());
+  } catch (err) {
+    console.error(err);
+  }
+};
 
 export const getHomeDetails = () => async (dispatch) => {
   try {
