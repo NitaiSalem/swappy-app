@@ -22,18 +22,12 @@
         .nav-link-regular {
           color: $font-color;
         }
-        //    a{
-        //        color:goldenrod;
-        //    }
-
-        //    a:visited{
-        //        color:aqua;
-        //    }
       }
     }
 
     .profile-about-container {
-      margin-bottom: 40px;
+      margin-bottom: 240px;
+
       .panel-heading {
         color: #191d1f;
         padding: 15px 30px;
@@ -50,9 +44,11 @@
         border: 1px solid #e3e3e3;
         border-top: none;
 
+
         .profile-image-upload-container {
           display: flex;
           width: 100%;
+          margin-bottom: 50px;
           // height: 99px;
           .profile-image-box {
             display: flex;
@@ -63,15 +59,15 @@
             height: 99px;
 
             .delete-button-container {
-                position: absolute;
-                text-align: center;
-                opacity: 0  ;
-                transition: opacity 0.45s ease;
-                height: 100%;
-                width: 100%;
+              position: absolute;
+              text-align: center;
+              opacity: 0;
+              transition: opacity 0.45s ease;
+              height: 100%;
+              width: 100%;
 
-         .delete-button {
-            top: 20%;
+              .delete-button {
+                top: 20%;
                 // position: absolute;
                 // top: 50%;
                 // left: 50%;
@@ -82,24 +78,21 @@
                 // margin-top: auto;
               }
 
-
-            //   position: relative;
+              //   position: relative;
               //   text-align: center;
               //   justify-content:center;
               //   display:flex;
               //   opacity: 0;
               //   opacity: 1;
-            //   transition: opacity 0.45s ease;
               //   transition: opacity 0.45s ease;
-            //   height: 100%;
-            //   width: 100%;
+              //   transition: opacity 0.45s ease;
+              //   height: 100%;
+              //   width: 100%;
               //   margin-left: auto;
               //   margin-right: auto;
               //   left: 0;
               //   right: 0;
               //   text-align: center;
-
-     
             }
 
             .profile-img {
@@ -128,6 +121,10 @@
               background: rgba(250, 244, 244, 0.8);
             }
           }
+        }
+
+        .about-title{
+          padding: 15px 0;
         }
       }
     }

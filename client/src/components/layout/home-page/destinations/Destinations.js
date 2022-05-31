@@ -1,6 +1,7 @@
 import './destinations.scss'
 import { Router, Route, Switch } from "react-router";
 import { NavLink } from "react-router-dom";
+import Spinner from '../../../spinner/Spinner';
 
 const Destinations = () => {
 
@@ -26,7 +27,7 @@ const Destinations = () => {
    <a href="abc.com">
     <img src="abc.png"  alt='destination'/>
    </a>
-
+<Spinner/> 
             </div>
         </div>
     )

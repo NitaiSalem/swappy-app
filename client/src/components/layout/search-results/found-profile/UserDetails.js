@@ -8,7 +8,7 @@ import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
 const UserDetails = ({ homeDetails }) => {
   return (
     <div className="info-section-box">
-      <h5 className= "info-section-title">
+      <h5 className="info-section-title">
         <AssignmentTurnedInIcon /> &nbsp; Details
       </h5>
       <ul className="details-list">
@@ -42,7 +42,6 @@ const UserDetails = ({ homeDetails }) => {
           </div>
           <span> {homeDetails?.bedRooms}</span>
         </li>
-
         <li>
           <div className="icon-and-detail">
             <WcIcon className="icon" /> Bathrooms{" "}
@@ -54,4 +53,4 @@ const UserDetails = ({ homeDetails }) => {
   );
 };
 
-export default UserDetails; 
+export default UserDetails;

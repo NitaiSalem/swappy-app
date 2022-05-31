@@ -17,41 +17,39 @@ import {
 import Map from "../../../map/Map";
 import "./profile-edit.style.scss";
 
-const ProfileEdit = ({ toggleEdit }) => {
+const ProfileEdit = () => {
+  const dispatch = useDispatch();
   const [selectedImage, setSelectedImage] = useState();
-  //! pass al states to one object maybe?
   const [homeImages, setHomeImages] = useState([]);
-
-  const [homeType, setHomeType] = useState("");
-  const [sleeps, setSleeps] = useState(1);
-  const [bedRooms, setBedRooms] = useState(1);
-  const [singleBeds, setSingleBeds] = useState(1);
-  const [doubleBeds, setDoubleBeds] = useState(1);
-  const [bathRooms, setBathRooms] = useState(1);
+  const homeDetails = useSelector((state) => state.homeDetails);
+  const [details, setDetails] = useState({
+    homeType: "",
+    sleeps: 1,
+    bedRooms: 1,
+    singleBeds: 1,
+    doubleBeds: 1,
+    bathRooms: 1,
+    aboutHome: homeDetails.aboutHome ? homeDetails.aboutHome : "",
+  });
   const [amneties, setAmneties] = useState({});
   const [houseRules, setHouseRules] = useState({});
   const [inViewComponent, setInViewComponent] = useState(
     "profile-image-upload"
   );
 
-  const homeDetails = useSelector((state) => state.homeDetails);
   const lat = homeDetails.houseLocation
     ? homeDetails.houseLocation.lat
     : 32.077860051007875;
   const lng = homeDetails.houseLocation
     ? homeDetails.houseLocation.lng
     : 34.77854258203124;
+
   const [houseLocation, setHouseLocation] = useState({
     lat: lat,
     lng: lng,
     address: homeDetails.houseLocation?.address,
     area: homeDetails.houseLocation?.area,
   });
-  const [aboutHome, setAboutHome] = useState(
-    homeDetails.aboutHome ? homeDetails.aboutHome : ""
-  );
-
-  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getHomeDetails());
@@ -59,30 +57,26 @@ const ProfileEdit = ({ toggleEdit }) => {
 
   const onSubmit = (e) => {
     e.preventDefault(); //we’ll use e.preventDefault() to stop the page from reloading when the submit button is clicked
-    //!all uploads here but images
-    // const formData = new FormData();
     const profileImg = new FormData();
-    // const homeImg = new FormData();
     profileImg.append("profileImg", selectedImage);
-    console.log(profileImg, "form data profile-image");
-
     const homeImgData = new FormData();
     for (const key of Object.keys(homeImages)) {
       homeImgData.append("homeImages", homeImages[key]);
     }
-    console.log(homeImgData, "form data home-images");
 
     const homeDetails = {
-      homeType: homeType,
-      sleeps: sleeps,
-      bedRooms: bedRooms,
-      singleBeds: singleBeds,
-      doubleBeds: doubleBeds,
-      bathRooms: bathRooms,
+      //* use all these from object state
+      homeType: details.homeType,
+      sleeps: details.sleeps,
+      bedRooms: details.bedRooms,
+      singleBeds: details.singleBeds,
+      doubleBeds: details.doubleBeds,
+      bathRooms: details.bathRooms,
+      aboutHome: details.aboutHome,
+
       amneties: amneties,
       houseRules: houseRules,
       houseLocation: houseLocation,
-      aboutHome: aboutHome,
     };
 
     selectedImage && dispatch(uploadProfileImage(profileImg));
@@ -174,11 +168,11 @@ const ProfileEdit = ({ toggleEdit }) => {
                   setSelectedImage={setSelectedImage}
                   setInViewComponent={setInViewComponent}
                 />
-                <h3>What will your guests love about your home</h3>
+                <h3 className="about-title">What will your guests love about your home</h3>
                 <TextField
                   style={{ width: "100%" }}
-                  value={aboutHome}
-                  onChange={(e) => setAboutHome(e.target.value)}
+                  value={details.aboutHome}
+                  onChange={(e) => setDetails({...details, aboutHome: e.target.value})}
                   label="My Home..."
                   multiline
                   rows={4}
@@ -203,17 +197,8 @@ const ProfileEdit = ({ toggleEdit }) => {
             />
             <DetailsUpload
               setInViewComponent={setInViewComponent}
-              setHomeType={setHomeType}
-              sleeps={sleeps}
-              setSleeps={setSleeps}
-              bedRooms={bedRooms}
-              setBedRooms={setBedRooms}
-              singleBeds={singleBeds}
-              setSingleBeds={setSingleBeds}
-              doubleBeds={doubleBeds}
-              setDoubleBeds={setDoubleBeds}
-              bathRooms={bathRooms}
-              setBathRooms={setBathRooms}
+              details= {details}
+              setDetails= {setDetails}
             />
             <AmnetiesUpload
               amneties={amneties}
