@@ -6,6 +6,8 @@ import { useInView } from "react-intersection-observer";
 import { Button, IconButton } from "@mui/material";
 import DeleteIcon from "@material-ui/icons/Delete";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
+import defaultImage from "../../../../site images/user-icon.png";
+
 //to fix updating profileimg not rerendering we had to connect the FilesUploadComponent to redux store,
 // pass it the profileimg state as props and after posting, making get request to get updated image!
 
@@ -20,7 +22,7 @@ const ProfileImgUpload = ({ setInViewComponent,selectedImage,setSelectedImage })
   const onFileChange = (e) => {
     // e.target.value = null;
     if (!e.target.files || e.target.files.length === 0) {
-      setSelectedImage(undefined);
+      setSelectedImage("not-selected-profile-image");
       return;
     }
     setSelectedImage(e.target.files[0]);
@@ -28,7 +30,7 @@ const ProfileImgUpload = ({ setInViewComponent,selectedImage,setSelectedImage })
 
   const { ref, inView, entry } = useInView({
     /* Optional options */
-    threshold: 0,
+    threshold: 1,
   });
 
   // create a preview as a side effect, whenever selected file is changed
@@ -86,7 +88,7 @@ const ProfileImgUpload = ({ setInViewComponent,selectedImage,setSelectedImage })
 
   return (
     <div className="profile-image-upload-container" ref={ref}>
-      {(currProfileImg || selectedImage) && (
+      {(currProfileImg || selectedImage) ? (
         <div className="profile-image-box">
           <div className="delete-button-container">
             <IconButton
@@ -106,7 +108,22 @@ const ProfileImgUpload = ({ setInViewComponent,selectedImage,setSelectedImage })
             height="100%"
           />
         </div>
-      )}
+
+      /* use else here to render the icon like foundprofile */
+
+      ) : 
+      <div className="profile-image-box">
+              <img
+            className="profile-img"
+            src={defaultImage}
+            alt="profile pic"
+            width="100%"
+            height="100%"
+          />
+         </div> 
+
+      //
+      }
 
       {/* <form onSubmit={onSubmit}> */}
         <div className="form-group">
@@ -121,9 +138,9 @@ const ProfileImgUpload = ({ setInViewComponent,selectedImage,setSelectedImage })
           />
           {/* </label>  */}
         </div>
-        <Button onClick={handleClick}>
-          {" "}
-          <CameraAltIcon /> choose image
+        <Button variant="outlined" className="profileimg-upload-button" onClick={handleClick}>
+       
+          <CameraAltIcon /> &nbsp; choose image
         </Button>
         {/* <Button className="btn btn-primary" type="submit">
           Save image

@@ -25,107 +25,83 @@
       }
     }
 
-    .profile-about-container {
-      margin-bottom: 240px;
+    .panel-heading {
+      color: #191d1f;
+      padding: 15px 30px;
+      font-weight: 700;
+      border: 1px solid #e3e3e3;
 
-      .panel-heading {
-        color: #191d1f;
-        padding: 15px 30px;
-        font-weight: 700;
-        border: 1px solid #e3e3e3;
+      // border-bottom: 1px solid transparent;
+      // border-top-left-radius: 1px;
+      // border-top-right-radius: 1px;
+    }
+    .panel-body {
+      padding: 20px 30px;
+      border: 1px solid #e3e3e3;
+      border-top: none;
+    }
+    .panel {
+      margin-bottom: 100px;
 
-        // border-bottom: 1px solid transparent;
-        // border-top-left-radius: 1px;
-        // border-top-right-radius: 1px;
-      }
-      .panel-body {
-        padding: 15px 30px;
-
-        border: 1px solid #e3e3e3;
-        border-top: none;
-
-
-        .profile-image-upload-container {
+      .profile-image-upload-container {
+        display: flex;
+        width: 100%;
+        margin-bottom: 40px;
+        // height: 99px;
+        .profile-image-box {
           display: flex;
-          width: 100%;
-          margin-bottom: 50px;
-          // height: 99px;
-          .profile-image-box {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            width: 150px;
-            height: 99px;
+          justify-content: center;
+          align-items: center;
+          position: relative;
+          width: 99px;
+          height: 99px;
 
-            .delete-button-container {
-              position: absolute;
-              text-align: center;
-              opacity: 0;
-              transition: opacity 0.45s ease;
-              height: 100%;
-              width: 100%;
+          .delete-button-container {
+            border-radius: 50%;
 
-              .delete-button {
-                top: 20%;
-                // position: absolute;
-                // top: 50%;
-                // left: 50%;
-                margin-top: auto;
-                // display:flex;
-                // justify-self: center;
-                // position: relative;
-                // margin-top: auto;
-              }
+            position: absolute;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.45s ease;
+            height: 100%;
+            width: 100%;
 
-              //   position: relative;
-              //   text-align: center;
-              //   justify-content:center;
-              //   display:flex;
-              //   opacity: 0;
-              //   opacity: 1;
-              //   transition: opacity 0.45s ease;
-              //   transition: opacity 0.45s ease;
-              //   height: 100%;
-              //   width: 100%;
-              //   margin-left: auto;
-              //   margin-right: auto;
-              //   left: 0;
-              //   right: 0;
-              //   text-align: center;
-            }
-
-            .profile-img {
-              object-fit: cover;
-            }
-            // .delete-button-container:hover {
-            //     display: flex;
-            //     text-align: center;
-            //     justify-content: center;
-
-            //   background: rgba(250, 244, 244, 0.8);
-            // }
-          }
-
-          .profile-image-box:hover {
-            // .profile-img {
-            //  visibility:hidden;
-            // }
-            .delete-button-container {
-              //   display: flex;
-              //   text-align: center;
-              //   justify-content: center;
-              opacity: 1;
-              //   transition: opacity 1.45s ease;
-              //   background: rgba(250, 244, 244, 0.8);
-              background: rgba(250, 244, 244, 0.8);
+            .delete-button {
+              top: 20%;
+              margin-top: auto;
             }
           }
+
+          .profile-img {
+            object-fit: cover;
+            border-radius: 50%;
+          }
+          // .delete-button-container:hover {
+          //     display: flex;
+          //     text-align: center;
+          //     justify-content: center;
+
+          //   background: rgba(250, 244, 244, 0.8);
+          // }
         }
 
-        .about-title{
-          padding: 15px 0;
+        .profile-image-box:hover {
+          .delete-button-container {
+            opacity: 1;
+            background: rgba(250, 244, 244, 0.8);
+          }
         }
+        .profileimg-upload-button {
+          color: $orangeButton;
+          border-color: $orangeButton !important;
+          height: 50px;
+          align-self: center;
+          margin-left: 15px;
+        }
+      }
+
+      .about-title {
+        padding: 15px 0;
       }
     }
   }
@@ -152,3 +128,7 @@
     width: 1170px;
   }
 }
+
+//      color: #fff;
+// background-color: #f7a800;
+// border-color: #f7a800;

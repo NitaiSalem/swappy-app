@@ -5,7 +5,7 @@ import AmnetiesUpload from "./AmnetiesUpload";
 import HouseRulesUpload from "./HouseRulesUpload";
 import HomeImgUpload from "./HomeImgUpload";
 import ProfileImgUpload from "./ProfileImgUpload";
-import { Button, Grid, TextField } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 import { useEffect, useState } from "react";
 
 import {
@@ -16,10 +16,11 @@ import {
 } from "../../../../actions/profileDataActions";
 import Map from "../../../map/Map";
 import "./profile-edit.style.scss";
+import  ProfileTextField  from "./TextField";
 
 const ProfileEdit = () => {
   const dispatch = useDispatch();
-  const [selectedImage, setSelectedImage] = useState();
+  const [selectedImage, setSelectedImage] = useState("");
   const [homeImages, setHomeImages] = useState([]);
   const homeDetails = useSelector((state) => state.homeDetails);
   const [details, setDetails] = useState({
@@ -158,7 +159,7 @@ const ProfileEdit = () => {
           </Grid>
 
           <Grid item md={8} className="home-edit-grid-column">
-            <div className="profile-about-container">
+            <div className="panel">
               <div className="panel-heading">
                 <h3 id="profile-image-upload">Upload Profile Image</h3>
               </div>
@@ -169,15 +170,18 @@ const ProfileEdit = () => {
                   setInViewComponent={setInViewComponent}
                 />
                 <h3 className="about-title">What will your guests love about your home</h3>
-                <TextField
+
+                <ProfileTextField
                   style={{ width: "100%" }}
                   value={details.aboutHome}
                   onChange={(e) => setDetails({...details, aboutHome: e.target.value})}
                   label="My Home..."
                   multiline
-                  rows={4}
+                  rows={5}
+                   inputProps={{ maxLength: 300 }}
                 />
               </div>
+              
             </div>
             <HomeImgUpload
               homeImages={homeImages}

@@ -30,7 +30,7 @@ const DetailsUpload = ({
   //recieve state and increment?
   const { ref, inView, entry } = useInView({
     /* Optional options */
-    threshold: 0,
+    threshold: 1,
   });
   const handleIncrement = (state) => {
     if (state < 20) {

@@ -26,7 +26,7 @@ import { useInView } from 'react-intersection-observer';
 const AmnetiesUpload = ({amneties, setAmneties,setInViewComponent}) => {
   const { ref, inView, entry } = useInView({
     /* Optional options */
-    threshold: 0,
+    threshold: 1,
   });
 
   useEffect(() => {

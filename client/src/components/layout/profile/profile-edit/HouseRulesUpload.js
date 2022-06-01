@@ -5,7 +5,7 @@ import { useInView } from 'react-intersection-observer';
 const HouseRulesUpload = ({houseRules, setHouseRules,setInViewComponent}) => {
   
   const { ref, inView, entry } = useInView({
-    threshold: 0,
+    threshold: 1,
   });
 
   useEffect(() => {

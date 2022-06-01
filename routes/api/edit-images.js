@@ -92,6 +92,7 @@ router.delete("/api/notes/:id", function(req, res) {
   });
 */
 
+
 router.delete("/delete-home-image/:imgName", authenticateJWT, async (req, res) => {
   const {imgName} = req.params;
 

@@ -25,6 +25,7 @@ import Footer from "../footer/Footer";
 import HouseRules from "../search-results/found-profile/HouseRules";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
+import defaultImage from "../../../site images/user-icon.png";
 
 // import '../../layout/search-results/found-profile/profile.style.scss'
 
@@ -102,7 +103,11 @@ const Profile = () => {
           >
             <div className="profile-info-container">
               <div className="profile-pic-container">
-                <img className="profile-pic" src={profileImg} alt="profile" />
+                <img
+                  className="profile-pic"
+                  src={profileImg ? profileImg : defaultImage}
+                  alt="profile"
+                />
               </div>
               <div className="name-email-container">
                 <h2 className="home-title">{user.name}</h2>
@@ -129,12 +134,13 @@ const Profile = () => {
             </div>
             <div className="Update-profile-container">
               {/* <h5 className="">edit profile: </h5> */}
-            {/* {edit && <ProfileEdit toggleEdit={toggleEdit} />} */}
-            <Link to="edit" className="edit-profile-button">
-              <FontAwesomeIcon className="edit-profile-icon"  icon="edit" /> &nbsp; Update profile
-            </Link>
+              {/* {edit && <ProfileEdit toggleEdit={toggleEdit} />} */}
+              <Link to="edit" className="edit-profile-button">
+                <FontAwesomeIcon className="edit-profile-icon" icon="edit" />{" "}
+                &nbsp; Update profile
+              </Link>
             </div>
-        
+
             {/* <Button
             className={classes.button}
             variant="contained"
