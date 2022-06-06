@@ -1,42 +1,59 @@
-import {SmokingRooms, Pets, LocalFlorist, ChildCare} from "@mui/icons-material";
+import {
+  SmokingRooms,
+  Pets,
+  LocalFlorist,
+  ChildCare,
+} from "@mui/icons-material";
 import { memo, useEffect } from "react";
-import { useInView } from 'react-intersection-observer';
+import { useInView } from "react-intersection-observer";
 
-const HouseRulesUpload = ({houseRules, setHouseRules,setInViewComponent}) => {
-  
+const HouseRulesUpload = ({
+  houseRules,
+  setHouseRules,
+  setInViewComponent,
+}) => {
   const { ref, inView, entry } = useInView({
     threshold: 1,
   });
 
   useEffect(() => {
-    inView&& setInViewComponent("house-rules-upload"); 
-    
-    }, [inView]);
+    inView && setInViewComponent("house-rules-upload");
+  }, [inView]);
 
   return (
-    <div className="house-rules-upload-container" id="house-rules-upload" ref={ref}>
+    <div
+      className="house-rules-upload-container"
+      id="house-rules-upload"
+      ref={ref}
+    >
       <h2>Lifestyle</h2>
 
       <button
+        type="button"
         onClick={() =>
           setHouseRules(
             houseRules.smoking
-              ? {...houseRules, smoking: false}
-              : {...houseRules, smoking: true}
+              ? { ...houseRules, smoking: false }
+              : { ...houseRules, smoking: true }
           )
         }
-        style={{display: "flex", flexDirection: "column", alignItems: "center"}}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
       >
         <SmokingRooms />
         <span>Smokers welcome</span>
       </button>
 
       <button
+        type="button"
         onClick={() =>
           setHouseRules(
             houseRules.pets
-              ? {...houseRules, pets: false}
-              : {...houseRules, pets: true}
+              ? { ...houseRules, pets: false }
+              : { ...houseRules, pets: true }
           )
         }
       >
@@ -45,11 +62,12 @@ const HouseRulesUpload = ({houseRules, setHouseRules,setInViewComponent}) => {
       </button>
 
       <button
+        type="button"
         onClick={() =>
           setHouseRules(
             houseRules.plants
-              ? {...houseRules, plants: false}
-              : {...houseRules, plants: true}
+              ? { ...houseRules, plants: false }
+              : { ...houseRules, plants: true }
           )
         }
       >
@@ -58,11 +76,12 @@ const HouseRulesUpload = ({houseRules, setHouseRules,setInViewComponent}) => {
       </button>
 
       <button
+        type="button"
         onClick={() =>
           setHouseRules(
             houseRules.children
-              ? {...houseRules, children: false}
-              : {...houseRules, children: true}
+              ? { ...houseRules, children: false }
+              : { ...houseRules, children: true }
           )
         }
       >

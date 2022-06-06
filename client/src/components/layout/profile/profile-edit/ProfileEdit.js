@@ -16,13 +16,17 @@ import {
 } from "../../../../actions/profileDataActions";
 import Map from "../../../map/Map";
 import "./profile-edit.style.scss";
-import  ProfileTextField  from "./TextField";
+import ProfileTextField from "./TextField";
+import { useNavigate } from "react-router-dom";
 
 const ProfileEdit = () => {
+  const navigate = useNavigate();
+
   const dispatch = useDispatch();
   const [selectedImage, setSelectedImage] = useState("");
   const [homeImages, setHomeImages] = useState([]);
   const homeDetails = useSelector((state) => state.homeDetails);
+  //should probably define these to state from the useselector if possible?
   const [details, setDetails] = useState({
     homeType: "",
     sleeps: 1,
@@ -57,14 +61,24 @@ const ProfileEdit = () => {
   }, []);
 
   const onSubmit = (e) => {
+    console.log("entered onSubmit method")
     e.preventDefault(); //we’ll use e.preventDefault() to stop the page from reloading when the submit button is clicked
     const profileImg = new FormData();
     profileImg.append("profileImg", selectedImage);
     const homeImgData = new FormData();
-    for (const key of Object.keys(homeImages)) {
-      homeImgData.append("homeImages", homeImages[key]);
+
+    const objOfImages = { ...homeImages };
+    // for (const key of Object.keys(homeImages)) {
+    //   homeImgData.append("homeImages", homeImages[key]);
+    // }
+
+    for (const key of Object.keys(objOfImages)) {
+      console.log({ key });
+      homeImgData.append("homeImages", objOfImages[key]);
     }
 
+    console.log({ homeImages });
+    console.log({ homeImgData });
     const homeDetails = {
       //* use all these from object state
       homeType: details.homeType,
@@ -81,9 +95,11 @@ const ProfileEdit = () => {
     };
 
     selectedImage && dispatch(uploadProfileImage(profileImg));
-
+    console.log("length of homeimages state in profileedit", homeImages.length);
     homeImages.length > 0 && dispatch(uploadHomeImages(homeImgData));
+
     dispatch(uploadHomeDetails(homeDetails));
+    navigate("/Profile");
 
     //! redirect to profile on submit
   };
@@ -169,19 +185,22 @@ const ProfileEdit = () => {
                   setSelectedImage={setSelectedImage}
                   setInViewComponent={setInViewComponent}
                 />
-                <h3 className="about-title">What will your guests love about your home</h3>
+                <h3 className="about-title">
+                  What will your guests love about your home
+                </h3>
 
                 <ProfileTextField
                   style={{ width: "100%" }}
                   value={details.aboutHome}
-                  onChange={(e) => setDetails({...details, aboutHome: e.target.value})}
+                  onChange={(e) =>
+                    setDetails({ ...details, aboutHome: e.target.value })
+                  }
                   label="My Home..."
                   multiline
                   rows={5}
-                   inputProps={{ maxLength: 300 }}
+                  inputProps={{ maxLength: 300 }}
                 />
               </div>
-              
             </div>
             <HomeImgUpload
               homeImages={homeImages}
@@ -201,8 +220,8 @@ const ProfileEdit = () => {
             />
             <DetailsUpload
               setInViewComponent={setInViewComponent}
-              details= {details}
-              setDetails= {setDetails}
+              details={details}
+              setDetails={setDetails}
             />
             <AmnetiesUpload
               amneties={amneties}

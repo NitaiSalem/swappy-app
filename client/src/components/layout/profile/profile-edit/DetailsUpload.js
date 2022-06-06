@@ -11,22 +11,7 @@ import { Bed, SingleBed } from "@mui/icons-material";
 import { memo, useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 
-const DetailsUpload = ({
-  // setHomeType,
-  // sleeps,
-  // setSleeps,
-  // bedRooms,
-  // setBedRooms,
-  // singleBeds,
-  // setSingleBeds,
-  // doubleBeds,
-  // setDoubleBeds,
-  // bathRooms,
-  // setBathRooms,
-  details,
-  setDetails,
-  setInViewComponent,
-}) => {
+const DetailsUpload = ({ details, setDetails, setInViewComponent }) => {
   //recieve state and increment?
   const { ref, inView, entry } = useInView({
     /* Optional options */
@@ -52,12 +37,12 @@ const DetailsUpload = ({
     <div id="details-upload" className="details-upload-container" ref={ref}>
       {/*add 2 icons here */}
       <h2>upload home details</h2>
-      <button
+      <button type="button"
         onClick={() => setDetails({ ...details, homeType: "Appartment" })}
       >
         <FontAwesomeIcon icon="building" />
       </button>
-      <button onClick={() => setDetails({ ...details, homeType: "House" })}>
+      <button type="button" onClick={() => setDetails({ ...details, homeType: "House" })}>
         <FontAwesomeIcon icon="home" />
       </button>
       <div className="sleeps-container">
@@ -65,6 +50,7 @@ const DetailsUpload = ({
         <FontAwesomeIcon icon="user-friends" />
 
         <button
+        type="button"
           value="-"
           onClick={() =>
             setDetails({ ...details, sleeps: handleDecrement(details.sleeps) })
@@ -74,6 +60,7 @@ const DetailsUpload = ({
         </button>
         <p>{details.sleeps}</p>
         <button
+        type="button"
           onClick={() =>
             setDetails({ ...details, sleeps: handleIncrement(details.sleeps) })
           }
@@ -84,6 +71,7 @@ const DetailsUpload = ({
 
         <FontAwesomeIcon icon="door-open" />
         <button
+        type="button"
           onClick={() =>
             setDetails({
               ...details,
@@ -95,6 +83,7 @@ const DetailsUpload = ({
         </button>
         <p>{details.bedRooms}</p>
         <button
+        type="button"
           onClick={() =>
             setDetails({
               ...details,
@@ -108,6 +97,7 @@ const DetailsUpload = ({
         {/* <FontAwesomeIcon icon="bed" /> */}
         <SingleBed />
         <button
+        type="button"
           onClick={() =>
             setDetails({
               ...details,
@@ -119,6 +109,7 @@ const DetailsUpload = ({
         </button>
         <p>{details.singleBeds}</p>
         <button
+        type="button"
           onClick={() =>
             setDetails({
               ...details,
@@ -133,6 +124,7 @@ const DetailsUpload = ({
         {/* <FontAwesomeIcon icon="bed" /> */}
         <Bed />
         <button
+        type="button"
           onClick={() =>
             setDetails({
               ...details,
@@ -144,6 +136,7 @@ const DetailsUpload = ({
         </button>
         <p>{details.doubleBeds}</p>
         <button
+        type="button"
           onClick={() =>
             setDetails({
               ...details,
@@ -156,17 +149,27 @@ const DetailsUpload = ({
 
         <h3>How many bathrooms are in your home? </h3>
         <FontAwesomeIcon icon="bath" />
-        <button onClick={() =>      setDetails({
+        <button
+        type="button"
+          onClick={() =>
+            setDetails({
               ...details,
               bathRooms: handleDecrement(details.bathRooms),
-            })}>
+            })
+          }
+        >
           -
         </button>
         <p>{details.bathRooms}</p>
-        <button onClick={() => setDetails({
+        <button
+        type="button"
+          onClick={() =>
+            setDetails({
               ...details,
               bathRooms: handleIncrement(details.bathRooms),
-            })}>
+            })
+          }
+        >
           +
         </button>
       </div>

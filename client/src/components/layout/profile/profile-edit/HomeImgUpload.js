@@ -9,74 +9,103 @@ import CameraAltIcon from "@mui/icons-material/CameraAlt";
 const HomeImgUpload = ({ setInViewComponent, homeImages, setHomeImages }) => {
   const hiddenFileInput = useRef(null);
   const currHomeImg = useSelector((state) => state.homeImages);
+  console.log({ currHomeImg });
+  console.log({ hiddenFileInput });
+
   const currHomeImgUrls = currHomeImg.map((img) => img.url);
-console.log({currHomeImgUrls})
-  const [previewImages, setPreviewImages] = useState(currHomeImgUrls);
+  console.log({ currHomeImgUrls });
+  const [previewImages, setPreviewImages] = useState(currHomeImg);
 
   const dispatch = useDispatch();
   const { ref, inView, entry } = useInView({
     /* Optional options */
     threshold: 1,
   });
+  console.log({ previewImages });
+
   const onFileChange = (e) => {
     console.log("e target files here ", e.target.files);
     if (!e.target.files || e.target.files.length === 0) {
       return;
     }
-    //* next step: limit number of uploaded pics
-  console.log(  " e target files 0 here " ,e.target.files[0]); 
-  let chosenFiles = [...e.target.files];
-    setHomeImages( [...homeImages, ...chosenFiles]); 
+    console.log(" e target files 0 here ", e.target.files[0]);
+    let chosenFiles = [...e.target.files];
+    console.log("choose files length ", chosenFiles.length);
+    console.log("current urls array length", currHomeImgUrls.length);
+    console.log("homeimages state length", homeImages.length);
+    console.log(
+      "the sum of images added with homeimages",
+      homeImages.length + currHomeImgUrls.length + chosenFiles.length
+    );
+    let sumOfImages =
+      homeImages.length + currHomeImgUrls.length + chosenFiles.length;
+    sumOfImages <= 5 && setHomeImages([...homeImages, ...chosenFiles]);
   };
 
   // create a preview as a side effect, whenever selected file is changed
   useEffect(() => {
-    console.log({homeImages})
     if (homeImages.length === 0) {
-      // setPreviewImages([]);
+      setPreviewImages(currHomeImg);
       return;
     }
-    // let previewImagesArr = [...homeImages];
-    //*maybe iterate after making an array to get the inside values of the actual file? index 0 points to FileList that should be opened? 
 
-// console.log({previewImagesArr})
-    // for (const key of Object.keys(homeImages)) {
-    //   imagesArr.push(URL.createObjectURL(homeImages[key]));
-    // }
+    // *with every change to our homeimages state we add the
 
-    // setPreviewImages(previewImages.push(homeImages[key]));
+    const objectUrls = homeImages.map((img) => {
+      //create array of objects with name and url like our db
+      console.log("img inside objectUrls map ", img);
+      return { url: URL.createObjectURL(img), name: img.name };
+      // return URL.createObjectURL(img);
+    });
 
-
-
-// *with every change to our homeimages state we add the 
-
-  const objectUrls = homeImages.map((img) => {
-    return URL.createObjectURL(img);
-  });
-
-  //!make sure no repeats! 
-  //currHomeImgUrls use this original value with the updated images state 
-console.log({objectUrls}); 
-    setPreviewImages([...currHomeImgUrls, ...objectUrls]);
+    //!make sure no repeats!
+    //currHomeImgUrls use this original value with the updated images state
+    console.log({ objectUrls });
+    console.log({ currHomeImgUrls });
+    setPreviewImages([...currHomeImg, ...objectUrls]);
 
     //  free memory when ever this component is unmounted
     return () => URL.revokeObjectURL(objectUrls);
-  }, [homeImages]);
+  }, [homeImages, currHomeImg]);
 
   useEffect(() => {
     inView && setInViewComponent("home-images-upload");
   }, [inView]);
 
   const deleteHomeImg = (imageName) => {
-    axios
-      .delete(
-        `http://localhost:5000/api/user-edit-images/delete-home-image/${imageName}`
-      )
-      .then((res) => {
-        console.log(res);
-        dispatch(getHomeImages());
-      });
+    //*here check first if the image is in db already
+    //?need to remove from homeimages state?
+    //deleting by name from db works, just make sure to update the displayed images
+
+    //? make sure to delete in db only if name of image is in the redux currhomeimg array??
+
+    if (currHomeImg.find(({ name }) => imageName === name)) {
+      console.log("entered delete condition from db"); 
+      axios
+        .delete(
+          `http://localhost:5000/api/user-edit-images/delete-home-image/${imageName}`
+        )
+        .then((res) => {
+          console.log(res);
+          dispatch(getHomeImages());
+        })
+        .catch((error) => {
+          console.log(
+            "this is catch error in delete",
+            error.response.data.error
+          );
+        });
+      // .finally(() => {
+      //    setPreviewImages(currHomeImg);
+      //   setHomeImages(homeImages.filter((img) => img.name !== imageName));
+      // });
+    } else {
+      console.log("entered else delete condition for local image"); 
+      setPreviewImages(currHomeImg);
+      setHomeImages(homeImages.filter((img) => img.name !== imageName));
+    }
   };
+
   const handleClick = (event) => {
     hiddenFileInput.current.click();
   };
@@ -99,30 +128,6 @@ console.log({objectUrls});
         >
           <CameraAltIcon /> &nbsp; add photos
         </Button>
-        {/* {
-  currHomeImg.length > 0 && 
-  currHomeImg.map((img, i) => {
-    return (
-      <div className="image-container" key={i}>
-        <img
-          key={i}
-          id={i}
-          src={img.url}
-          alt="home-pic"
-          width="100px"
-          height="100px"
-        />
-        <button
-          onClick={() => deleteHomeImg(img.name)}
-          type="button"
-          className="btn btn-danger btn-sm"
-        >
-          delete
-        </button>
-      </div>
-    );
-  })} */}
-
         {previewImages.length > 0 &&
           previewImages.map((img, i) => {
             return (
@@ -130,7 +135,8 @@ console.log({objectUrls});
                 <img
                   key={i}
                   id={i}
-                  src={img}
+                  //should be img.src from object
+                  src={img.url}
                   alt="home-pic"
                   width="100px"
                   height="100px"
@@ -156,20 +162,10 @@ console.log({objectUrls});
             style={{ display: "none" }}
           />
         </div>
-        <div>
-          {/* <button className="btn btn-primary">
-            Upload
-          </button> */}
-        </div>
+        <div></div>
       </div>
     </div>
   );
 };
-
-// const mapStateToProps = (state) => ({
-//   auth: state.auth,
-//   homeImages: state.homeImages,
-//   //this passes the auth state from the root reducer as props to component
-// });
 
 export default memo(HomeImgUpload);

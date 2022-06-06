@@ -102,7 +102,8 @@ router.delete("/delete-home-image/:imgName", authenticateJWT, async (req, res) =
     const result = await User.findOneAndUpdate(
       {_id: req.user.id},
       //{$unset:{"TechnicalSubject.req.params.idx":1}},
-      {$pull: {homeImages: {name: imgName}}},
+      // {homeImages: []},
+       {$pull: {homeImages: {name: imgName}}},
 
       {
         new: true,
@@ -110,10 +111,13 @@ router.delete("/delete-home-image/:imgName", authenticateJWT, async (req, res) =
     );
     res.status(201).json({
       message: "home-img deleted successfully!",
+      
       userUpdated: {
         _id: result._id,
         homeImages: result.homeImages,
       },
+
+
     });
     console.log(result, "this is result");
   } catch (err) {

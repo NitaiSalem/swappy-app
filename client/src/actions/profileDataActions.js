@@ -28,6 +28,7 @@ export const setHomeDetails = (details) => {
 //make get request method here and handle in server, must use when profile is rendered otherwise data wont show.
 
 export const uploadHomeDetails = (userData) => async (dispatch) => {
+  console.log("entered upload home details ")
   try {
     await axios.post("/api/user-edit-details/home-details", userData);
     // console.log(response.data, "this is response data");
