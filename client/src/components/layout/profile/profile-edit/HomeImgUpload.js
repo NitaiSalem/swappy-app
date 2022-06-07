@@ -3,8 +3,10 @@ import { memo, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getHomeImages } from "../../../../actions/profileDataActions";
 import { useInView } from "react-intersection-observer";
-import { Button } from "@mui/material";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
+import { Button, IconButton } from "@mui/material";
+import DeleteIcon from "@material-ui/icons/Delete";
+import PhotoLibraryIcon from "@mui/icons-material/PhotoLibrary";
 
 const HomeImgUpload = ({ setInViewComponent, homeImages, setHomeImages }) => {
   const hiddenFileInput = useRef(null);
@@ -15,6 +17,7 @@ const HomeImgUpload = ({ setInViewComponent, homeImages, setHomeImages }) => {
   const currHomeImgUrls = currHomeImg.map((img) => img.url);
   console.log({ currHomeImgUrls });
   const [previewImages, setPreviewImages] = useState(currHomeImg);
+  const addImagesArray = [...Array(5 - previewImages.length)];
 
   const dispatch = useDispatch();
   const { ref, inView, entry } = useInView({
@@ -80,7 +83,7 @@ const HomeImgUpload = ({ setInViewComponent, homeImages, setHomeImages }) => {
     //? make sure to delete in db only if name of image is in the redux currhomeimg array??
 
     if (currHomeImg.find(({ name }) => imageName === name)) {
-      console.log("entered delete condition from db"); 
+      console.log("entered delete condition from db");
       axios
         .delete(
           `http://localhost:5000/api/user-edit-images/delete-home-image/${imageName}`
@@ -95,12 +98,8 @@ const HomeImgUpload = ({ setInViewComponent, homeImages, setHomeImages }) => {
             error.response.data.error
           );
         });
-      // .finally(() => {
-      //    setPreviewImages(currHomeImg);
-      //   setHomeImages(homeImages.filter((img) => img.name !== imageName));
-      // });
     } else {
-      console.log("entered else delete condition for local image"); 
+      console.log("entered else delete condition for local image");
       setPreviewImages(currHomeImg);
       setHomeImages(homeImages.filter((img) => img.name !== imageName));
     }
@@ -112,7 +111,7 @@ const HomeImgUpload = ({ setInViewComponent, homeImages, setHomeImages }) => {
 
   return (
     <div
-      className="home-images-upload-container"
+      className="panel"
       id="home-images-upload"
       ref={ref}
     >
@@ -121,37 +120,58 @@ const HomeImgUpload = ({ setInViewComponent, homeImages, setHomeImages }) => {
       </div>
       <div className="panel-body">
         <h3> Upload Home Image/s</h3>
-        <Button
-          variant="outlined"
-          className="profileimg-upload-button"
-          onClick={handleClick}
-        >
-          <CameraAltIcon /> &nbsp; add photos
-        </Button>
-        {previewImages.length > 0 &&
-          previewImages.map((img, i) => {
-            return (
-              <div className="image-container" key={i}>
-                <img
-                  key={i}
-                  id={i}
-                  //should be img.src from object
-                  src={img.url}
-                  alt="home-pic"
-                  width="100px"
-                  height="100px"
-                />
-                <button
-                  onClick={() => deleteHomeImg(img.name)}
-                  type="button"
-                  className="btn btn-danger btn-sm"
-                >
-                  delete
-                </button>
-              </div>
-            );
-          })}
+        <div className="label-container">
+          <Button
+            variant="contained"
+            className="home-img-upload-button"
+            onClick={handleClick}
+          >
+            <CameraAltIcon /> &nbsp; add photos
+          </Button>
+        </div>
+        <div className="home-images-box">
+          {previewImages.length > 0 &&
+            previewImages.map((img, i) => {
+              return (
+                <div className="home-image-box">
+                  <div className="delete-button-container">
+                    <IconButton
+                      className="delete-button"
+                      aria-label="delete"
+                      size="large"
+                      onClick={() => deleteHomeImg(img.name)}
+                    >
+                      <DeleteIcon
+                        fontSize="large"
+                        style={{ fill: "#e85710" }}
+                      />
+                    </IconButton>
+                  </div>
+                  <img
+                    key={i}
+                    id={i}
+                    className="home-img"
+                    src={img.url}
+                    // src={selectedImage ? previewImage : currProfileImg}  create alternative like in homeexchange
+                    alt="home pic"
+                    width="100%"
+                    height="100%"
+                  />
+                </div>
+              );
+            })}
 
+          {addImagesArray.length > 0 &&
+            addImagesArray.map(() => {
+              return (
+                <div className="add-image-box"   onClick={handleClick}>
+                  <PhotoLibraryIcon fontSize="inherit" />
+
+                  <p className="add-image"> + Add image</p>
+                </div>
+              );
+            })}
+        </div>
         <div>
           <input
             type="file"

@@ -39,10 +39,85 @@
       padding: 20px 30px;
       border: 1px solid #e3e3e3;
       border-top: none;
+
+      .home-img-upload-button {
+        background-color: $orangeButton;
+      }
+      .home-images-box {
+        display: flex;
+        justify-content: space-between;
+       padding:20px 10px;
+        .home-img {
+          border-radius: 6px;
+          object-fit: cover;
+        }
+      }
+
+      .home-image-box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+
+        border-radius: 6px;
+        width: 107px;
+        height: 80px;
+
+        .delete-button-container {
+          border-radius: 6px;
+
+          position: absolute;
+          text-align: center;
+          opacity: 0;
+          transition: opacity 0.45s ease;
+          height: 100%;
+          width: 100%;
+
+          .delete-button {
+            top: 20%;
+            margin-top: auto;
+          }
+        }
+      }
+
+      .add-image-box {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border: 2px dashed #b3b3b3;
+        padding: 10px;
+        border-radius: 6px;
+        font-size: 44px;
+        width: 107px;
+        height: 80px;
+        color: $add-image-faded;
+        .add-image {
+          font-size: 12px;
+        }
+      }
+      .add-image-box:hover {
+        color: $add-image-hover;
+        cursor: pointer;
+      }
+
+      .home-image-box:hover {
+        .delete-button-container {
+          opacity: 1;
+          background: rgba(250, 244, 244, 0.8);
+        }
+      }
+
+      .label-container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin: 15px 0 15px 0;
+      }
     }
     .panel {
       margin-bottom: 100px;
-
+      box-shadow: 0 1px 1px rgb(0 0 0 / 10%);
       .profile-image-upload-container {
         display: flex;
         width: 100%;
