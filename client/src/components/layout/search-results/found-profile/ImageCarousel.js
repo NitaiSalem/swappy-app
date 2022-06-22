@@ -1,7 +1,7 @@
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { useEffect, useState, useRef, useMemo } from "react";
-import CloseIcon from '@mui/icons-material/Close';
+import CloseIcon from "@mui/icons-material/Close";
 
 const ImageCarousel = ({
   homeImages,
@@ -11,16 +11,25 @@ const ImageCarousel = ({
 }) => {
   const [shouldRender, setRender] = useState(isCarouselOpen);
   // const outsideClickRef = useRef();
-  const carouselButtonsArr = [ "carousel-image-container","control-arrow control-next", "control-arrow control-prev", "dot", "dot selected", "thumb selected", "thumb"]
+  const carouselButtonsArr = [
+    "carousel-image-container",
+    "control-arrow control-next",
+    "control-arrow control-prev",
+    "dot",
+    "dot selected",
+    "thumb selected",
+    "thumb",
+  ];
 
   useEffect(() => {
     console.log("iscarousel open in useffect", isCarouselOpen);
-    if (isCarouselOpen) {setRender(true)
-    
-    document.getElementById("navigation-bar").style.display= "none"; 
-    }
-    else {document.getElementById("navigation-bar").style.display= "flex"}; 
+    if (isCarouselOpen) {
+      setRender(true);
 
+      document.getElementById("navigation-bar").style.display = "none";
+    } else {
+      document.getElementById("navigation-bar").style.display = "flex";
+    }
   }, [isCarouselOpen]);
 
   //   useEffect(() => {
@@ -36,29 +45,20 @@ const ImageCarousel = ({
     // setCarouselClass("carousel-wrapper-outside-close");
   };
 
-  function useOnClickOutside( carouselButtonsClasses, handler) {
+  function useOnClickOutside(carouselButtonsClasses, handler) {
     useEffect(
       () => {
         const listener = (event) => {
-          console.log("this is event target classname", event.target.className )
+          console.log("this is event target classname", event.target.className);
           // Do nothing if clicking ref's element or descendent elements
 
-if(carouselButtonsClasses.includes(event.target.className)){
-return; 
-}
+          if (carouselButtonsClasses.includes(event.target.className)) {
+            return;
+          }
 
           // if (!ref.current || ref.current.contains(event.target)) {
           //   return;
           // }
-
-
-          //carousel-image-container
-          //carousel carousel-slider
-          //carousel-wrapper-custom
-          //thumbs-wrapper axis-vertical
-          //control-dots
-          //carousel-root
-
           handler(event);
         };
         document.addEventListener("mousedown", listener);
@@ -92,18 +92,19 @@ return;
           }}
           onAnimationEnd={onAnimationEnd}
         >
-          {/* <button onClick={handleClose} className="close-carousel"> */}
-            <CloseIcon onClick={handleClose} className="close-carousel" style={{color: "#ffffff"}} fontSize= "large"/>
-      
-          <Carousel infiniteLoop={true} useKeyboardArrows={true} autoFocus >
+          <CloseIcon
+            onClick={handleClose}
+            className="close-carousel"
+            style={{ color: "#ffffff" }}
+            fontSize="large"
+          />
+          <Carousel infiniteLoop={true} useKeyboardArrows={true} autoFocus>
             {/* loop images here */}
 
             {homeImages &&
               homeImages.map((imageObj) => {
                 return (
-                  <div  
-                    className="carousel-image-container"
-                  >
+                  <div key={imageObj.name} className="carousel-image-container">
                     <img
                       className="carousel-image"
                       src={imageObj.url}

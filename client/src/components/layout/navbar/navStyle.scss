@@ -82,6 +82,16 @@
   color: rgb(0, 0, 0);
 }
 
+// .logo-container {
+//   margin-bottom: auto;
+//   height: 40px;
+//   width: 40px;
+// }
+// .logo-image {
+//   margin-right: 50px;
+//   // background: url(../../../site\ images/swappy-logo.png); /* Your icon */
+//   position: relative; /* Allows an absolute positioned psuedo element */
+// }
 .logo-container {
   margin-bottom: auto;
   height: 40px;
@@ -91,7 +101,26 @@
   height: 100%;
   width: 100%;
   margin-right: 50px;
+  animation: rotate 4s linear infinite;
 }
+// .icon {
+//   background: url(../../../site\ images/swappy-logo.png); /* Your icon */
+//   position: relative; /* Allows an absolute positioned psuedo element */
+// }
+
+// .logo-image ::after{
+//   position: absolute; /* Positions psuedo element relative to .icon */
+//   width: 100%; /* Same dimensions as .icon */
+//   height: 100%;
+//   content: ""; /* Allows psuedo element to show */
+//   background: #EC008C; /* The color you want the icon to change to */
+//   mix-blend-mode: multiply; /* Only apply color on top of white, use screen if icon is black */
+// }
+
+@keyframes rotate{
+  to{ transform: rotate(-360deg); }
+}
+
 
 .list {
   list-style: none;

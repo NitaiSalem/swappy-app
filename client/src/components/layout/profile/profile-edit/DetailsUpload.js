@@ -1,15 +1,11 @@
-// import {
-//   RadioGroup,
-//   FormControl,
-//   FormLabel,
-//   FormControlLabel,
-//   Radio,
-//   Button,
-// } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Bed, SingleBed } from "@mui/icons-material";
 import { memo, useEffect } from "react";
 import { useInView } from "react-intersection-observer";
+import MapsHomeWorkIcon from "@mui/icons-material/MapsHomeWork";
+import { Bed, SingleBed } from "@mui/icons-material";
+import GroupIcon from "@mui/icons-material/Group";
+import WcIcon from "@mui/icons-material/Wc";
+import MeetingRoomIcon from "@mui/icons-material/MeetingRoom";
 
 const DetailsUpload = ({ details, setDetails, setInViewComponent }) => {
   //recieve state and increment?
@@ -24,7 +20,7 @@ const DetailsUpload = ({ details, setDetails, setInViewComponent }) => {
   };
 
   const handleDecrement = (state) => {
-    if (state > 1) return state - 1;
+    if (state >= 1) return state - 1;
     else return state;
   };
 
@@ -34,144 +30,190 @@ const DetailsUpload = ({ details, setDetails, setInViewComponent }) => {
   }, [inView]);
 
   return (
-    <div id="details-upload" className="details-upload-container" ref={ref}>
+    <div id="details-upload" className="panel" ref={ref}>
       {/*add 2 icons here */}
-      <h2>upload home details</h2>
-      <button type="button"
-        onClick={() => setDetails({ ...details, homeType: "Appartment" })}
-      >
-        <FontAwesomeIcon icon="building" />
-      </button>
-      <button type="button" onClick={() => setDetails({ ...details, homeType: "House" })}>
-        <FontAwesomeIcon icon="home" />
-      </button>
-      <div className="sleeps-container">
-        <h3>How many People does your place fit? </h3>
-        <FontAwesomeIcon icon="user-friends" />
+      <div className="panel-heading-container">
+        <h3>Details</h3>
+      </div>
+      <div className="panel-body">
+        <h3 className="panel-body-title"> Home type</h3>
+        <div className="home-type-container">
+          <div className="input-option">
+            <input
+              name="home-type-appatrment"
+              id="home-type-appartment"
+              type="checkbox"
+              checked={details.homeType === "Appartment"}
+              onChange={() =>
+                setDetails({ ...details, homeType: "Appartment" })
+              }
+              className="hidden-input"
+            />
+            <label htmlFor ="home-type-appartment">
+              <FontAwesomeIcon icon="building" style={{ fontSize: "28px" }} />{" "}
+              Apartment
+            </label>
+          </div>
+          <div className="input-option">
+            <input
+              name="home-type-house"
+              id="home-type-house"
+              checked={details.homeType === "House"}
+              className="hidden-input"
+              type="checkbox"
+              onChange={() => setDetails({ ...details, homeType: "House" })}
+              // onClick={() => setDetails({ ...details, homeType: "House" })}
+            />
+            <label htmlFor ="home-type-house">
+              <FontAwesomeIcon icon="home" style={{ fontSize: "28px" }} /> House
+            </label>
+          </div>
+        </div>
+        <h3 className="panel-body-title">
+          <FontAwesomeIcon icon="user-friends" /> Sleeps: &nbsp;
+          <span>{details.sleeps}</span>
+        </h3>
+        <div className="sleeps-container">
+          <div className="beds-rooms-container">
+            <div className="input-number-container">
+              <SingleBed fontSize="inherit" />
+              <p className="input-text">Single beds </p>
+              <button
+                disabled={details.singleBeds === 0}
+                className="number-button"
+                type="button"
+                onClick={() =>
+                  setDetails({
+                    ...details,
+                    singleBeds: handleDecrement(details.singleBeds),
+                    sleeps:
+                      details.sleeps > 0 && details.singleBeds > 0
+                        ? details.sleeps - 1
+                        : details.sleeps,
+                  })
+                }
+              >
+                -
+              </button>
+              <p>{details.singleBeds}</p>
+              <button
+                disabled={details.singleBeds === 20}
+                className="number-button"
+                type="button"
+                onClick={() =>
+                  setDetails({
+                    ...details,
+                    singleBeds: handleIncrement(details.singleBeds),
+                    sleeps: details.sleeps + 1,
+                  })
+                }
+              >
+                +
+              </button>
+            </div>
+            <div className="input-number-container">
+              <Bed fontSize="inherit" />
+              <p className="input-text"> Double beds </p>
+              <button
+                disabled={details.doubleBeds === 0}
+                className="number-button"
+                type="button"
+                onClick={() =>
+                  setDetails({
+                    ...details,
+                    doubleBeds: handleDecrement(details.doubleBeds),
+                    sleeps:
+                      details.sleeps > 1 && details.doubleBeds >= 1
+                        ? details.sleeps - 2
+                        : details.sleeps,
+                  })
+                }
+              >
+                -
+              </button>
+              <p>{details.doubleBeds}</p>
+              <button
+                disabled={details.doubleBeds === 20}
+                className="number-button"
+                type="button"
+                onClick={() =>
+                  setDetails({
+                    ...details,
+                    doubleBeds: handleIncrement(details.doubleBeds),
+                    sleeps: details.sleeps + 2,
+                  })
+                }
+              >
+                +
+              </button>
+            </div>
+          </div>
 
-        <button
-        type="button"
-          value="-"
-          onClick={() =>
-            setDetails({ ...details, sleeps: handleDecrement(details.sleeps) })
-          }
-        >
-          -
-        </button>
-        <p>{details.sleeps}</p>
-        <button
-        type="button"
-          onClick={() =>
-            setDetails({ ...details, sleeps: handleIncrement(details.sleeps) })
-          }
-        >
-          +
-        </button>
-        <h3>How many bedrooms are there? </h3>
+          <div className="beds-rooms-container">
+            <div className="input-number-container">
+              <MeetingRoomIcon fontSize="inherit" />
+              <p className="input-text">Bedrooms</p>
 
-        <FontAwesomeIcon icon="door-open" />
-        <button
-        type="button"
-          onClick={() =>
-            setDetails({
-              ...details,
-              bedRooms: handleDecrement(details.bedRooms),
-            })
-          }
-        >
-          -
-        </button>
-        <p>{details.bedRooms}</p>
-        <button
-        type="button"
-          onClick={() =>
-            setDetails({
-              ...details,
-              bedRooms: handleIncrement(details.bedRooms),
-            })
-          }
-        >
-          +
-        </button>
-        <h3>How many Single beds are there? </h3>
-        {/* <FontAwesomeIcon icon="bed" /> */}
-        <SingleBed />
-        <button
-        type="button"
-          onClick={() =>
-            setDetails({
-              ...details,
-              singleBeds: handleDecrement(details.singleBeds),
-            })
-          }
-        >
-          -
-        </button>
-        <p>{details.singleBeds}</p>
-        <button
-        type="button"
-          onClick={() =>
-            setDetails({
-              ...details,
-              singleBeds: handleIncrement(details.singleBeds),
-            })
-          }
-        >
-          +
-        </button>
-
-        <h3>How many Double beds are there? </h3>
-        {/* <FontAwesomeIcon icon="bed" /> */}
-        <Bed />
-        <button
-        type="button"
-          onClick={() =>
-            setDetails({
-              ...details,
-              doubleBeds: handleDecrement(details.doubleBeds),
-            })
-          }
-        >
-          -
-        </button>
-        <p>{details.doubleBeds}</p>
-        <button
-        type="button"
-          onClick={() =>
-            setDetails({
-              ...details,
-              doubleBeds: handleIncrement(details.doubleBeds),
-            })
-          }
-        >
-          +
-        </button>
-
-        <h3>How many bathrooms are in your home? </h3>
-        <FontAwesomeIcon icon="bath" />
-        <button
-        type="button"
-          onClick={() =>
-            setDetails({
-              ...details,
-              bathRooms: handleDecrement(details.bathRooms),
-            })
-          }
-        >
-          -
-        </button>
-        <p>{details.bathRooms}</p>
-        <button
-        type="button"
-          onClick={() =>
-            setDetails({
-              ...details,
-              bathRooms: handleIncrement(details.bathRooms),
-            })
-          }
-        >
-          +
-        </button>
+              <button
+                disabled={details.bedRooms === 0}
+                className="number-button"
+                type="button"
+                onClick={() =>
+                  setDetails({
+                    ...details,
+                    bedRooms: handleDecrement(details.bedRooms),
+                  })
+                }
+              >
+                -
+              </button>
+              <p>{details.bedRooms}</p>
+              <button
+                className="number-button"
+                type="button"
+                onClick={() =>
+                  setDetails({
+                    ...details,
+                    bedRooms: handleIncrement(details.bedRooms),
+                  })
+                }
+              >
+                +
+              </button>
+            </div>
+            <div className="input-number-container">
+              <FontAwesomeIcon icon="bath" style={{ fontSize: "36px" }}  />
+              <p className="input-text"> Bathrooms </p>
+              <button
+                disabled={details.bathRooms === 0}
+                className="number-button"
+                type="button"
+                onClick={() =>
+                  setDetails({
+                    ...details,
+                    bathRooms: handleDecrement(details.bathRooms),
+                  })
+                }
+              >
+                -
+              </button>
+              <p>{details.bathRooms}</p>
+              <button
+                disabled={details.bathRooms === 20}
+                className="number-button"
+                type="button"
+                onClick={() =>
+                  setDetails({
+                    ...details,
+                    bathRooms: handleIncrement(details.bathRooms),
+                  })
+                }
+              >
+                +
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

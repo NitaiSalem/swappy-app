@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
-import defaultImage from "../../../site images/user-icon.png";
-import defaultHomeImage from "../../../site images/home-default.jpg";
+import defaultImage from "../../../assets/user-icon.png";
+import defaultHomeImage from "../../../assets/home-default.jpg";
 import { Button, Grid } from "@mui/material";
 import "./search-results.style.scss";
 import SearchResultsMap from "../../map/SearchResultsMap";
@@ -70,16 +70,12 @@ const SearchResults = () => {
     //must update sliced home
     console.log("event page here ", e);
     // const selectedPage = e.selected;
-    console.log("e selected ", e.selected);
-
+    // console.log("e selected ", e.selected);
     //?if modulo gives us the first number than modulo part unneccersary?
     // const newOffset = (e.selected * perPage) % filteredHomes.length;
     const newOffset = e.selected * perPage;
-
     // setOffset(selectedPage + 1); //? because of index difference add 1?
-
     setOffset(newOffset);
-
     executeScroll();
   };
 
@@ -117,7 +113,6 @@ const SearchResults = () => {
     );
   }, [offset, filteredHomes]);
 
-  console.log("window inner width value ", window.innerWidth);
   return (
     <div className="search-results-container">
       <div id="all-homes-container" className="all-homes-container">
@@ -154,7 +149,7 @@ const SearchResults = () => {
                 home.homeImages.length > 0
                   ? home.homeImages[0].url
                   : defaultHomeImage;
-
+              const opacity = home.homeImages.length > 0 ? "1" : "0.4";
               return (
                 <Grid item xs={12} sm={6} key={i}>
                   <div
@@ -169,6 +164,7 @@ const SearchResults = () => {
                         backgroundPosition: "center",
                         backgroundSize: "cover",
                         backgroundRepeat: "no-repeat",
+                        opacity: opacity,
                       }}
                     >
                       <img

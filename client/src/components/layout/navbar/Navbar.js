@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 // import NavDrawer from "./NavDrawer";
 import "./navStyle.scss";
-import logo from "../../../site images/swappy-logo.png";
+import logo from "../../../assets/swappy-logo.png";
 import { useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Button } from "@mui/material";
@@ -58,7 +58,9 @@ const NavigationBar = () => {
       {/*later change to link   */}
       <div className="logo-container">
         <Link to="/" onClick={() => setClassName("closed-menu")}>
+
           <img className="logo-image" src={logo} alt="logo" />
+
         </Link>
       </div>
 

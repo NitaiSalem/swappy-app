@@ -1,16 +1,21 @@
-import {useState, useEffect} from "react";
-import {Link} from "react-router-dom";
+import "./auth.style.scss";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import {connect, useSelector} from "react-redux";
-import {loginUser} from "../../actions/authActions";
+import { connect, useSelector } from "react-redux";
+import { loginUser } from "../../actions/authActions";
 import classnames from "classnames";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Login = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  // const errors = useSelector((state) => state.errors);
+
+  // const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -33,14 +38,14 @@ const Login = (props) => {
   };
 
   return (
-    <div className="container">
-      <div style={{marginTop: "4rem"}} className="row">
+    <div className="login-container">
+      <div style={{ marginTop: "4rem" }} className="row">
         <div className="col s8 offset-s2">
           <Link to="/" className="btn-flat waves-effect">
             <i className="material-icons left">keyboard_backspace</i> Back to
             home
           </Link>
-          <div className="col s12" style={{paddingLeft: "11.250px"}}>
+          <div className="col s12" style={{ paddingLeft: "11.250px" }}>
             <h4>
               <b>Login</b> below
             </h4>
@@ -83,7 +88,7 @@ const Login = (props) => {
                 {errors.passwordincorrect}
               </span>
             </div>
-            <div className="col s12" style={{paddingLeft: "11.250px"}}>
+            <div className="col s12" style={{ paddingLeft: "11.250px" }}>
               <button
                 style={{
                   width: "150px",
@@ -115,4 +120,4 @@ const mapStateToProps = (state) => ({
   errors: state.errors,
 });
 
-export default connect(mapStateToProps, {loginUser})(Login);
+export default connect(mapStateToProps, { loginUser })(Login);

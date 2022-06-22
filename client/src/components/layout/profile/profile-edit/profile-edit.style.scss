@@ -1,12 +1,20 @@
 @import "../../../../sassStyles/variables";
 
 .profile-edit-container {
-  padding-right: 15px;
-  padding-left: 15px;
+  padding-right: 20px;
+  padding-left: 20px;
   padding-top: 20px;
   margin-top: 56px;
   margin-right: auto;
   margin-left: auto;
+  // display:flex;
+  // justify-content: center;
+  .name-title {
+    color: $panel-heading;
+    font-size: 35px;
+    font-weight: 700;
+    // margin: 5px 0;
+  }
 
   .grid-container-edit {
     .nav-grid-column {
@@ -14,57 +22,169 @@
         position: fixed;
         display: flex;
         flex-direction: column;
-
+        font-size: 17px;
         .active-nav-link {
           color: $darkerOrange;
+          text-decoration: none;
+          font-weight: 800;
+          // transform: translateX(10px);
+          margin: 15px 0;
+          border-left: 4px solid $darkerOrange;
+          padding-left: 5px;
+          transition: all 0.3s ease;
         }
 
         .nav-link-regular {
-          color: $font-color;
+          margin: 15px 0;
+          font-weight: 600;
+          color: $panel-heading;
+          text-decoration: none;
+          transition: all 0.3s ease;
+        }
+        .nav-link-regular:hover {
+          color: $faded-font-color;
         }
       }
     }
+    .panel {
+      // margin-bottom: 50px;
+      padding-top: 66px;
+    
 
-    .panel-heading {
-      color: $panel-heading;
-      padding: 15px 30px;
-      font-weight: 700;
-      border: 1px solid #e3e3e3;
-
-      // border-bottom: 1px solid transparent;
-      // border-top-left-radius: 1px;
-      // border-top-right-radius: 1px;
-    }
-    .panel-body {
-      padding: 20px 30px;
-      border: 1px solid #e3e3e3;
-      border-top: none;
-
-      .home-img-upload-button {
-        background-color: $orangeButton;
+      .panel-heading-container {
+        color: $panel-heading;
+        padding: 15px 30px;
+        font-size: 21px;
+        font-weight: 700;
+        border: 1px solid #e3e3e3;
+        background-color: $light-gray-background;
+        // border-bottom: 1px solid transparent;
+        // border-top-left-radius: 1px;
+        // border-top-right-radius: 1px;
       }
-      .home-images-box {
-        display: flex;
-        justify-content: space-between;
-       padding:20px 10px;
-        .home-img {
+      .panel-body {
+        box-shadow: 0px 1px rgb(0 0 0 / 10%);
+        padding: 20px 30px;
+        border: 1px solid #e3e3e3;
+        border-top: none;
+        // background-color: $light-gray-background;
+        .panel-body-title {
+          color: $panel-heading;
+          display: block;
+          font-size: 24px;
+          font-weight: 700;
+          padding:10px;
+        
+        }
+        .home-img-upload-button {
+          background-color: $orangeButton;
+        }
+        .home-images-box {
+          display: flex;
+          justify-content: space-between;
+          padding: 20px 10px;
+          .home-img {
+            border-radius: 6px;
+            object-fit: cover;
+          }
+        }
+
+        .home-image-box {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          position: relative;
+          margin: 5px;
           border-radius: 6px;
-          object-fit: cover;
+          width: 107px;
+          height: 80px;
+
+          .delete-button-container {
+            border-radius: 6px;
+            position: absolute;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.45s ease;
+            height: 100%;
+            width: 100%;
+
+            .delete-button {
+              top: 20%;
+              margin-top: auto;
+            }
+          }
+        }
+
+        .add-image-box {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          border: 2px dashed #b3b3b3;
+          margin: 5px;
+          padding: 10px;
+          border-radius: 6px;
+          font-size: 44px;
+          width: 107px;
+          height: 80px;
+          color: $add-image-faded;
+          .add-image {
+            font-size: 12px;
+          }
+        }
+        .add-image-box:hover {
+          color: $add-image-hover;
+          cursor: pointer;
+        }
+
+        .home-image-box:hover {
+          .delete-button-container {
+            opacity: 1;
+            background: rgba(250, 244, 244, 0.8);
+          }
+        }
+
+        .label-container {
+          width: 100%;
+          display: flex;
+          justify-content: center;
+          margin: 15px 0 15px 0;
+        }
+
+        .location-explanation-text {
+          color: $faded-font-color;
+          padding: 10px;
+        }
+
+        .location-autocomplete {
+          border: 1px solid #e3e3e3;
+          border-radius: 2px;
+        }
+        .location-autocomplete:focus-within {
+          outline: none;
+          box-shadow: 0 0 3px #3b99fc;
+          // border-color: rgb(255, 136, 0) !important;
         }
       }
 
-      .home-image-box {
+      .profile-image-upload-container {
+        display: flex;
+        width: 100%;
+        margin-bottom: 40px;
+        padding-top: 20px;
+         padding-left:15px;
+      }
+      // height: 99px;
+      .profile-image-box {
         display: flex;
         justify-content: center;
         align-items: center;
         position: relative;
-
-        border-radius: 6px;
-        width: 107px;
-        height: 80px;
+        width: 99px;
+        height: 99px;
 
         .delete-button-container {
-          border-radius: 6px;
+          border-radius: 50%;
 
           position: absolute;
           text-align: center;
@@ -78,129 +198,295 @@
             margin-top: auto;
           }
         }
-      }
 
-      .add-image-box {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        border: 2px dashed #b3b3b3;
-        padding: 10px;
-        border-radius: 6px;
-        font-size: 44px;
-        width: 107px;
-        height: 80px;
-        color: $add-image-faded;
-        .add-image {
-          font-size: 12px;
+        .profile-img {
+          object-fit: cover;
+          border-radius: 50%;
         }
-      }
-      .add-image-box:hover {
-        color: $add-image-hover;
-        cursor: pointer;
+        // .delete-button-container:hover {
+        //     display: flex;
+        //     text-align: center;
+        //     justify-content: center;
+
+        //   background: rgba(250, 244, 244, 0.8);
+        // }
       }
 
-      .home-image-box:hover {
+      .profile-image-box:hover {
         .delete-button-container {
           opacity: 1;
           background: rgba(250, 244, 244, 0.8);
         }
       }
+      .profileimg-upload-button {
+        color: $orangeButton;
+        border-color: $orangeButton !important;
+        height: 50px;
+        align-self: center;
+        margin-left: 15px;
+      }
 
-      .label-container {
-        width: 100%;
+      .home-type-container {
         display: flex;
         justify-content: center;
-        margin: 15px 0 15px 0;
-      }
-    }
-    .panel {
-      margin-bottom: 100px;
-      box-shadow: 0 1px 1px rgb(0 0 0 / 10%);
-      .profile-image-upload-container {
-        display: flex;
         width: 100%;
-        margin-bottom: 40px;
-        // height: 99px;
-        .profile-image-box {
-          display: flex;
-          justify-content: center;
-          align-items: center;
+        height: 90px;
+      }
+      .input-option {
+        transition: all 0.2s ease-in-out;
+        width: 240px;
+        height: 60px;
+        margin: 15px 15px 15px 15px;
+        z-index: 11;
+        // transition: all 0.2s ease;
+        .hidden-input {
+          position: absolute;
+          visibility: hidden;
+          opacity: 0;
+        }
+
+        label {
           position: relative;
-          width: 99px;
-          height: 99px;
+          cursor: pointer;
+          height: 100%;
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          padding: 5px;
+          background: #fff;
+          border: 1px solid #ccc;
+          font-size: 14px;
+          font-weight: 400;
+          border-radius: 4px;
+        }
+        // lets add this to try setting the animation on befor pseudo element
 
-          .delete-button-container {
-            border-radius: 50%;
+        label:before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          z-index: -1;
+          margin: 0;
+          width: 100%;
+          height: 100%;
+          opacity: 0;
+          pointer-events: none;
+          border: 1px solid $darkerOrange;
+          border-radius: 4px;
+        }
 
-            position: absolute;
-            text-align: center;
+        input:checked + label {
+          border-color: $darkerOrange;
+          color: $darkerOrange;
+        }
+
+        // animation: input-option-click .4s ease-in-out;
+
+        // animation-duration: 0.4s;
+        // animation-timing-function: ease-in-out;
+        // animation-delay: 0s;
+        // animation-iteration-count: 1;
+        // animation-direction: normal;
+        // animation-fill-mode: none;
+        // animation-play-state: running;
+        // animation-name: input-option-click;
+
+        @keyframes input-option-click {
+          // 0%   { transform: scale(1);opacity: 0;}
+          // 25%  {background-color:yellow; left:200px; top:0px;}
+          50% {
+            transform: scale(1.1);
+            opacity: 0.5;
+          }
+          // 75%  {background-color:green; left:0px; top:200px;}
+          100% {
+            transform: scale(1.2);
             opacity: 0;
-            transition: opacity 0.45s ease;
-            height: 100%;
-            width: 100%;
+          }
+        }
 
-            .delete-button {
-              top: 20%;
-              margin-top: auto;
+        input:checked + label:before {
+          animation: input-option-click 0.4s ease-out;
+          // animation-delay: 0s;
+          // animation-iteration-count: 1;
+          // animation-direction: normal;
+          // animation-fill-mode: none;
+          // animation-play-state: running;
+        }
+      }
+
+      .input-option:hover {
+        transform: translateY(-4px);
+        transition: transform 0.2s ease-in-out;
+      }
+
+      .input-option:hover label {
+        border-color: $panel-heading;
+        box-shadow: 0 2px 4px #f1f1f1;
+        transition: all 0.2s ease;
+      }
+
+      .sleeps-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-column-gap: 40px;
+        padding: 20px;
+
+        .beds-rooms-container {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+
+          .input-number-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            font-size: 36px;
+            padding: 15px;
+
+            p {
+              font-size: 16px;
+              padding: 0 15px 0 15px;
+              width: 40px;
+              text-align: center;
+            }
+            .input-text {
+              font-size: 14px;
+              width: 130px;
+            }
+            .number-button {
+              // transition: all 0.3s;
+              // cursor: pointer;
+              // font-size: 24px;
+              // font-family: monospace, sans-serif;
+              // display: flex;
+              // justify-content: center;
+              // align-items: center;
+              // text-align: center;
+              // width: 40px;
+              // height: 40px;
+              // border-radius: 100%;
+              // background: none;
+              // border: 1px solid $panel-heading;
+
+              transition: all 0.3s;
+              cursor: pointer;
+              background: none;
+              border: 1px solid #191d1f;
+              border-radius: 100%;
+              color: #191d1f;
+              font-family: monospace, sans-serif;
+              font-size: 22px;
+              line-height: 1;
+              height: 36px;
+              width: 36px;
+              text-align: center;
+              padding: 0;
+              vertical-align: middle;
+            }
+            .number-button:hover {
+              color: $darkerOrange;
+              border-color: $darkerOrange;
+            }
+            .number-button:disabled {
+              border: 1px solid rgba(195, 195, 195, 0.3);
+              color: rgba(195, 195, 195, 0.3);
+              cursor: default;
             }
           }
-
-          .profile-img {
-            object-fit: cover;
-            border-radius: 50%;
-          }
-          // .delete-button-container:hover {
-          //     display: flex;
-          //     text-align: center;
-          //     justify-content: center;
-
-          //   background: rgba(250, 244, 244, 0.8);
-          // }
-        }
-
-        .profile-image-box:hover {
-          .delete-button-container {
-            opacity: 1;
-            background: rgba(250, 244, 244, 0.8);
-          }
-        }
-        .profileimg-upload-button {
-          color: $orangeButton;
-          border-color: $orangeButton !important;
-          height: 50px;
-          align-self: center;
-          margin-left: 15px;
         }
       }
-
-      .about-title {
-        padding: 15px 0;
+      .amneties-grid-container {
+        justify-content: center;
+      }
+      .rules-container {
+        display: flex;
       }
     }
   }
 
-  //   .myDivClass a:visited {
-  //     color: white;
-  //   }
-}
+  .submit-button-container {
+    margin: 60px 0px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    .submit-button {
+      font-size: 20px;
+      font-weight: 700;
+      outline: none;
+      background-color: white;
+      color: $darkerOrange;
+      border: 1px solid $darkerOrange;
+      border-radius: 4px;
+      height: 60px;
+      width: 170px;
+      transition: all 0.5s;
+    }
+    .submit-button:hover {
+      background-color: $darkerOrange;
+      border: 1px solid $darkerOrange;
+      // border-color:  $darkerOrange;
+      color: white;
 
-@media (min-width: 768px) {
-  .profile-edit-container {
-    width: 750px;
+      cursor: pointer;
+    }
   }
 }
 
-@media (min-width: 992px) {
-  .profile-edit-container {
-    width: 970px;
+// @media (min-width: 768px) {
+//   .profile-edit-container {
+//     width: 750px;
+//   }
+// }
+
+@media (max-width: 900px) {
+  .nav-grid-column {
+    display: none;
   }
+  .profile-edit-container{
+    .grid-container-edit {
+      .panel {
+        .panel-body {
+          padding: 0px 0px;
+
+          .home-images-box{
+            justify-content: center;
+            flex-wrap: wrap;
+          }
+          .sleeps-container {
+            align-self: center;
+            display: grid;
+            padding: 0px ;
+            grid-template-columns: 1fr ;
+          }
+          .rules-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+          }
+        }
+      }
+      // display:flex;
+      // flex-direction: column;
+      // justify-content: center;
+    }
+  }
+
 }
+
+// @media (min-width: 992px) {
+//   .profile-edit-container {
+//     width: 970px;
+//   }
+// }
 
 @media (min-width: 1200px) {
   .profile-edit-container {
-    width: 1170px;
+    width: 1200px;
   }
 }
 

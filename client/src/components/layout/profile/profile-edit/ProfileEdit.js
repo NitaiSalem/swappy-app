@@ -16,31 +16,37 @@ import {
 } from "../../../../actions/profileDataActions";
 import Map from "../../../map/Map";
 import "./profile-edit.style.scss";
-import ProfileTextField from "./TextField";
 import { useNavigate } from "react-router-dom";
 
 const ProfileEdit = () => {
   const navigate = useNavigate();
-
   const dispatch = useDispatch();
+  const homeDetails = useSelector((state) => state.homeDetails);
+  const currentAmneties = homeDetails.amneties;
+  const currentHouseRules = homeDetails.houseRules;
   const [selectedImage, setSelectedImage] = useState("");
   const [homeImages, setHomeImages] = useState([]);
-  const homeDetails = useSelector((state) => state.homeDetails);
-  //should probably define these to state from the useselector if possible?
+
+  //?should probably define these to state from the useselector if possible?
   const [details, setDetails] = useState({
-    homeType: "",
-    sleeps: 1,
-    bedRooms: 1,
-    singleBeds: 1,
-    doubleBeds: 1,
-    bathRooms: 1,
+    homeType: homeDetails.homeType ? homeDetails.homeType : "",
+    sleeps: homeDetails.sleeps ? homeDetails.sleeps : 1,
+    bedRooms: homeDetails.bedRooms ? homeDetails.bedRooms : 0,
+    singleBeds: homeDetails.singleBeds ? homeDetails.singleBeds : 1,
+    doubleBeds: homeDetails.doubleBeds ? homeDetails.doubleBeds : 0,
+    bathRooms: homeDetails.bathRooms ? homeDetails.bathRooms : 0,
     aboutHome: homeDetails.aboutHome ? homeDetails.aboutHome : "",
   });
-  const [amneties, setAmneties] = useState({});
-  const [houseRules, setHouseRules] = useState({});
+  const [amneties, setAmneties] = useState(
+    Object.keys(currentAmneties).length !== 0 ? currentAmneties : {}
+  );
+  const [houseRules, setHouseRules] = useState(
+    Object.keys(currentHouseRules).length !== 0 ? currentHouseRules : {}
+  );
   const [inViewComponent, setInViewComponent] = useState(
     "profile-image-upload"
   );
+  const userName = useSelector(({ auth }) => auth.user.name);
 
   const lat = homeDetails.houseLocation
     ? homeDetails.houseLocation.lat
@@ -60,17 +66,13 @@ const ProfileEdit = () => {
     dispatch(getHomeDetails());
   }, []);
 
-  const onSubmit = (e) => {
-    console.log("entered onSubmit method")
+  const onSubmit = async (e) => {
+    console.log("entered onSubmit method");
     e.preventDefault(); //we’ll use e.preventDefault() to stop the page from reloading when the submit button is clicked
     const profileImg = new FormData();
     profileImg.append("profileImg", selectedImage);
     const homeImgData = new FormData();
-
     const objOfImages = { ...homeImages };
-    // for (const key of Object.keys(homeImages)) {
-    //   homeImgData.append("homeImages", homeImages[key]);
-    // }
 
     for (const key of Object.keys(objOfImages)) {
       console.log({ key });
@@ -88,27 +90,21 @@ const ProfileEdit = () => {
       doubleBeds: details.doubleBeds,
       bathRooms: details.bathRooms,
       aboutHome: details.aboutHome,
-
       amneties: amneties,
       houseRules: houseRules,
       houseLocation: houseLocation,
     };
-
     selectedImage && dispatch(uploadProfileImage(profileImg));
     console.log("length of homeimages state in profileedit", homeImages.length);
     homeImages.length > 0 && dispatch(uploadHomeImages(homeImgData));
-
     dispatch(uploadHomeDetails(homeDetails));
     navigate("/Profile");
-
-    //! redirect to profile on submit
   };
-  //add map here, pass it
   return (
     <div className="profile-edit-container">
       <form onSubmit={onSubmit}>
         <Grid container className="grid-container-edit">
-          <Grid item md={4} className="nav-grid-column">
+          <Grid item md={2} lg={3} className="nav-grid-column">
             <div className="nav-links-container">
               <a
                 href="#profile-image-upload"
@@ -174,34 +170,23 @@ const ProfileEdit = () => {
             </div>
           </Grid>
 
-          <Grid item md={8} className="home-edit-grid-column">
-            <div className="panel">
-              <div className="panel-heading">
-                <h3 id="profile-image-upload">Upload Profile Image</h3>
-              </div>
-              <div className="panel-body">
-                <ProfileImgUpload
-                  selectedImage={selectedImage}
-                  setSelectedImage={setSelectedImage}
-                  setInViewComponent={setInViewComponent}
-                />
-                <h3 className="about-title">
-                  What will your guests love about your home
-                </h3>
+          <Grid
+            item
+            md={10}
+            lg={9}
+            sm={12}
+            xs={12}
+            className="home-edit-grid-column"
+          >
+            <h1 className="name-title">{userName}'s house</h1>
+            <ProfileImgUpload
+              selectedImage={selectedImage}
+              setSelectedImage={setSelectedImage}
+              setInViewComponent={setInViewComponent}
+              details={details}
+              setDetails={setDetails}
+            />
 
-                <ProfileTextField
-                  style={{ width: "100%" }}
-                  value={details.aboutHome}
-                  onChange={(e) =>
-                    setDetails({ ...details, aboutHome: e.target.value })
-                  }
-                  label="My Home..."
-                  multiline
-                  rows={5}
-                  inputProps={{ maxLength: 300 }}
-                />
-              </div>
-            </div>
             <HomeImgUpload
               homeImages={homeImages}
               setHomeImages={setHomeImages}
@@ -215,7 +200,7 @@ const ProfileEdit = () => {
                   ? houseLocation
                   : { lat: 32.079918405524154, lng: 34.77430033010254 }
               }
-              height="300px"
+              height="250px"
               zoom={13}
             />
             <DetailsUpload
@@ -233,10 +218,13 @@ const ProfileEdit = () => {
               houseRules={houseRules}
               setHouseRules={setHouseRules}
             />
-
-            <Button type="submit">Done!</Button>
           </Grid>
         </Grid>
+        <div className="submit-button-container">
+          <button className="submit-button" type="submit">
+            Submit!
+          </button>
+        </div>
       </form>
     </div>
   );

@@ -56,6 +56,7 @@ const SearchBar = ({ searchValue, setFilteredHomes }) => {
 
       <Autocomplete
         // id="search-bar"
+        className="search-box"
         apiKey={process.env.REACT_APP_MAPS_API_KEY}
         value={searchText}
         placeholder=" Where to?"

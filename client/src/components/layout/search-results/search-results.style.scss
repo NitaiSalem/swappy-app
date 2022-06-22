@@ -1,28 +1,56 @@
+// @import "../../../../sassStyles/variables";
+@import "../../../sassStyles/variables";
+
 .search-results-container {
   width: 100%;
   height: 100vh;
   display: flex;
   flex-direction: column;
-  padding-top: 46px;
+  padding-top: 56px;
   overflow: hidden !important;
 
   .found-homes-title {
-    margin: 20px 10px 20px 20px;
+    //change to like 70
+    padding: 20px 10px 20px 20px;
   }
 
   .search-box-container {
     display: flex;
     margin-left: 20px;
 
+    
+    .search-box {
+      margin: 0px 10px 0px 20px;
+      // border: none;
+      font-size: 16px;
+      border: 1px solid $border-color-light;
+      border-radius: 3px;
+      padding-left: 12px;
+      width: 220px;
+      padding: 10px;
+      opacity: 0.7;
+    }
+    .search-box:focus {
+      outline: none;
+      box-shadow: 0 0 3px #3b99fc;
+    }
+    
+    .search-box::placeholder {
+      color: $panel-heading;
+      // opacity: 0.6;
+    }
+    
+
     .submit-search {
-      color: rgb(226, 136, 17);
-      border-color: #9c9c9c;
+      color: $darkerOrange;
+      border-color: $darkerOrange;
       margin-left: 10px;
+      transition: all 0.3s ease;
     }
 
     .submit-search:hover {
-      color: rgb(226, 136, 17);
-      border-color: rgb(226, 136, 17);
+      color: $orangeButton;
+      border-color: $orangeButton;
     }
   }
   .filter-button {
@@ -37,7 +65,7 @@
   .map-container {
     width: 35vw;
     margin-top: 0px;
-    height: 100%; 
+    height: 100%;
     position: fixed;
     right: 0 !important;
     // padding: 2em;
@@ -61,7 +89,7 @@
       //   width: 40%;
       border: 1px solid rgb(209, 206, 206);
       border-radius: 4px;
-      z-index:20; 
+      z-index: 20;
       // padding-top: 2px;
 
       .home-image-container {
@@ -76,16 +104,12 @@
         padding-left: 12px;
 
         .location-text {
-          display:flex;
+          display: flex;
           margin: 0;
-          font-size:15px;
+          font-size: 15px;
           padding-bottom: 5px;
-
-
         }
       }
-
-    
     }
     .found-home-container:hover {
       cursor: pointer;
@@ -146,11 +170,6 @@
     cursor: pointer;
   }
 
-  .apply-or-delete-filter-container {
-    display: flex;
-    justify-content: flex-end;
-  }
-
   .css-1jxo1v3 {
     width: 60%;
     max-width: 550px;
@@ -170,14 +189,14 @@
     outline: none;
   }
   .pagination > .active > a {
-    background-color: rgb(226, 136, 17);
-    border-color: rgb(226, 136, 17);
+    background-color: $darkerOrange;
+    border-color: $darkerOrange;
     color: #fff;
   }
   .pagination > li > a {
     margin: 0 5px 0 5px;
 
-    border: 1px solid rgb(226, 136, 17);
+    border: 1px solid $darkerOrange;
     border-radius: 3px;
     padding: 5px 10px;
     outline: none;
@@ -194,13 +213,13 @@
   .pagination > .active > span:hover,
   .pagination > .active > a:focus,
   .pagination > .active > span:focus {
-    background-color: rgb(226, 136, 17);
-    border-color: rgb(226, 136, 17);
+    background-color: $darkerOrange;
+    border-color: $darkerOrange;
     outline: none;
   }
   .pagination > li > a,
   .pagination > li > span {
-    color: rgb(226, 136, 17);
+    color: $darkerOrange;
   }
   // .pagination > li:first-child > a,
   // .pagination > li:first-child > span,
@@ -215,11 +234,6 @@
 // }
 
 @media (max-width: 1024px) {
-
-
-
-
-  
   .search-results-container {
     .all-homes-container {
       width: 100% !important;
@@ -229,11 +243,9 @@
       // padding-bottom: 60px !important;
     }
 
-
-     .map-container{
-       display:none; 
-     }
-
+    .map-container {
+      display: none;
+    }
   }
 
   .homes-grid-container {
@@ -298,22 +310,13 @@
     }
   }
 
-
-
   .amneties-container {
     display: grid;
-    grid-template-columns: 50% 50% ;
-    padding: 0 15px 0 15px; 
-  
-}
-.lifestyle-container {
-  flex-direction: column;
-  margin:auto;
-}
-.apply-or-delete-filter-container{
-  // align-self:center; 
-  // width: 100%;
-  margin:15px 10px 15px 10px;
-}
-
+    grid-template-columns: 50% 50%;
+    padding: 0 15px 0 15px;
+  }
+  .lifestyle-container {
+    flex-direction: column;
+    margin: auto;
+  }
 }

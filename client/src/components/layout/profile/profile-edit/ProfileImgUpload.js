@@ -6,16 +6,21 @@ import { useInView } from "react-intersection-observer";
 import { Button, IconButton } from "@mui/material";
 import DeleteIcon from "@material-ui/icons/Delete";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
-import defaultImage from "../../../../site images/user-icon.png";
+import defaultImage from "../../../../assets/user-icon.png";
+import ProfileTextField from "./TextField";
 
 //to fix updating profileimg not rerendering we had to connect the FilesUploadComponent to redux store,
 // pass it the profileimg state as props and after posting, making get request to get updated image!
 
-const ProfileImgUpload = ({ setInViewComponent,selectedImage,setSelectedImage }) => {
-  // const [selectedImage, setSelectedImage] = useState();
+const ProfileImgUpload = ({
+  setInViewComponent,
+  selectedImage,
+  setSelectedImage,
+  details,
+  setDetails,
+}) => {
   const [previewImage, setPreviewImage] = useState();
   const currProfileImg = useSelector((state) => state.profileImg);
-
   const dispatch = useDispatch();
   const hiddenFileInput = useRef(null);
 
@@ -51,22 +56,6 @@ const ProfileImgUpload = ({ setInViewComponent,selectedImage,setSelectedImage })
     inView && setInViewComponent("profile-image-upload");
   }, [inView]);
 
-  // const onSubmit = (e) => {
-  //   e.preventDefault();
-  //   const formData = new FormData();
-  //   formData.append("profileImg", selectedImage);
-  //   axios
-  //     .post(
-  //       "http://localhost:5000/api/user-edit-images/profile-image",
-  //       formData,
-  //       {}
-  //     )
-  //     .then((res) => {
-  //       console.log(res);
-  //       dispatch(getProfileImg());
-  //     });
-  // };
-
 
   const deleteProfileImg = () => {
     hiddenFileInput.current.value = "";
@@ -87,49 +76,47 @@ const ProfileImgUpload = ({ setInViewComponent,selectedImage,setSelectedImage })
   };
 
   return (
-    <div className="profile-image-upload-container" ref={ref}>
-      {(currProfileImg || selectedImage) ? (
-        <div className="profile-image-box">
-          <div className="delete-button-container">
-            <IconButton
-              className="delete-button"
-              aria-label="delete"
-              size="large"
-              onClick={deleteProfileImg}
-            >
-              <DeleteIcon fontSize="large" style={{ fill: "#e85710" }} />
-            </IconButton>
+    <div id="profile-image-upload" className="panel" ref={ref}>
+      <div className="panel-heading-container">
+        <h3 >Upload Profile Image</h3>
+      </div>
+      <div className="panel-body">
+        <div className="profile-image-upload-container"> 
+        {currProfileImg || selectedImage ? (
+          <div className="profile-image-box">
+            <div className="delete-button-container">
+              <IconButton
+                className="delete-button"
+                aria-label="delete"
+                size="large"
+                onClick={deleteProfileImg}
+              >
+                <DeleteIcon fontSize="large" style={{ fill: "#e85710" }} />
+              </IconButton>
+            </div>
+            <img
+              className="profile-img"
+              src={selectedImage ? previewImage : currProfileImg}
+              alt="profile pic"
+              width="100%"
+              height="100%"
+            />
           </div>
-          <img
-            className="profile-img"
-            src={selectedImage ? previewImage : currProfileImg}
-            alt="profile pic"
-            width="100%"
-            height="100%"
-          />
-        </div>
+        ) : (
+          /* use else here to render the icon like foundprofile */
 
-      /* use else here to render the icon like foundprofile */
+          <div className="profile-image-box">
+            <img
+              className="profile-img"
+              src={defaultImage}
+              alt="profile pic"
+              width="100%"
+              height="100%"
+            />
+          </div>
+        )}
 
-      ) : 
-      <div className="profile-image-box">
-              <img
-            className="profile-img"
-            src={defaultImage}
-            alt="profile pic"
-            width="100%"
-            height="100%"
-          />
-         </div> 
-
-      //
-      }
-
-      {/* <form onSubmit={onSubmit}> */}
         <div className="form-group">
-          {/* <label for="inputTag"> */}
-          {/* Select Image */}
-          {/* <input id="inputTag" type="file" onChange={onFileChange} /> */}
           <input
             type="file"
             onChange={onFileChange}
@@ -138,14 +125,29 @@ const ProfileImgUpload = ({ setInViewComponent,selectedImage,setSelectedImage })
           />
           {/* </label>  */}
         </div>
-        <Button variant="outlined" className="profileimg-upload-button" onClick={handleClick}>
-       
+        <Button
+          variant="outlined"
+          className="profileimg-upload-button"
+          onClick={handleClick}
+        >
           <CameraAltIcon /> &nbsp; choose image
         </Button>
-        {/* <Button className="btn btn-primary" type="submit">
-          Save image
-        </Button> */}
-      {/* </form> */}
+        </div>
+        <h3 className="panel-body-title">
+          What will your guests love about your home
+        </h3>
+        <ProfileTextField
+          style={{ width: "100%" }}
+          value={details.aboutHome}
+          onChange={(e) =>
+            setDetails({ ...details, aboutHome: e.target.value })
+          }
+          label="My Home..."
+          multiline
+          rows={5}
+          inputProps={{ maxLength: 300 }}
+        />
+      </div>
     </div>
   );
 };

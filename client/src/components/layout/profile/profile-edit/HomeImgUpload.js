@@ -11,11 +11,7 @@ import PhotoLibraryIcon from "@mui/icons-material/PhotoLibrary";
 const HomeImgUpload = ({ setInViewComponent, homeImages, setHomeImages }) => {
   const hiddenFileInput = useRef(null);
   const currHomeImg = useSelector((state) => state.homeImages);
-  console.log({ currHomeImg });
-  console.log({ hiddenFileInput });
-
   const currHomeImgUrls = currHomeImg.map((img) => img.url);
-  console.log({ currHomeImgUrls });
   const [previewImages, setPreviewImages] = useState(currHomeImg);
   const addImagesArray = [...Array(5 - previewImages.length)];
 
@@ -24,23 +20,14 @@ const HomeImgUpload = ({ setInViewComponent, homeImages, setHomeImages }) => {
     /* Optional options */
     threshold: 1,
   });
-  console.log({ previewImages });
 
   const onFileChange = (e) => {
     console.log("e target files here ", e.target.files);
     if (!e.target.files || e.target.files.length === 0) {
       return;
     }
-    console.log(" e target files 0 here ", e.target.files[0]);
     let chosenFiles = [...e.target.files];
-    console.log("choose files length ", chosenFiles.length);
-    console.log("current urls array length", currHomeImgUrls.length);
-    console.log("homeimages state length", homeImages.length);
-    console.log(
-      "the sum of images added with homeimages",
-      homeImages.length + currHomeImgUrls.length + chosenFiles.length
-    );
-    let sumOfImages =
+    const sumOfImages =
       homeImages.length + currHomeImgUrls.length + chosenFiles.length;
     sumOfImages <= 5 && setHomeImages([...homeImages, ...chosenFiles]);
   };
@@ -52,11 +39,8 @@ const HomeImgUpload = ({ setInViewComponent, homeImages, setHomeImages }) => {
       return;
     }
 
-    // *with every change to our homeimages state we add the
-
     const objectUrls = homeImages.map((img) => {
       //create array of objects with name and url like our db
-      console.log("img inside objectUrls map ", img);
       return { url: URL.createObjectURL(img), name: img.name };
       // return URL.createObjectURL(img);
     });
@@ -77,13 +61,7 @@ const HomeImgUpload = ({ setInViewComponent, homeImages, setHomeImages }) => {
 
   const deleteHomeImg = (imageName) => {
     //*here check first if the image is in db already
-    //?need to remove from homeimages state?
-    //deleting by name from db works, just make sure to update the displayed images
-
-    //? make sure to delete in db only if name of image is in the redux currhomeimg array??
-
     if (currHomeImg.find(({ name }) => imageName === name)) {
-      console.log("entered delete condition from db");
       axios
         .delete(
           `http://localhost:5000/api/user-edit-images/delete-home-image/${imageName}`
@@ -99,7 +77,6 @@ const HomeImgUpload = ({ setInViewComponent, homeImages, setHomeImages }) => {
           );
         });
     } else {
-      console.log("entered else delete condition for local image");
       setPreviewImages(currHomeImg);
       setHomeImages(homeImages.filter((img) => img.name !== imageName));
     }
@@ -110,16 +87,12 @@ const HomeImgUpload = ({ setInViewComponent, homeImages, setHomeImages }) => {
   };
 
   return (
-    <div
-      className="panel"
-      id="home-images-upload"
-      ref={ref}
-    >
-      <div className="panel-heading">
+    <div className="panel" id="home-images-upload" ref={ref}>
+      <div className="panel-heading-container">
         <h3>Photos </h3>
       </div>
       <div className="panel-body">
-        <h3> Upload Home Image/s</h3>
+        <h3 className="panel-body-title"> Upload Home Image/s</h3>
         <div className="label-container">
           <Button
             variant="contained"
@@ -133,7 +106,7 @@ const HomeImgUpload = ({ setInViewComponent, homeImages, setHomeImages }) => {
           {previewImages.length > 0 &&
             previewImages.map((img, i) => {
               return (
-                <div className="home-image-box">
+                <div className="home-image-box" key={i}>
                   <div className="delete-button-container">
                     <IconButton
                       className="delete-button"
@@ -152,7 +125,6 @@ const HomeImgUpload = ({ setInViewComponent, homeImages, setHomeImages }) => {
                     id={i}
                     className="home-img"
                     src={img.url}
-                    // src={selectedImage ? previewImage : currProfileImg}  create alternative like in homeexchange
                     alt="home pic"
                     width="100%"
                     height="100%"
@@ -162,9 +134,9 @@ const HomeImgUpload = ({ setInViewComponent, homeImages, setHomeImages }) => {
             })}
 
           {addImagesArray.length > 0 &&
-            addImagesArray.map(() => {
+            addImagesArray.map((val,i) => {
               return (
-                <div className="add-image-box"   onClick={handleClick}>
+                <div className="add-image-box" onClick={handleClick} key={i}>
                   <PhotoLibraryIcon fontSize="inherit" />
 
                   <p className="add-image"> + Add image</p>

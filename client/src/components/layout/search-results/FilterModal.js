@@ -42,18 +42,15 @@ const style = {
   alignItems: "center",
   overflowY: "auto",
   overflowX: "hidden",
-  // padding: "15px",
+  padding: "15px 26px",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  maxHeight: "80vh",
+  maxHeight: "84vh",
   maxWidth: "90vw",
-  // width: 600,
   bgcolor: "background.paper",
-  //   border: "2px solid #000",
   borderRadius: "3px",
   boxShadow: 24,
-  p: 4,
 };
 
 const FilterModal = ({
@@ -180,7 +177,7 @@ const FilterModal = ({
   };
 
   return (
-    <div className="modal-container">
+    <div className="modal-container" >
       <Button onClick={handleOpen} className="filter-button">
         <FilterListIcon /> Add filters ({displayCount})
       </Button>
@@ -203,7 +200,7 @@ const FilterModal = ({
         }}
       >
         <Fade in={isModalOpen}>
-          <Box sx={style}>
+          <Box sx={style} className="filter-box-container">
             <FormControl component="fieldset" className="checkbox-container">
               <div className="details-title">
                 <Typography
@@ -254,11 +251,11 @@ const FilterModal = ({
                     control={
                       <Checkbox
                         checkedIcon={
-                          <CheckBoxOutlinedIcon style={{ color: "#e28811" }} />
+                          <CheckBoxOutlinedIcon style={{ color: "#f7a800" }} />
                         }
                         icon={
                           <CheckBoxOutlineBlankOutlinedIcon
-                            style={{ color: "#e28811" }}
+                            style={{ color: "#f7a800" }}
                           />
                         }
                         // checked={false}
@@ -277,11 +274,11 @@ const FilterModal = ({
                     control={
                       <Checkbox
                         checkedIcon={
-                          <CheckBoxOutlinedIcon style={{ color: "#e28811" }} />
+                          <CheckBoxOutlinedIcon style={{ color: "#f7a800" }} />
                         }
                         icon={
                           <CheckBoxOutlineBlankOutlinedIcon
-                            style={{ color: "#e28811" }}
+                            style={{ color: "#f7a800" }}
                           />
                         }
                         // checked={false}
@@ -319,12 +316,12 @@ const FilterModal = ({
                             <Checkbox
                               checkedIcon={
                                 <CheckBoxOutlinedIcon
-                                  style={{ color: "#e28811" }}
+                                  style={{ color: "#f7a800" }}
                                 />
                               }
                               icon={
                                 <CheckBoxOutlineBlankOutlinedIcon
-                                  style={{ color: "#e28811" }}
+                                  style={{ color: "#f7a800" }}
                                 />
                               }
                               // checked={false}
@@ -364,12 +361,12 @@ const FilterModal = ({
                             <Checkbox
                               checkedIcon={
                                 <CheckBoxOutlinedIcon
-                                  style={{ color: "#e28811" }}
+                                  style={{ color: "#f7a800" }}
                                 />
                               }
                               icon={
                                 <CheckBoxOutlineBlankOutlinedIcon
-                                  style={{ color: "#e28811" }}
+                                  style={{ color: "#f7a800" }}
                                 />
                               }
                               // checked={false}
@@ -389,17 +386,18 @@ const FilterModal = ({
               </FormGroup>
               <div
                 className="apply-or-delete-filter-container"
-                style={{ display: "flex", justifyContent: "space-between" }}
+                style={{ display: "flex", justifyContent: "space-between",marginTop:"15px" }}
               >
                 <Button
+                  style={{color:"#e85710", borderColor: "#e85710"}}
                   variant="outlined"
-                  color="error"
                   size="small"
                   onClick={handleClose}
                 >
                   Cancel
                 </Button>
                 <Button
+                style={{color:"#068295", borderColor: "#068295"}}
                   variant="outlined"
                   size="medium"
                   onClick={updateResults}

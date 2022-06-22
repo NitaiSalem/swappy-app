@@ -2,7 +2,8 @@ import WelcomeSection from "./home-search/Welcome&search";
 import Benefits from "./benefits/Benefits";
 import Destinations from "./destinations/Destinations";
 import Footer from "../footer/Footer";
-
+import Testimonies from "./testimonies/Testimonies";
+import "./home-search/welcome.style.scss";
 
 const HomePage = () => {
 
@@ -11,7 +12,8 @@ return(
   <WelcomeSection/> 
   <Benefits/> 
   <Destinations/> 
- <Footer/> 
+  <Testimonies/> 
+  <Footer/> 
   </div>
 )
 }

@@ -15,9 +15,9 @@ import HomeMap from "../../map/homeMap";
 // import { makeStyles } from "@mui/styles";
 // import defaultHomeImage from "../../../../../src/site images/home-default.jpg";
 
-import defaultHomeImage from "../../../../src/site images/home-default.jpg";
+import defaultHomeImage from "../../../../src/assets/home-default.jpg";
 import ImageCarousel from "../search-results/found-profile/ImageCarousel";
-import { Button, createTheme, Grid } from "@mui/material";
+import { Grid } from "@mui/material";
 import UserDetails from "../search-results/found-profile/UserDetails";
 import UserAmneties from "../search-results/found-profile/UserAmneties";
 import MapIcon from "@mui/icons-material/Map";
@@ -25,12 +25,11 @@ import Footer from "../footer/Footer";
 import HouseRules from "../search-results/found-profile/HouseRules";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
-import defaultImage from "../../../site images/user-icon.png";
+import defaultImage from "../../../assets/user-icon.png";
 
 // import '../../layout/search-results/found-profile/profile.style.scss'
 
 const Profile = () => {
-  // const [edit, setEdit] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isCarouselOpen, setIsCarouselOpen] = useState(false); //this is show from examle!
   const profileImg = useSelector((state) => state.profileImg); //use these for rest of state from db
@@ -140,14 +139,6 @@ const Profile = () => {
                 &nbsp; Update profile
               </Link>
             </div>
-
-            {/* <Button
-            className={classes.button}
-            variant="contained"
-            href={"mailto:" + state.email}
-          >
-            Email User
-          </Button> */}
           </div>
         )}
       </div>
@@ -178,75 +169,6 @@ const Profile = () => {
       </div>
       <Footer />
     </div>
-
-    // //useffect to fetch image from db?
-    // // <div
-    // //   style={{ height: "100vh", marginTop: "100px" }}
-    // //   className="container valign-wrapper"
-    // // >
-    //   {/* <button onClick={() => toggleEdit(true)}>
-    //     <FontAwesomeIcon icon="edit" />
-    //   </button>
-    //   <div className="row">
-    //     <div className="col s12 center-align">
-    //       <h4>
-    //         <b>Hey there,</b> {user.name.split(" ")[0]}
-    //         <div className="profile-img-container">
-    //           <img
-    //             src={profileImage}
-    //             alt="profile pic"
-    //             width="100px"
-    //             height="100px"
-    //           />
-    //         </div>
-    //         <p className="flow-text grey-text text-darken-1">
-    //           You are logged into a full-stack{" "}
-    //           <span style={{fontFamily: "monospace"}}>MERN</span> app 👏
-    //         </p>
-    //       </h4>
-    //       <button
-    //         style={{
-    //           width: "150px",
-    //           borderRadius: "3px",
-    //           letterSpacing: "1.5px",
-    //           marginTop: "1rem",
-    //         }}
-    //         onClick={onLogoutClick}
-    //         className="btn btn-large waves-effect waves-light hoverable blue accent-3"
-    //       >
-    //         Logout
-    //       </button>
-    //       <div className="home-images-container">
-    //         <h2>images: </h2>
-    //         {Array.isArray(homeImages) &&
-    //           homeImages.map((img, i) => {
-    //             return (
-    //               <div key={i} className="image-container">
-    //                 <img
-    //                   key={i}
-    //                   id={i}
-    //                   src={img.url}
-    //                   alt="home-pic"
-    //                   width="100px"
-    //                   height="100px"
-    //                 />
-    //               </div>
-    //             );
-    //           })}
-
-    //         {edit && <ProfileEdit toggleEdit={toggleEdit} />}
-    //         <div className="about-home-container">
-    //           <h3>About my home:</h3>
-    //           <p>{homeDetails.aboutHome}</p>
-    //         </div>
-    //         <Details />
-    //         {houseLocation.lat && (
-    //           <HomeMap houseLocation={houseLocation} height="300px" zoom={15} />
-    //         )}
-    //       </div>
-    //     </div>
-    //   </div> */}
-    // // </div>
   );
 };
 

@@ -1,4 +1,5 @@
 import React from "react";
+import './fonts/AvertaDemoPECuttedDemo-Regular.otf'; 
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";

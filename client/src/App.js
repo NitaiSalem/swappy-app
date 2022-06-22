@@ -21,6 +21,9 @@ import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
 import FoundProfile from "./components/layout/search-results/found-profile/FoundProfile";
 import ProfileEdit from "./components/layout/profile/profile-edit/ProfileEdit";
+import { ThemeProvider} from '@mui/material/styles';
+import { theme } from "./utils/muiTheme";
+
 let persistor = persistStore(store);
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -46,6 +49,7 @@ if (localStorage.jwtToken) {
 function App() {
   return (
     <Provider store={store}>
+         <ThemeProvider theme={theme}>
          <PersistGate persistor={persistor}>
       <Router>
         <div className="App">
@@ -77,14 +81,18 @@ function App() {
               element={
                 <PrivateRoute>
                   <ProfileEdit />
+                  <Footer />
                 </PrivateRoute>
               }
             />
           </Routes>
           {/* <Footer /> */}
         </div>
+      
+
       </Router>
       </PersistGate>
+      </ThemeProvider>
     </Provider>
   );
 }

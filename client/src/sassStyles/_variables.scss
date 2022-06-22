@@ -27,21 +27,28 @@ By storing #002e25 in the variable $primaryDark2Color I can apply it to properti
 
 
 */
-
+$test-color: #000000; 
 
 $green-button: #508104; 
 $orange-color: #DB8200; 
  $propdoBlue: #001145; 
+
+
  //*use these 3 as combo!
 $orangeButton: #f7a800; 
 $darkerOrange:#e85710;  
 $turquoise :#068295; 
+
+
+ $turquoise-faded: rgb(6, 130, 149,0.3); 
 /////////////////////////////////////////
 $font-color: #475257; 
 $faded-font-color: #8b8b8b; 
 $panel-heading: #191d1f; 
 $add-image-faded: #b3b3b3; 
 $add-image-hover: #7d7d7d; 
+$light-gray-background: #f4f4f4; 
+$border-color-light: #d1cece;
 
 
 

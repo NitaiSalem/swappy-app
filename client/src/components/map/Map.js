@@ -29,13 +29,10 @@ const Map = ({
   };
   const { ref, inView, entry } = useInView({
     /* Optional options */
-    threshold: 0,
+    threshold: 1,
   });
   let address = houseLocation.address;
   console.log(address, " this is address, means map rendered ");
-  // const onChange = (event) => {
-  //   // setState({[event.target.name]: event.target.value});
-  // };
 
   const getArea = (addressArray) => {
     let area = "";
@@ -134,41 +131,53 @@ const Map = ({
   }, [inView]);
 
   return (
-    <div id="location-upload" ref={ref}>
-      <h3>Search Location below:</h3>
-      <Autocomplete
-        options={{
-          types: [["address"], ["cities"]],
-          componentRestrictions: { country: "isr" },
-        }}
-        style={{
-          width: "100%",
-          height: "40px",
-          paddingLeft: "16px",
-          marginTop: "2px",
-        }}
-        onPlaceSelected={onPlaceSelected}
-      />
-      <div className="form-group">
-        <label htmlFor="">Address</label>
-        <input
-          type="text"
-          name="address"
-          className="form-control"
-          readOnly="readOnly"
-          value={address}
+    <div id="location-upload" ref={ref} className="panel">
+      <div className="panel-heading-container">
+        <h3>Location</h3>
+      </div>
+      <div className="panel-body">
+        <h3 className="panel-body-title">Address</h3>
+        <p className="location-explanation-text">
+          Your address is used to provide a general location for your home. To
+          protect your information, on the public map, we use what you enter
+          below to create a rough boundary and randomly place a pin to show
+          where to find your home.
+        </p>
+        <Autocomplete
+        className="location-autocomplete"
+          options={{
+            types: [["address"], ["cities"]],
+            componentRestrictions: { country: "isr" },
+          }}
+          style={{
+            width: "100%",
+            height: "40px",
+            paddingLeft: "16px",
+            margin: "12px 0 12px 0",
+          }}
+          onPlaceSelected={onPlaceSelected}
+        />
+        {/* <div className="form-group">
+          <label className= "address-label" for="address">Address</label>
+          <input
+            type="text"
+            name="address"
+            className="form-control"
+            readOnly="readOnly"
+            value={address}
+          />
+        </div> */}
+        {/* check googlemapurl for options in api call */}
+        <AsyncMap
+          googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${API_Key}&v=3.exp&libraries=geometry,drawing,places`}
+          loadingElement={<div style={{ height: `100%` }} />}
+          containerElement={
+            <div style={{ height: height}} />
+          }
+          mapElement={<div style={{ height: `100%` }} />}
+          zoom={zoom}
         />
       </div>
-      {/* check googlemapurl for options in api call */}
-      <AsyncMap
-        googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${API_Key}&v=3.exp&libraries=geometry,drawing,places`}
-        loadingElement={<div style={{ height: `100%` }} />}
-        containerElement={
-          <div style={{ height: height, marginBottom: "150px" }} />
-        }
-        mapElement={<div style={{ height: `100%` }} />}
-        zoom={zoom}
-      />
     </div>
   );
 };

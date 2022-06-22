@@ -13,12 +13,12 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import React, {useCallback, useEffect, useState} from "react";
 import {memo} from "react";
 import {useNavigate} from "react-router-dom";
-import mapIcon from "../../../../client/src/site images/marker-icon.png";
-import redMarker from "../../../../client/src/site images/red-marker.png";
+import mapIcon from "../../../../client/src/assets/marker-icon.png";
+import redMarker from "../../../../client/src/assets/red-marker.png";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
-import defaultHomeImage from "../../../src/site images/home-default.jpg";
+import defaultHomeImage from "../../../src/assets/home-default.jpg";
 // import defaultHomeImage from "../../../src/site images/home-default.jpg";
-import defaultImage from "../../../src/site images/user-icon.png";
+import defaultImage from "../../../src/assets/user-icon.png";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 
 // import defaultImage from "../../../site images/user-icon.png";

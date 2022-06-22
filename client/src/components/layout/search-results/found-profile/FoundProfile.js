@@ -1,8 +1,8 @@
 import { useLocation } from "react-router-dom";
 import "./profile.style.scss";
 import ImageCarousel from "./ImageCarousel";
-import defaultImage from "../../../../site images/user-icon.png";
-import defaultHomeImage from "../../../../../src/site images/home-default.jpg";
+import defaultImage from "../../../../assets/user-icon.png";
+import defaultHomeImage from "../../../../../src/assets/home-default.jpg";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import MapsHomeWorkIcon from "@mui/icons-material/MapsHomeWork";
 

@@ -1,3 +1,5 @@
+
+import "./auth.style.scss"
 import {useState, useEffect} from "react";
 import {Link, withRouter} from "react-router-dom";
 import PropTypes from "prop-types";
@@ -54,7 +56,7 @@ const Register = (props) => {
   }
 
   return (
-    <div className="container">
+    <div className="register-container">
       <div className="row">
         <div className="col s8 offset-s2">
           <Link to="/" className="btn-flat waves-effect">
