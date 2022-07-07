@@ -12,6 +12,8 @@ import {
   FormControlLabel,
   FormGroup,
 } from "@mui/material";
+import { makeStyles } from "@mui/styles";
+
 import { useDispatch, useSelector } from "react-redux";
 import CheckBoxOutlinedIcon from "@mui/icons-material/CheckBoxOutlined";
 import CheckBoxOutlineBlankOutlinedIcon from "@mui/icons-material/CheckBoxOutlineBlankOutlined";
@@ -31,6 +33,7 @@ import {
   setFilterCounter,
   updateFilterValues,
 } from "../../../actions/filterActions";
+import { getSearchResults } from "../../../utils/getHomes";
 // import { getSearchResults } from "../../../utils/getHomes";
 
 //this is to map checkboxes....
@@ -53,6 +56,17 @@ const style = {
   boxShadow: 24,
 };
 
+const useStyles = makeStyles((theme) => ({
+  // root: {
+  // },
+  list: {
+    maxHeight: "400px",
+    // padding: 0
+  },
+}));
+
+
+
 const FilterModal = ({
   setFilteredHomes,
   foundHomes,
@@ -63,35 +77,51 @@ const FilterModal = ({
   setFoundHomes,
   setPageCount,
 }) => {
+  const classes = useStyles();
   //* const homeDetails = useSelector((state) => state.homeDetails);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const previousCheckedAmneties = useSelector((state) => state.amnetiesFilter);
+  const previousCheckedLifeStyle = useSelector(
+    (state) => state.lifeStyleFilter
+  );
+  const previousDesiredHomeType = useSelector((state) => state.homeTypeFilter);
+  const previousFilterDetailsObj = useSelector((state) =>
+    state.detailsFilter
+      ? state.detailsFilter
+      : {
+          bathRooms: "",
+          bedRooms: "",
+          sleeps: "",
+          doubleBeds: "",
+          singleBeds: "",
+        }
+  );
   const [filterCount, setFilterCount] = useState(
     useSelector((state) => (state.filterCounter ? state.filterCounter : 0))
   );
-  const displayCount = useSelector((state) =>
-    state.filterCounter ? state.filterCounter : 0
-  );
+  // const displayCount = useSelector((state) =>
+  //   state.filterCounter ? state.filterCounter : 0
+  // );
+
   const [checkedLifeStyle, setCheckedLifeStyle] = useState(
-    useSelector((state) => state.lifeStyleFilter)
+    previousCheckedLifeStyle
   );
   const [desiredHomeType, setDesiredHomeType] = useState(
-    useSelector((state) => state.homeTypeFilter)
+    previousDesiredHomeType
   );
+
   const [checkedAmneties, setCheckedAmneties] = useState(
-    useSelector((state) => state.amnetiesFilter)
+    previousCheckedAmneties
   );
+  //attempt defining local state correctly depending on global redux state
+  // const [checkedAmneties, setCheckedAmneties] = useState(
+  //   Object.values(previousCheckedAmneties).some(Boolean)
+  //     ? previousCheckedAmneties
+  //     : {}
+  // );
+
   const [filterDetailsObj, setFilterDetailsObj] = useState(
-    useSelector((state) =>
-      state.detailsFilter
-        ? state.detailsFilter
-        : {
-            bathRooms: "",
-            bedRooms: "",
-            sleeps: "",
-            doubleBeds: "",
-            singleBeds: "",
-          }
-    )
+    previousFilterDetailsObj
   );
 
   const dispatch = useDispatch();
@@ -108,21 +138,60 @@ const FilterModal = ({
   const handleOpen = () => setIsModalOpen(true);
 
   const handleClose = () => {
+    //!set the filter states  here back to what they are in redux state
+    setCheckedLifeStyle(previousCheckedLifeStyle);
+    setDesiredHomeType(previousDesiredHomeType);
+    setCheckedAmneties(previousCheckedAmneties);
+    setFilterDetailsObj(previousFilterDetailsObj);
+
     setIsModalOpen(false);
   };
+  const resetFilter = () => {
+    dispatch(updateFilterValues("", {}, {}, {}));
+    dispatch(setFilterCounter(0));
+    setDesiredHomeType("");
+    setFilterDetailsObj({
+      bathRooms: "",
+      bedRooms: "",
+      sleeps: "",
+      doubleBeds: "",
+      singleBeds: "",
+    });
+    setCheckedAmneties({});
+    setCheckedLifeStyle({});
+
+    setFilterCount(0);
+  };
   ////////////////////////////////////////////////////////////////////////////////////////////////
-  const updateResults = () => {
+  const updateResults = async() => {
+    //!update results not updating with search value in consideration!
     setFilterCounter(filterCount);
     dispatch(setFilterCounter(filterCount));
-    const finalFiltered = filterAll(
-      foundHomes,
-      desiredHomeType,
-      filterDetailsObj,
-      checkedAmneties,
-      checkedLifeStyle
-    );
-    setFilteredHomes(finalFiltered);
-    setSlicedHomes(finalFiltered);
+    
+//make the api call then apply all the new filters? 
+const foundHomes = await getSearchResults(searchValue);
+
+    if (filterCount > 0 && foundHomes) {
+      const finalFiltered = filterAll(
+        foundHomes,
+        desiredHomeType,
+        filterDetailsObj,
+        checkedAmneties,
+        checkedLifeStyle
+      );
+      setFilteredHomes(finalFiltered);
+    } else setFilteredHomes(foundHomes? foundHomes: []);
+
+    // const finalFiltered = filterAll(
+    //   foundHomes,
+    //   desiredHomeType,
+    //   filterDetailsObj,
+    //   checkedAmneties,
+    //   checkedLifeStyle
+    // );
+    // setFilteredHomes(finalFiltered);
+    // setSlicedHomes(finalFiltered);
+
     setIsModalOpen(false);
     dispatch(
       updateFilterValues(
@@ -177,16 +246,22 @@ const FilterModal = ({
   };
 
   return (
-    <div className="modal-container" >
-      <Button onClick={handleOpen} className="filter-button">
-        <FilterListIcon /> Add filters ({displayCount})
+    <div className="modal-container">
+      <Button
+        onClick={handleOpen}
+        className={filterCount > 0 ? "filter-button-active" : "filter-button"}
+      >
+        <FilterListIcon /> Add filters ({filterCount})
       </Button>
+      <button onClick={resetFilter} className="reset-filters">
+        Reset filters
+      </button>
       <style>
-        {`.fooDiv {
+        {/* {`.fooDiv {
                 background-color: red;
                 color: white;
                 font-size: 2em
-            }`}
+            }`} */}
       </style>
       <Modal
         aria-labelledby="transition-modal-title"
@@ -204,6 +279,7 @@ const FilterModal = ({
             <FormControl component="fieldset" className="checkbox-container">
               <div className="details-title">
                 <Typography
+                  style={{ fontWeight: "700" }}
                   id="transition-modal-title"
                   variant="h6"
                   component="h2"
@@ -225,6 +301,7 @@ const FilterModal = ({
                           {detail.name}
                         </InputLabel>
                         <Select
+                          MenuProps={{ classes: { list: classes.list } }}
                           labelId={detail.name}
                           id={detail.name}
                           value={filterDetailsObj[detail.key]}
@@ -299,6 +376,7 @@ const FilterModal = ({
               <FormGroup>
                 <div className="details-title">
                   <Typography
+                    style={{ fontWeight: "700" }}
                     id="transition-modal-title"
                     variant="h6"
                     component="h2"
@@ -341,6 +419,7 @@ const FilterModal = ({
 
                 <div className="details-title">
                   <Typography
+                    style={{ fontWeight: "700" }}
                     id="transition-modal-title"
                     variant="h6"
                     component="h2"
@@ -386,10 +465,14 @@ const FilterModal = ({
               </FormGroup>
               <div
                 className="apply-or-delete-filter-container"
-                style={{ display: "flex", justifyContent: "space-between",marginTop:"15px" }}
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginTop: "15px",
+                }}
               >
                 <Button
-                  style={{color:"#e85710", borderColor: "#e85710"}}
+                  style={{ color: "#e85710", borderColor: "#e85710" }}
                   variant="outlined"
                   size="small"
                   onClick={handleClose}
@@ -397,7 +480,7 @@ const FilterModal = ({
                   Cancel
                 </Button>
                 <Button
-                style={{color:"#068295", borderColor: "#068295"}}
+                  style={{ color: "#068295", borderColor: "#068295" }}
                   variant="outlined"
                   size="medium"
                   onClick={updateResults}

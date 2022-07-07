@@ -19,13 +19,14 @@ router.get("/", async (req, res) => {
 router.get("/:location", async (req, res) => {
   console.log(req.params, " here is req.params");
   let {location} = req.params;
+  //remove the added israel text from google autocomplete to search for city
 location = location.replace(', Israel', ""); 
   //?use replace here? 
   // console.log("this is location ", location);
   // console.log(req.user, "this is req user");
   try {
     const homes = await User.find({$text: {$search: `${location}`}});
-    console.log(homes, "console log of home results");
+    console.log(homes, "console log of home results in location ");
     res.json(homes);
   } catch (err) {
     res.json(err);

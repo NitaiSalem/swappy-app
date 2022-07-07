@@ -1,4 +1,107 @@
+@import "../../sassStyles/variables";
 
-.login-container, .register-container {
-    margin-top:56px;
+.login-container,
+.register-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  // justify-content: center;
+  align-items: center;
+  padding-top: 56px;
+
+  // .red-text{
+  //     color:$darkerOrange;
+  // }
+  .auth-box-container {
+    // height: 70%;
+    // margin-bottom:82px;
+    width: 45%;
+    .top-controls-container {
+      margin: 10px 0px 40px 0px;
+
+      a {
+        text-decoration: none;
+        color: $darkerOrange;
+      }
+
+      .back-home-link {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: $turquoise;
+       
+
+        .back-home-icon {
+            position:relative; 
+            left: 15px;
+            transition: all 0.3s ease-out;
+        //   margin-right: 10px;
+        }
+
+        span {
+          position: relative;
+          left:20px;
+        }
+      }
+    
+      .back-home-link:hover .back-home-icon {
+        left: 0px;
+        transform: scale(1.2);
+      }
+
+      h2 {
+        font-weight: 400;
+        font-size: 38px;
+        margin-top: 26px;
+        margin-bottom: 12px;
+        b {
+          font-weight: 800;
+        }
+      }
+    }
+  }
+  .validation-fields-container {
+    display: flex;
+    flex-direction: column;
+
+    input {
+      padding-bottom: 10px;
+    }
+  }
+
+  .auth-submit-container {
+    display: flex;
+    justify-content: center;
+    .auth-submit {
+      padding: 15px;
+      width: 200px;
+      background-color: $orangeButton;
+      border: none;
+      border-radius: 3px;
+      color: white;
+      font-size: 18px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin: 10px 0px 20px 0px;
+    }
+    .auth-submit:hover {
+      background-color: $shadedOrange;
+      box-shadow: 0 0 3px #3b99fc;
+    }
+  }
+}
+
+// .invalid{
+//     color:$darkerOrange;
+
+// }
+
+@media (max-width: 700px) {
+  .register-container, .login-container {
+    .auth-box-container {
+      width: 85%;
+    }
+  }
 }

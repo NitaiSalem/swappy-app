@@ -4,7 +4,7 @@
 .home-testimonies-container {
   display: flex;
   flex-direction: column;
-  margin-top: 200px;
+  margin-top: 50px;
   width: 100%;
 
   .home-testimonies-title-container {
@@ -57,6 +57,7 @@
           .testimony-text-wrapper {
             display: flex;
             text-align: left;
+
             // padding:5px;
             // align-items: center;
             width: 100%;
@@ -67,7 +68,7 @@
               font-size: 15px;
               margin-left:5px;
               color: $panel-heading;
-              // font-weight: 600;
+               font-weight: 600;
               // white-space: wrap;
 
               // word-break: break-word;
@@ -78,16 +79,14 @@
 
           .testimony-user {
             display: flex;
+
             .testimony-image-container {
-              // position:absolute;
               height: 45px;
-              width: 45px;
             }
             .testimony-image {
               height: 100%;
               width: 100%;
-              border-radius: 50%;
-
+              border-radius: 100%;
               // position:absolute;
               // bottom:0;
             }
@@ -95,8 +94,14 @@
             .user-text-box {
               display: flex;
               flex-direction: column;
+              margin-left:10px;
+              margin-right:10px;
               padding-left:10px;
               width:100%;
+              // background-color: $light-gray-background;
+              border: 1px solid rgb(6, 130, 149,0.2);
+              border-radius: 4px;
+
               .testimony-name{
                 color:$panel-heading; 
                 font-size: 15px;

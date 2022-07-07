@@ -19,7 +19,7 @@ const Testimonies = () => {
                 <div className="testimony-text-wrapper">
                   <FontAwesomeIcon
                     icon={faQuoteLeft}
-                    style={{ color: "#8b8b8b" }}
+                    style={{ color: "rgb(6, 130, 149,0.5)" }}
                   />
                   <p className="testimony-text">{testimony.text}</p>
                 </div>

@@ -24,8 +24,13 @@ const Carousel = ({ children }) => {
 
   useEffect(() => {
     window.addEventListener("resize", () =>
-    
-      setDotLength(window.innerWidth >990 ? 3 : window.innerWidth > 770&& window.innerWidth <990 ?  5 : 9 )
+      setDotLength(
+        window.innerWidth > 990
+          ? 3
+          : window.innerWidth > 770 && window.innerWidth < 990
+          ? 5
+          : 9
+      )
     );
 
     return () => {
@@ -55,22 +60,19 @@ const Carousel = ({ children }) => {
   // };
 
   const updateIndex = (newIndex) => {
-    console.log({ newIndex });
     if (newIndex < 0) {
-      newIndex = dotLength-1;
+      newIndex = dotLength - 1;
     } else if (newIndex >= dotLength) {
       newIndex = 0;
     }
     setActiveIndex(newIndex);
 
-/*
+    /*
     activeIndex === 4
                   ? `translateX(-${activeIndex * 50}%)`
                   : `translateX(-${activeIndex * 100}%)`,
 
-*/ 
-
-
+*/
   };
 
   useEffect(() => {
@@ -114,7 +116,7 @@ const Carousel = ({ children }) => {
             //  style={{ transform: `translateX(-${ activeIndex * 100}%)` }}
             style={{
               transform:
-              activeIndex === 4 && dotLength === 5
+                activeIndex === 4 && dotLength === 5
                   ? `translateX(-${350}%)`
                   : `translateX(-${activeIndex * 100}%)`,
             }}
@@ -139,7 +141,7 @@ const Carousel = ({ children }) => {
         {[...Array(dotLength)].map((e, i) => {
           return (
             <button
-            key={i}
+              key={i}
               className={`${i === activeIndex ? "active" : ""}`}
               onClick={() => updateIndex(i)}
             >

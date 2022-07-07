@@ -23,23 +23,30 @@ const SearchResults = () => {
   const perPage = 6;
   //*use these not in state
   //!these are causing the map rerender.
+  const filterCounter = useSelector((state) => state.filterCounter);
   const checkedLifeStyle = useSelector((state) => state.lifeStyleFilter);
   const desiredHomeType = useSelector((state) => state.homeTypeFilter);
   const checkedAmneties = useSelector((state) => state.amnetiesFilter);
   const filterDetailsObj = useSelector((state) => state.detailsFilter);
 
   // console.log({ state });
-  const searchValue = state.searchValue; //!use this to get search value!!!
-  const foundHomes = state.foundHomes; //I i changed this!
+  // const searchValue = state.searchValue; //!use this to get search value!!!
+  const [searchValue, setSearchValue] = useState(state.searchValue);
+
+  //on search set the global state value to updated?
+
+  const foundHomes = state.foundHomes;
   const [filteredHomes, setFilteredHomes] = useState([]);
 
-  const [filterAccessibility, setFilterAccessibility] = useState({});
+  // const [filterAccessibility, setFilterAccessibility] = useState({});
   const [pageCount, setPageCount] = useState(
     Math.ceil(filteredHomes.length / perPage)
   );
   //!this inialization can mess the search results?
   const [slicedHomes, setSlicedHomes] = useState(
-    filteredHomes ? filteredHomes.slice(offset, offset + perPage) : []
+    filteredHomes.length > 0
+      ? filteredHomes.slice(offset, offset + perPage)
+      : []
   );
 
   //*creating scroll reference for element
@@ -82,18 +89,32 @@ const SearchResults = () => {
   useEffect(() => {
     //*getSearchResults
     // console.log("fetching useffect rendered!!!")
-    //?limit to maybe only when filter values change? otherwise first render gives us the search results already...
+
     const fetchHomes = async () => {
-      let fetchedHomes = await getSearchResults(searchValue);
-      const finalFiltered = filterAll(
-        fetchedHomes,
-        desiredHomeType,
-        filterDetailsObj,
-        checkedAmneties,
-        checkedLifeStyle
-      );
-      //*I do have acess to the filter objects from redux state, use the filter method here with those redux store values ?
-      setFilteredHomes(finalFiltered);
+      const foundHomes = await getSearchResults(searchValue);
+      //only apply filter functionallity if we have filter active
+      if (filterCounter > 0 && foundHomes) {
+        const finalFiltered = filterAll(
+          foundHomes,
+          desiredHomeType,
+          filterDetailsObj,
+          checkedAmneties,
+          checkedLifeStyle
+        );
+        setFilteredHomes(finalFiltered);
+      } else setFilteredHomes(foundHomes ? foundHomes : []);
+
+      // let fetchedHomes = await getSearchResults(searchValue);
+
+      // const finalFiltered = filterAll(
+      //   fetchedHomes,
+      //   desiredHomeType,
+      //   filterDetailsObj,
+      //   checkedAmneties,
+      //   checkedLifeStyle
+      // );
+      // //*I do have acess to the filter objects from redux state, use the filter method here with those redux store values ?
+      // setFilteredHomes(finalFiltered);
     };
     fetchHomes();
     //set sliced:
@@ -109,7 +130,9 @@ const SearchResults = () => {
     setPageCount(Math.ceil(filteredHomes.length / perPage));
     //  setSlicedHomes(filteredHomes);
     setSlicedHomes(
-      filteredHomes ? filteredHomes.slice(offset, offset + perPage) : []
+      filteredHomes.length > 0
+        ? filteredHomes.slice(offset, offset + perPage)
+        : []
     );
   }, [offset, filteredHomes]);
 
@@ -123,6 +146,11 @@ const SearchResults = () => {
           // filteredHomes={filteredHomes}
           setFilteredHomes={setFilteredHomes}
           searchValue={searchValue}
+          setSearchValue={setSearchValue}
+          desiredHomeType={desiredHomeType}
+          filterDetailsObj={filterDetailsObj}
+          checkedAmneties={checkedAmneties}
+          checkedLifeStyle={checkedLifeStyle}
         />
         <FilterModal
           searchValue={searchValue}
@@ -130,21 +158,19 @@ const SearchResults = () => {
           perPage={perPage}
           setSlicedHomes={setSlicedHomes}
           setFilteredHomes={setFilteredHomes}
-          filterAccessibility={filterAccessibility}
-          setFilterAccessibility={setFilterAccessibility}
           setPageCount={setPageCount}
         />
 
         <Grid container spacing={2} className="homes-grid-container">
-          {Array.isArray(slicedHomes) &&
+          {slicedHomes.length > 0 &&
             slicedHomes.map((home, i) => {
               let houseLocation;
 
               if (home.homeDetails !== undefined) {
                 houseLocation = home.homeDetails.houseLocation;
               } else houseLocation = { area: "unknown location" };
-              console.log({ houseLocation });
-              console.log("length of home images", home.homeImages.length);
+              // console.log({ houseLocation });
+              // console.log("length of home images", home.homeImages.length);
               const homeImageUrl =
                 home.homeImages.length > 0
                   ? home.homeImages[0].url
@@ -189,19 +215,26 @@ const SearchResults = () => {
               );
             })}
         </Grid>
-        <ReactPaginate
-          previousLabel={"prev"}
-          nextLabel={"next"}
-          breakLabel={"..."}
-          breakClassName={"break-me"}
-          pageCount={pageCount}
-          marginPagesDisplayed={2}
-          //  pageRangeDisplayed={5}
-          onPageChange={handlePageClick}
-          containerClassName={"pagination"}
-          subContainerClassName={"pages pagination"}
-          activeClassName={"active"}
-        />
+        {slicedHomes.length > 0 && (
+          <ReactPaginate
+            previousLabel={"< Prev"}
+            nextLabel={"Next >"}
+            breakLabel={"..."}
+            breakClassName={"break-me"}
+            pageCount={pageCount}
+            marginPagesDisplayed={2}
+            //  pageRangeDisplayed={5}
+            onPageChange={handlePageClick}
+            containerClassName={"pagination"}
+            subContainerClassName={"pages pagination"}
+            //  activeLinkClassName={"active-link"}
+            nextClassName={"next-link"}
+            previousClassName={"previous-link"}
+            activeClassName={"active"}
+            disabledLinkClassName={"disabled-link"}
+            disabledClassName={"disabled"}
+          />
+        )}
       </div>
 
       <div className="map-container">

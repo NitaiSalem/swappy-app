@@ -8,13 +8,23 @@ Use axios to make HTTPRequests within certain action
 Use dispatch to send actions to our reducers
 these are action creators as they return action objects and dispatch to store
 */
-import {GET_ERRORS, SET_CURRENT_USER, USER_LOADING} from "./types";
+import { GET_ERRORS, SET_CURRENT_USER, USER_LOADING } from "./types";
 
 // Register User
 export const registerUser = (userData) => (dispatch) => {
   axios
     .post("/api/users/register", userData)
-    // .then((res) => history.push("/login")) // re-direct to login on successful register
+    .then((res) => {
+      //?use dispatch to set value for resetting errors here?
+      dispatch({
+        type: GET_ERRORS,
+        payload: {},
+      });
+      //both options work!
+      window.location.href = "./login";
+      // window.history.pushState({}, "Login", "/login");
+      // window.location.reload();
+    }) // re-direct to login on successful register
     .catch((err) =>
       dispatch({
         type: GET_ERRORS,
@@ -27,10 +37,14 @@ export const loginUser = (userData) => (dispatch) => {
   axios
     .post("/api/users/login", userData)
     .then((res) => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: {},
+      });
       // Save to localStorage
       //token is recieved from server post request
       // Set token to localStorage
-      const {token} = res.data;
+      const { token } = res.data;
       localStorage.setItem("jwtToken", token);
       // Set token to Auth header
       setAuthToken(token);

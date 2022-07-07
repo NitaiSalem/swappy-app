@@ -1,5 +1,6 @@
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import "./App.scss";
+import "./scss/style.scss";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
 import {setCurrentUser, logoutUser} from "./actions/authActions";
@@ -23,6 +24,7 @@ import FoundProfile from "./components/layout/search-results/found-profile/Found
 import ProfileEdit from "./components/layout/profile/profile-edit/ProfileEdit";
 import { ThemeProvider} from '@mui/material/styles';
 import { theme } from "./utils/muiTheme";
+import ScrollToTop from "./components/scroll-to-top/ScrollToTop";
 
 let persistor = persistStore(store);
 // Check for token to keep user logged in
@@ -52,6 +54,7 @@ function App() {
          <ThemeProvider theme={theme}>
          <PersistGate persistor={persistor}>
       <Router>
+      <ScrollToTop />
         <div className="App">
           <NavigationBar />
           <Routes>

@@ -6,7 +6,8 @@ import { Bed, SingleBed } from "@mui/icons-material";
 import GroupIcon from "@mui/icons-material/Group";
 import WcIcon from "@mui/icons-material/Wc";
 import MeetingRoomIcon from "@mui/icons-material/MeetingRoom";
-
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
 const DetailsUpload = ({ details, setDetails, setInViewComponent }) => {
   //recieve state and increment?
   const { ref, inView, entry } = useInView({
@@ -49,7 +50,7 @@ const DetailsUpload = ({ details, setDetails, setInViewComponent }) => {
               }
               className="hidden-input"
             />
-            <label htmlFor ="home-type-appartment">
+            <label htmlFor="home-type-appartment">
               <FontAwesomeIcon icon="building" style={{ fontSize: "28px" }} />{" "}
               Apartment
             </label>
@@ -64,7 +65,7 @@ const DetailsUpload = ({ details, setDetails, setInViewComponent }) => {
               onChange={() => setDetails({ ...details, homeType: "House" })}
               // onClick={() => setDetails({ ...details, homeType: "House" })}
             />
-            <label htmlFor ="home-type-house">
+            <label htmlFor="home-type-house">
               <FontAwesomeIcon icon="home" style={{ fontSize: "28px" }} /> House
             </label>
           </div>
@@ -93,7 +94,7 @@ const DetailsUpload = ({ details, setDetails, setInViewComponent }) => {
                   })
                 }
               >
-                -
+                <RemoveIcon fontSize="inherit" />
               </button>
               <p>{details.singleBeds}</p>
               <button
@@ -108,7 +109,7 @@ const DetailsUpload = ({ details, setDetails, setInViewComponent }) => {
                   })
                 }
               >
-                +
+                <AddIcon fontSize="inherit" />
               </button>
             </div>
             <div className="input-number-container">
@@ -129,7 +130,7 @@ const DetailsUpload = ({ details, setDetails, setInViewComponent }) => {
                   })
                 }
               >
-                -
+                <RemoveIcon fontSize="inherit" />
               </button>
               <p>{details.doubleBeds}</p>
               <button
@@ -144,7 +145,7 @@ const DetailsUpload = ({ details, setDetails, setInViewComponent }) => {
                   })
                 }
               >
-                +
+                <AddIcon fontSize="inherit" />
               </button>
             </div>
           </div>
@@ -165,7 +166,7 @@ const DetailsUpload = ({ details, setDetails, setInViewComponent }) => {
                   })
                 }
               >
-                -
+                <RemoveIcon fontSize="inherit" />
               </button>
               <p>{details.bedRooms}</p>
               <button
@@ -178,11 +179,11 @@ const DetailsUpload = ({ details, setDetails, setInViewComponent }) => {
                   })
                 }
               >
-                +
+                <AddIcon fontSize="inherit" />
               </button>
             </div>
             <div className="input-number-container">
-              <FontAwesomeIcon icon="bath" style={{ fontSize: "36px" }}  />
+              <FontAwesomeIcon icon="bath" style={{ fontSize: "36px" }} />
               <p className="input-text"> Bathrooms </p>
               <button
                 disabled={details.bathRooms === 0}
@@ -195,7 +196,7 @@ const DetailsUpload = ({ details, setDetails, setInViewComponent }) => {
                   })
                 }
               >
-                -
+                <RemoveIcon fontSize="inherit" />
               </button>
               <p>{details.bathRooms}</p>
               <button
@@ -209,7 +210,7 @@ const DetailsUpload = ({ details, setDetails, setInViewComponent }) => {
                   })
                 }
               >
-                +
+                <AddIcon fontSize="inherit" />
               </button>
             </div>
           </div>

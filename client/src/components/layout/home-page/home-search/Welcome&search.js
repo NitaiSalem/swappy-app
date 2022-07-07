@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./welcome.style.scss";
 // import { Button } from "react-bootstrap";
 import Autocomplete from "react-google-autocomplete";
@@ -6,6 +6,9 @@ import { useNavigate } from "react-router-dom";
 import { getSearchResults } from "../../../../utils/getHomes";
 import { Button } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
+import { useInView } from "react-intersection-observer";
+import { useDispatch } from "react-redux";
+import { setIsNavSearchShown } from "../../../../actions/showNavSearchAction";
 
 // import {getSearchResults} from "../../../../actions/searchActions";
 // import {useDispatch, useSelector} from "react-redux";
@@ -13,8 +16,21 @@ import SearchIcon from '@mui/icons-material/Search';
 const WelcomeSection = () => {
   const [searchText, setSearchText] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   // const dispatch = useDispatch();
-  // const searchResults = useSelector((state) => state.searchResults);
+
+  const { ref, inView, entry } = useInView({
+    /* Optional options */
+    threshold: 1,
+  });
+
+  useEffect(() => {
+    //  console.log( "this is in view",inView)
+    inView? dispatch(setIsNavSearchShown(false)): dispatch(setIsNavSearchShown(true));
+    // inView && setInViewComponent("details-upload");
+  }, [inView]);
+
 
   const onTextChange = ({ target: { value } }) => {
     console.log("on text change value", value);
@@ -29,6 +45,16 @@ const WelcomeSection = () => {
       state: { searchValue, foundHomes: searchResults },
     });
   };
+
+  // const searchHomes = async (searchValue) => {
+  //   const searchResults = await getSearchResults(searchValue);
+  //   // console.log("this is searchvalue in search homes func", searchValue);
+  //   // console.log("this is search results in search homes func", searchResults);
+  //   navigate(`/search/${searchValue}`, {
+  //     state: { searchValue, foundHomes: searchResults },
+  //   });
+  // };
+
 
   const handlePlaceSelected = (place, event) => {
     console.log("this is event value", event.value);
@@ -54,7 +80,7 @@ const WelcomeSection = () => {
         Discover Israel with <span style={{ color: "#e85710" }}> Swappy</span>
       </h1>
 
-      <div className="search-home-container">
+      <div className="search-home-container" ref={ref}>
         {/* <form autoComplete="off"> */}
         {/* <form action={`/api/search/${searchText}`} method="get"> */}
         <h4 className="search-header">I'd love to go to</h4>
@@ -65,7 +91,7 @@ const WelcomeSection = () => {
           // value={searchText}
           className="search-box"
           apiKey={process.env.REACT_APP_MAPS_API_KEY}
-          placeholder="Go anywhere"
+          placeholder="Enter destination"
           options={{
             componentRestrictions: { country: "isr" },
           }}

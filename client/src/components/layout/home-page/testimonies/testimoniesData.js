@@ -23,7 +23,7 @@ export const testimoniesData = [
     memberDate: "Member since May 2018",
   },
   {
-    text: " We have been going on exchanges for almost two years and are won over every time. It’s magical to travel around France and abroad and to feel at home with all of the comfort we need for ourselves and our children. I can’t imagine traveling any other way, because our experiences have been so amazing.",
+    text: "We have been going on exchanges for almost two years and are won over every time. It’s magical to travel around France and abroad and to feel at home with all of the comfort we need for ourselves and our children. I can’t imagine traveling any other way, because our experiences have been so amazing.",
     imgUrl: man1,
     name: "Daniel",
     memberDate: "Member since November 2017",

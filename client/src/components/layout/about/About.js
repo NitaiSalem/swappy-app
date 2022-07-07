@@ -30,7 +30,7 @@ const About = () => (
       <div className="step-text">
         <h6 className="steps-title"> 1. Search for a swap</h6>
         <p>
-          Use the swapourhome.com website to search for your perfect vacation
+          Use the Swappy website to search for your perfect vacation
           destination. Make sure to use the search filters to find the home you
           want. Maybe a place close to the beach, or one that allows you to
           bring your furry friend along.

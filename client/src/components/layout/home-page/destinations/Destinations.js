@@ -1,4 +1,4 @@
-import "./destinations.scss";
+// import "./destinations.scss";
 import { Router, Route, Switch } from "react-router";
 import { NavLink } from "react-router-dom";
 import Spinner from "../../../spinner/Spinner";

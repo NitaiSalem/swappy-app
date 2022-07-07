@@ -1,14 +1,16 @@
-@use "../../../sassStyles/variables";
+@import "../../../sassStyles/variables";
 
 .about-container {
   margin-top: 46px;
 
   .title {
     padding: 15px 15px 15px 15px;
+    color:$panel-heading;
   }
 
   .under-title {
     padding: 5px 0 15px 15px;
+    color:$darkerOrange;
   }
 
   .info-container {
@@ -16,11 +18,11 @@
   }
   .steps-title {
       font-size: 22px;
-    color: variables.$orange-color;
+    color:$orangeButton;
   }
 
   .steps-container {
-    padding: 10px 15vw 20px 15vw;
+    padding: 10px 10vw 20px 10vw;
 
     display: grid;
     grid-template-columns: 50% 50%;
@@ -32,6 +34,7 @@
     object-fit: cover;
   }
   .step-text {
+    padding:20px;
     display: flex;
     flex-direction: column;
     align-items: center;

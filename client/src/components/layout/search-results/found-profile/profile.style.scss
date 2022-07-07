@@ -205,6 +205,9 @@ li.thumb:hover{
     font-size: 18px;
     background-color: #068295;
     border-radius: 4px;
+    transition: color 0.3s ease;
+    transition: background-color 0.3s ease;
+
     // width:350px;
     .edit-profile-icon {
       color: $orangeButton;

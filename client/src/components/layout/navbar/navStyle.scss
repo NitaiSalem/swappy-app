@@ -1,3 +1,6 @@
+// @import "../../../../sassStyles/variables";
+@import "../../../sassStyles/variables";
+
 // .container-fluid {
 //   display: flex;
 //   justify-content: space-between;
@@ -69,17 +72,79 @@
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
   background-color: #ffffff;
   padding: 8px 15px 8px 15px;
-  z-index:100000; 
+  z-index: 100000;
+
+  // .search-box-container {
+  //   display: flex;
+  //   margin-left: 20px;
+  //   .search-box-container-hidden {
+  //     display: none !important;
+  //   }
+  // }
+
+  .nav-search-box-container {
+    position: absolute;
+     left: 70px;
+    display: flex;
+  
+    
+    .search-box {
+      // border: none;
+      font-size: 16px;
+      border: 1px solid $faded-border;
+      // border-radius: 3px;
+      width: 220px;
+      padding: 10px;
+      opacity: 0.7;
+    }
+    .search-box:hover {
+     border: 1px solid  $turquoise-faded;
+      //  box-shadow: 0 0 1px  $light-blue;
+    }
+
+    .search-box:focus {
+      outline: none;
+      border: 1px solid  $turquoise-faded;
+      // box-shadow: 0 0 1px  $light-blue;
+    }
+    
+    .search-box::placeholder {
+      // color: $panel-heading;
+      color: $turquoise;
+      opacity:0.8;
+      // opacity: 0.6;
+    }
+    
+  
+    .submit-search {
+      color: $darkerOrange;
+      border-color: $faded-border;
+      // border-color: $darkerOrange;
+      transition: all 0.3s ease;
+      border-radius:0px;
+    }
+  
+    .submit-search:hover {
+      background-color: #ffffff;
+      border-color: $darkerOrange;
+    }
+  }
+
+  .nav-search-box-container-hidden{
+    display: none  !important;
+}
+
 }
 
 .navigation-bar a {
   // margin: 0px 16px 0px 16px;
-  color: #565662;
+  color: $panel-heading;
   text-decoration: none;
 }
 
 .navigation-bar a:hover {
-  color: rgb(0, 0, 0);
+  color: $turquoise;
+  transition: all 0.3s ease;
 }
 
 // .logo-container {
@@ -100,7 +165,6 @@
 .logo-image {
   height: 100%;
   width: 100%;
-  margin-right: 50px;
   animation: rotate 4s linear infinite;
 }
 // .icon {
@@ -117,40 +181,41 @@
 //   mix-blend-mode: multiply; /* Only apply color on top of white, use screen if icon is black */
 // }
 
-@keyframes rotate{
-  to{ transform: rotate(-360deg); }
+@keyframes rotate {
+  to {
+    transform: rotate(-360deg);
+  }
 }
-
 
 .list {
   list-style: none;
   display: flex;
-  align-items:center; 
+  align-items: center;
   gap: 25px;
 
-  .profile-logout-container{
-    display:flex; 
-align-items: center;
-    .logout-button{
-      // font-size: 12px; 
+  .profile-logout-container {
+    display: flex;
+    align-items: center;
+    .logout-button {
+      // font-size: 12px;
       margin-left: 40px;
       display: flex;
       align-items: center;
 
-      .css-i4bv87-MuiSvgIcon-root{
-// height:20px;
-width:20px;
+      .css-i4bv87-MuiSvgIcon-root {
+        // height:20px;
+        width: 20px;
       }
 
       .tooltiptext {
         visibility: hidden;
         width: 70px;
-        background-color: #565662;
+        background-color: $darkerOrange;
         color: #fff;
         text-align: center;
         padding: 5px 5px;
         border-radius: 3px;
-       
+
         /* Position the tooltip text - see examples below! */
         position: absolute;
         z-index: 1;
@@ -159,24 +224,22 @@ width:20px;
         // left: 50%;
         margin-left: -37px; /* Use half of the width (120/2 = 60), to center the tooltip */
       }
-
     }
 
     .logout-button:hover .tooltiptext {
       visibility: visible;
     }
   }
-
 }
 
 #toggler {
   display: none;
 }
 
-@media screen and (max-width: 500px) {
-
-
-
+@media (max-width: 500px) {
+  .nav-search-box-container{
+    display:none !important;
+  }
 
   .closed-menu {
     width: 100%;
@@ -233,11 +296,11 @@ width:20px;
     //  visibility: hidden;
     // transition: height 0.5s ease-in;
 
-    .profile-logout-container{
+    .profile-logout-container {
       flex-direction: column;
-      .logout-button{
+      .logout-button {
         margin-left: 0px;
-        margin-top:15px;
+        margin-top: 15px;
       }
     }
   }
@@ -261,8 +324,6 @@ width:20px;
     display: flex;
     flex-direction: column;
     width: 100%;
-
-
   }
 
   // #toggler:checked ~ .menu {

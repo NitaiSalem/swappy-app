@@ -372,7 +372,9 @@
               // border-radius: 100%;
               // background: none;
               // border: 1px solid $panel-heading;
-
+              display: flex;
+              align-items: center;
+              justify-content: center;
               transition: all 0.3s;
               cursor: pointer;
               background: none;
@@ -380,13 +382,13 @@
               border-radius: 100%;
               color: #191d1f;
               font-family: monospace, sans-serif;
-              font-size: 22px;
+              font-size: 20px;
               line-height: 1;
               height: 36px;
               width: 36px;
-              text-align: center;
+              // text-align: center;
               padding: 0;
-              vertical-align: middle;
+              // vertical-align: middle;
             }
             .number-button:hover {
               color: $darkerOrange;
@@ -417,20 +419,24 @@
     .submit-button {
       font-size: 20px;
       font-weight: 700;
-      outline: none;
-      background-color: white;
-      color: $darkerOrange;
-      border: 1px solid $darkerOrange;
       border-radius: 4px;
+
+      outline: none;
+      background-color: $darkerOrange;
+      border: 1px solid $darkerOrange;
+      // border-color:  $darkerOrange;
+      color: white;
+
+
+   
       height: 60px;
       width: 170px;
       transition: all 0.5s;
     }
     .submit-button:hover {
-      background-color: $darkerOrange;
+      background-color: white;
+      color: $darkerOrange;
       border: 1px solid $darkerOrange;
-      // border-color:  $darkerOrange;
-      color: white;
 
       cursor: pointer;
     }

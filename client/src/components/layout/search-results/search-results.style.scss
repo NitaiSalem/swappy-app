@@ -14,52 +14,58 @@
     padding: 20px 10px 20px 20px;
   }
 
-  .search-box-container {
+  // style={{backgroundColor: displayCount > 0 ? "rgba(232,87,16,.15)": "white", }}
+  .modal-container {
     display: flex;
-    margin-left: 20px;
+    justify-content: space-between;
+    border-bottom: 1px solid $filter-border;
+    border-top: 1px solid $filter-border;
+    margin: 20px 1.5vw 20px 1.5vw;
+    padding: 5px 0px;
 
-    
-    .search-box {
-      margin: 0px 10px 0px 20px;
-      // border: none;
-      font-size: 16px;
-      border: 1px solid $border-color-light;
-      border-radius: 3px;
-      padding-left: 12px;
-      width: 220px;
-      padding: 10px;
-      opacity: 0.7;
-    }
-    .search-box:focus {
-      outline: none;
-      box-shadow: 0 0 3px #3b99fc;
-    }
-    
-    .search-box::placeholder {
-      color: $panel-heading;
-      // opacity: 0.6;
-    }
-    
-
-    .submit-search {
-      color: $darkerOrange;
-      border-color: $darkerOrange;
-      margin-left: 10px;
-      transition: all 0.3s ease;
-    }
-
-    .submit-search:hover {
+    .filter-button {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
       color: $orangeButton;
-      border-color: $orangeButton;
+      margin-left: 40px;
+      transition: all 0.4s ease;
+      border-radius: 0px;
     }
-  }
-  .filter-button {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    color: #e85710;
-    margin-left: 15px;
-    margin-top: 10px;
+    .filter-button-active {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      color: $darkerOrange;
+      margin-left: 40px;
+      background-color: rgba(232, 87, 16, 0.15);
+      border: 1px solid $darkerOrange;
+      border-radius: 0px;
+    }
+
+    .filter-button:hover {
+      background-color: rgba(221, 165, 11, 0.15);
+    }
+    .filter-button-active:hover {
+      background-color: #fff;
+    }
+    .reset-filters {
+      border: none;
+      background-color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: $panel-heading;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-right: 40px;
+      padding: 6px 8px;
+    }
+
+    .reset-filters:hover {
+      color: $darkerOrange;
+    }
   }
 
   .map-container {
@@ -71,7 +77,8 @@
     // padding: 2em;
     padding-bottom: 6px;
     .map-wrapper {
-      height: 100%;
+      // height: 100%;
+      height: calc(100% - 10px);
     }
   }
 
@@ -83,17 +90,17 @@
     // padding-bottom: 60px !important;
 
     .homes-grid-container {
-      padding: 15px 5vw 15px 5vw;
+      padding: 0px 1.5vw 15px 1.5vw;
     }
     .found-home-container {
       //   width: 40%;
-      border: 1px solid rgb(209, 206, 206);
+      border: 1px solid $faded-border;
       border-radius: 4px;
       z-index: 20;
       // padding-top: 2px;
 
       .home-image-container {
-        height: 180px;
+        height: 280px;
         width: 100%;
         border-radius: 5px 5px 0 0;
       }
@@ -176,10 +183,18 @@
     //this works, reduces size
     padding: 15px !important;
   }
+  // .css-1poimk-MuiPaper-root-MuiMenu-paper-MuiPaper-root-MuiPopover-paper {
+  //   top: 76px !important;
+  //   max-height: calc(100% - 72px) !important;
+  // }
 
   // .css-1s2sqgp{
   //   //for filter box
   // }
+
+  .filter-box-container ul {
+    max-height: 300px;
+  }
 
   .pagination {
     margin: 15px auto;
@@ -187,48 +202,196 @@
     justify-content: center;
     list-style: none;
     outline: none;
-  }
-  .pagination > .active > a {
-    background-color: $darkerOrange;
-    border-color: $darkerOrange;
-    color: #fff;
-  }
-  .pagination > li > a {
-    margin: 0 5px 0 5px;
+    font-size: 18px;
+    li {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 100%;
 
-    border: 1px solid $darkerOrange;
-    border-radius: 3px;
-    padding: 5px 10px;
-    outline: none;
-    cursor: pointer;
-  }
-  .pagination > .previous,
-  .pagination > .next {
-    margin: 0 20px 0 20px;
-  }
+      margin: 0 5px 0 5px;
 
-  .pagination > .active > a,
-  .pagination > .active > span,
-  .pagination > .active > a:hover,
-  .pagination > .active > span:hover,
-  .pagination > .active > a:focus,
-  .pagination > .active > span:focus {
-    background-color: $darkerOrange;
-    border-color: $darkerOrange;
-    outline: none;
+      // cursor: pointer;
+    }
+    // .active > a {
+    //   // border-color: $darkerOrange;
+    //   color: #fff;
+    // }
+    li > a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid $darkerOrange;
+      transition: all 0.2s ease-in;
+      border-radius: 100%;
+      padding: 5px 10px;
+      width: 34px;
+      height: 34px;
+      outline: none;
+      cursor: pointer;
+    }
+    li:hover a {
+      transform: scale(1.1);
+    }
+    .previous-link,
+    .next-link {
+      margin: 0 20px 0 20px;
+      transition: all 0.3s ease;
+      width: 120px;
+      border: none;
+
+      a {
+        width: 100%;
+        border: none;
+      }
+
+      .disabled-link {
+        color: $faded-border;
+        cursor: default;
+      }
+    }
+
+    .previous-link:hover,
+    .next-link:hover {
+      // transform: scale(1.2);
+    }
+
+    .previous-link.disabled:hover a,
+    .next-link.disabled:hover a {
+      transform: scale(1);
+    }
+
+    // .previous:hover,
+    // .next:hover {
+    //   transform: scale(1.2);
+    // }
+
+    .active {
+      //  width:44px;
+      //  height:44px;
+      transform: scale(1.1);
+      transition: all 0.4s ease;
+      color: #fff;
+      background-color: $darkerOrange;
+      // width:44px;
+      // height:100%;
+      border-radius: 100%;
+      // border-color: $darkerOrange;
+      outline: none;
+      border: 1px solid $darkerOrange;
+    }
+    .active:hover a {
+      transform: scale(1);
+    }
+    // li:hover ~.active{
+    //   background-color: #fff;
+    //   // color: $darkerOrange;
+    //   border: 1px solid $darkerOrange;
+    //   color: $darkerOrange;
+
+    // }
+
+    // .active:hover {
+    //   background-color: #fff;
+    //   // color: $darkerOrange;
+    //   border: 1px solid $darkerOrange;
+    // }
+
+    // .active:hover a {
+    //   color: $darkerOrange;
+    // }
+
+    .active > a,
+    .active > span,
+    .active > span:hover,
+    .active > a:focus,
+    .active > span:focus {
+      transition: all 0.4s ease;
+      color: #fff;
+      // background-color: $darkerOrange;
+      // width:44px;
+      // height:100%;
+      // border-radius: 100%;
+      // border-color: $darkerOrange;
+      outline: none;
+      // border: 1px solid $darkerOrange;
+    }
+    // .active > a:hover {
+    //   background-color: #fff;
+    //   color: $darkerOrange;
+    //   border: 1px solid $darkerOrange;
+    // }
+
+    li > a,
+    li > span {
+      color: $darkerOrange;
+    }
+    // .pagination > li:first-child > a,
+    // .pagination > li:first-child > span,
+    // .pagination > li:last-child > a,
+    // .pagination > li:last-child > span {
+    //   border-radius: unset;
+    // }
   }
-  .pagination > li > a,
-  .pagination > li > span {
-    color: $darkerOrange;
-  }
-  // .pagination > li:first-child > a,
-  // .pagination > li:first-child > span,
-  // .pagination > li:last-child > a,
-  // .pagination > li:last-child > span {
-  //   border-radius: unset;
-  // }
 }
+.search-box-container {
+  display: flex;
+  margin-left: 20px;
+  .search-box-container-hidden {
+    display: none;
+  }
 
+  // .search-box {
+  //   margin: 0px 10px 0px 20px;
+  //   // border: none;
+  //   font-size: 16px;
+  //   border: 1px solid $border-color-light;
+  //   border-radius: 3px;
+  //   padding-left: 12px;
+  //   width: 220px;
+  //   padding: 10px;
+  //   opacity: 0.7;
+  // }
+  .search-box {
+    // border: none;
+    margin: 0px 10px 0px 20px;
+
+    font-size: 16px;
+    border: 1px solid $faded-border;
+    // border-radius: 3px;
+    width: 220px;
+    padding: 10px;
+    opacity: 0.7;
+  }
+  .search-box:hover {
+    // border: 1px solid  $turquoise-faded;
+    box-shadow: 0 0 2px $light-blue;
+  }
+  .search-box:focus {
+    outline: none;
+    // border: 1px solid  $turquoise-faded;
+    box-shadow: 0 0 3px $light-blue;
+  }
+
+  .search-box::placeholder {
+    color: $turquoise;
+    opacity: 0.7;
+    // opacity: 0.6;
+  }
+
+  .submit-search {
+    color: $darkerOrange;
+    border-color: $faded-border;
+    // border-color: $darkerOrange;
+    transition: all 0.3s ease;
+    border-radius: 0px;
+  }
+
+  .submit-search:hover {
+    background-color: #ffffff;
+    border-color: $darkerOrange;
+  }
+}
 // .search-results-container::-webkit-scrollbar {
 //   display: none; /* for Chrome, Safari, and Opera */
 // }
@@ -269,6 +432,9 @@
     margin-left: 8px;
     margin-right: 8px;
     // width: 30%;
+    ul {
+      max-height: 400px;
+    }
   }
 
   .home-type-checkbox-container {

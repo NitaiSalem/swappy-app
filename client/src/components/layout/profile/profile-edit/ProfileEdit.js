@@ -22,8 +22,8 @@ const ProfileEdit = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const homeDetails = useSelector((state) => state.homeDetails);
-  const currentAmneties = homeDetails.amneties;
-  const currentHouseRules = homeDetails.houseRules;
+  const currentAmneties = homeDetails.amneties?homeDetails.amneties:{} ;
+  const currentHouseRules = homeDetails.houseRules?homeDetails.houseRules:{};
   const [selectedImage, setSelectedImage] = useState("");
   const [homeImages, setHomeImages] = useState([]);
 

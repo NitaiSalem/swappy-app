@@ -5,7 +5,7 @@ import profileImgReducer from "./profileImgReducer";
 import homeImgReducer from "./homeImgReducer";
 import profileDetailsReducer from "./profileDetailsReducer";
 import { amnetiesFilterReducer, detailsFilterReducer, homeTypeFilterReducer, lifeStyleFilterReducer,filterCounterReducer } from "./filterReducers";
-
+import isNavSearchShownReducer from "./isNavSearchShownReducer"; 
 
 
 export default combineReducers({
@@ -19,6 +19,7 @@ export default combineReducers({
   amnetiesFilter: amnetiesFilterReducer, 
   lifeStyleFilter:lifeStyleFilterReducer,
   filterCounter:filterCounterReducer, 
+  isNavSearchShown:isNavSearchShownReducer,
 });
 
 //here is auth!!!!!!!!!!!!!!!!
