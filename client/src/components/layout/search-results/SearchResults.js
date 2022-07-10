@@ -88,8 +88,7 @@ const SearchResults = () => {
   };
 
   useEffect(() => {
-    //*getSearchResults
-    // console.log("fetching useffect rendered!!!")
+
 
     const fetchHomes = async () => {
       const foundHomes = await getSearchResults(searchValue);
@@ -104,18 +103,6 @@ const SearchResults = () => {
         );
         setFilteredHomes(finalFiltered);
       } else setFilteredHomes(foundHomes ? foundHomes : []);
-
-      // let fetchedHomes = await getSearchResults(searchValue);
-
-      // const finalFiltered = filterAll(
-      //   fetchedHomes,
-      //   desiredHomeType,
-      //   filterDetailsObj,
-      //   checkedAmneties,
-      //   checkedLifeStyle
-      // );
-      // //*I do have acess to the filter objects from redux state, use the filter method here with those redux store values ?
-      // setFilteredHomes(finalFiltered);
     };
     fetchHomes();
     //set sliced:
@@ -216,25 +203,29 @@ const SearchResults = () => {
               );
             })}
         </Grid>
+        {
+          slicedHomes.length > 0 && 
           <ReactPaginate
-            previousLabel={"< Prev"}
-            nextLabel={"Next >"}
-            breakLabel={"..."}
-            breakClassName={"break-me"}
-            pageCount={pageCount}
-            marginPagesDisplayed={2}
-            //  pageRangeDisplayed={5}
-            onPageChange={handlePageClick}
-            containerClassName={"pagination"}
-            subContainerClassName={"pages pagination"}
-            //  activeLinkClassName={"active-link"}
-            nextClassName={"next-link"}
-            previousClassName={"previous-link"}
-            activeClassName={"active"}
-            disabledLinkClassName={"disabled-link"}
-            disabledClassName={"disabled"}
-          />
-      
+          previousLabel={"< Prev"}
+          nextLabel={"Next >"}
+          breakLabel={"..."}
+          breakClassName={"break-me"}
+          pageCount={pageCount}
+          marginPagesDisplayed={2}
+          //  pageRangeDisplayed={5}
+          onPageChange={handlePageClick}
+          containerClassName={"pagination"}
+          subContainerClassName={"pages pagination"}
+          //  activeLinkClassName={"active-link"}
+          nextClassName={"next-link"}
+          previousClassName={"previous-link"}
+          activeClassName={"active"}
+          disabledLinkClassName={"disabled-link"}
+          disabledClassName={"disabled"}
+        />
+    
+        }
+    
       </div>
 
       <div className="map-container">
