@@ -19,9 +19,8 @@ import {
   LoadScript,
 } from "@react-google-maps/api";
 
-// const API_Key = process.env.REACT_APP_MAPS_API_KEY;
+const API_Key = process.env.REACT_APP_MAPS_API_KEY;
 
- const API_Key = "AIzaSyCNCCBfPWacmsiS7eACHMaAgp2VeIornQI";
 const containerStyle = {
   width: "100%",
   height: "250px",
