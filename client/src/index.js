@@ -4,27 +4,27 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { library } from "@fortawesome/fontawesome-svg-core"; //allows later to just use icon name to render-them
-import {
-  faBuilding,
-  faHome,
-  faBed,
-  faDoorOpen,
-  faBath,
-  faEdit,
-  faUserFriends,
-  faMapMarkerAlt,
-} from "@fortawesome/fontawesome-free-solid";
-library.add(
-  faBuilding,
-  faHome,
-  faBed,
-  faDoorOpen,
-  faBath,
-  faEdit,
-  faUserFriends,
-  faMapMarkerAlt
-);
+// import { library } from "@fortawesome/fontawesome-svg-core"; //allows later to just use icon name to render-them
+// import {
+//   faBuilding,
+//   faHome,
+//   faBed,
+//   faDoorOpen,
+//   faBath,
+//   faEdit,
+//   faUserFriends,
+//   faMapMarkerAlt,
+// } from "@fortawesome/fontawesome-free-solid";
+// library.add(
+//   faBuilding,
+//   faHome,
+//   faBed,
+//   faDoorOpen,
+//   faBath,
+//   faEdit,
+//   faUserFriends,
+//   faMapMarkerAlt
+// );
 
 ReactDOM.render(
   <React.StrictMode>
