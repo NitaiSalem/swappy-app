@@ -14,16 +14,20 @@ import {
   uploadHomeImages,
   uploadProfileImage,
 } from "../../../../actions/profileDataActions";
-import Map from "../../../map/Map";
+// import Map from "../../../map/Map";
 import "./profile-edit.style.scss";
 import { useNavigate } from "react-router-dom";
+import ProfileEditMap from "../../../map/ProfileEditMap";
+// import NewMap2 from "../../../map/NewMap2";
 
 const ProfileEdit = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const homeDetails = useSelector((state) => state.homeDetails);
-  const currentAmneties = homeDetails.amneties?homeDetails.amneties:{} ;
-  const currentHouseRules = homeDetails.houseRules?homeDetails.houseRules:{};
+  const currentAmneties = homeDetails.amneties ? homeDetails.amneties : {};
+  const currentHouseRules = homeDetails.houseRules
+    ? homeDetails.houseRules
+    : {};
   const [selectedImage, setSelectedImage] = useState("");
   const [homeImages, setHomeImages] = useState([]);
 
@@ -192,7 +196,17 @@ const ProfileEdit = () => {
               setHomeImages={setHomeImages}
               setInViewComponent={setInViewComponent}
             />
-            <Map
+            <ProfileEditMap
+              setInViewComponent={setInViewComponent}
+                  houseLocation={
+                houseLocation.lat
+                  ? houseLocation
+                  : { lat: 32.079918405524154, lng: 34.77430033010254 }
+              }
+              setHouseLocation={setHouseLocation}
+          
+            />
+            {/* <Map
               setInViewComponent={setInViewComponent}
               setHouseLocation={setHouseLocation}
               houseLocation={
@@ -202,7 +216,7 @@ const ProfileEdit = () => {
               }
               height="250px"
               zoom={13}
-            />
+            /> */}
             <DetailsUpload
               setInViewComponent={setInViewComponent}
               details={details}

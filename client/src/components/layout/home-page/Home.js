@@ -4,11 +4,11 @@ import Destinations from "./destinations/Destinations";
 import Footer from "../footer/Footer";
 import Testimonies from "./testimonies/Testimonies";
 import "./home-search/welcome.style.scss";
-import { useLocation } from "react-router-dom";
+// import { useLocation } from "react-router-dom";
 
 const HomePage = () => {
-  const { pathname } = useLocation();
-console.log({pathname})
+//   const { pathname } = useLocation();
+// console.log({pathname})
 return(
     <div className='home-page'> 
   <WelcomeSection/> 

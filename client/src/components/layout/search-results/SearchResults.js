@@ -3,7 +3,7 @@ import defaultImage from "../../../assets/user-icon.png";
 import defaultHomeImage from "../../../assets/home-default.jpg";
 import { Button, Grid } from "@mui/material";
 import "./search-results.style.scss";
-import SearchResultsMap from "../../map/SearchResultsMap";
+// import SearchResultsMap from "../../map/SearchResultsMap";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState, useRef, useMemo, useCallback } from "react";
@@ -12,6 +12,7 @@ import SearchBar from "./SearchBar";
 import ReactPaginate from "react-paginate";
 import { getSearchResults } from "../../../utils/getHomes";
 import { filterAll } from "../../../utils/filterUtils";
+import SearchResultsMap from "../../map/SearchResultsMap";
 
 const SearchResults = () => {
   const navigate = useNavigate();
@@ -215,7 +216,6 @@ const SearchResults = () => {
               );
             })}
         </Grid>
-        {slicedHomes.length > 0 && (
           <ReactPaginate
             previousLabel={"< Prev"}
             nextLabel={"Next >"}
@@ -234,7 +234,7 @@ const SearchResults = () => {
             disabledLinkClassName={"disabled-link"}
             disabledClassName={"disabled"}
           />
-        )}
+      
       </div>
 
       <div className="map-container">

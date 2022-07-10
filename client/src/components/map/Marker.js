@@ -1,32 +1,24 @@
-import "./map.scss";
-import {
-  withGoogleMap,
-  GoogleMap,
-  withScriptjs,
-  Marker,
-  Circle,
-  InfoWindow,
-} from "react-google-maps";
+import { Marker, InfoWindow } from "@react-google-maps/api";
 // import Autocomplete from "react-google-autocomplete";
-import Geocode from "react-geocode";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import React, {useCallback, useEffect, useState} from "react";
-import {memo} from "react";
-import {useNavigate} from "react-router-dom";
+// import Geocode from "react-geocode";
+// import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import React, { useState } from "react";
+// import {memo} from "react";
+// import {useNavigate} from "react-router-dom";
 import mapIcon from "../../../../client/src/assets/marker-icon.png";
 import redMarker from "../../../../client/src/assets/red-marker.png";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
+// import LocationOnIcon from "@mui/icons-material/LocationOn";
 import defaultHomeImage from "../../../src/assets/home-default.jpg";
 // import defaultHomeImage from "../../../src/site images/home-default.jpg";
 import defaultImage from "../../../src/assets/user-icon.png";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 
 // import defaultImage from "../../../site images/user-icon.png";
-const MarkerComponent = ({home, index, mappedHouses, goToUser}) => {
+const MarkerComponent = ({ mappedHouses, goToUser }) => {
   const [markerIcon, setMarkerIcon] = useState("");
   const [infoWindow, setInfoWindow] = useState("");
-  console.log(" rendered infowindow", {infoWindow});
-  const navigate = useNavigate();
+  console.log(" rendered infowindow", { infoWindow });
+  // const navigate = useNavigate();
 
   //   useEffect(() => {}, [markerIcon]);
 
@@ -46,13 +38,13 @@ const MarkerComponent = ({home, index, mappedHouses, goToUser}) => {
   };
 
   const toggleInfoWindow = (id) => {
-    console.log({infoWindow});
+    console.log({ infoWindow });
     setMarkerIcon(id);
     setInfoWindow(id);
   };
 
   const onInfoWindowClose = () => {
-    console.log({infoWindow});
+    console.log({ infoWindow });
     setInfoWindow("");
     setMarkerIcon("");
   };
@@ -71,31 +63,27 @@ const MarkerComponent = ({home, index, mappedHouses, goToUser}) => {
   return (
     <div>
       {mappedHouses.map((home, index) => {
-        const {houseLocation} = home.homeDetails;
-        console.log({houseLocation});
+        const { houseLocation } = home.homeDetails;
+        console.log({ houseLocation });
         return (
           <div key={index} className="marker-container">
             <Marker
-              //   style={{color: "green"}}
+                 style={{transition: "all 0.9s ease"}}
               icon={markerIcon !== home["_id"] ? defaultIcon : highlightedIcon}
               key={index}
-              className="marker"
-              position={home.homeDetails.houseLocation}
+              // className="marker"
+              position={{ lat: houseLocation.lat, lng: houseLocation.lng }}
               onMouseOver={() =>
-                infoWindow === "" ? changeMarker(home["_id"]) : ""
+               changeMarker(home["_id"]) 
               }
               onMouseOut={() => (infoWindow === "" ? setMarkerIcon("") : "")}
               onClick={() => toggleInfoWindow(home["_id"])}
               home={home}
               index={index}
-              // onClick={() => toggleInfoWindow(home["_id"])}
-
-              // onClick={() => onMarkerClick(home["_id"])}
-              //   onMouseOver={changeBackground}
             >
               {infoWindow === home["_id"] && (
                 <InfoWindow
-                  style={{overflow: "hidden"}}
+                  style={{ overflow: "hidden" }}
                   //   className="info-window"
                   onCloseClick={onInfoWindowClose}
                   //   marker={this.state.activeMarker}
@@ -107,7 +95,6 @@ const MarkerComponent = ({home, index, mappedHouses, goToUser}) => {
                     className="home-info-container"
                     onClick={() => goToUser(home)}
                   >
-                  
                     <div
                       className="user-images-container"
                       style={{
@@ -122,20 +109,19 @@ const MarkerComponent = ({home, index, mappedHouses, goToUser}) => {
                       }}
                     >
                       <img
-                      className ="user-image"
+                        className="user-image"
                         src={home.profileImg ? home.profileImg : defaultImage}
                         alt="profile pic"
-                     
                       ></img>
                     </div>
-                    <div className="home-info" > 
-                    <h5 className="user-home-text" > {home.name}'s home  </h5>
-                    {home.homeDetails.sleeps && (
-                      <p className= "sleeps-text">
-                        <PersonOutlineIcon fontSize="small" />
-                        {home.homeDetails.sleeps}
-                      </p>
-                    )}
+                    <div className="home-info">
+                      <h5 className="user-home-text"> {home.name}'s home </h5>
+                      {home.homeDetails.sleeps && (
+                        <p className="sleeps-text">
+                          <PersonOutlineIcon fontSize="small" />
+                          {home.homeDetails.sleeps}
+                        </p>
+                      )}
                     </div>
                   </div>
                 </InfoWindow>

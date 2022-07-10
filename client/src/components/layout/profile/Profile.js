@@ -8,10 +8,10 @@ import {
 } from "../../../actions/profileDataActions";
 // import {getHomeImages} from "../../../actions/profileDataActions";
 // import Details from "./details/Details";
-import ProfileEdit from "./profile-edit/ProfileEdit";
+// import ProfileEdit from "./profile-edit/ProfileEdit";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import Map from "../../map/Map";
-import HomeMap from "../../map/homeMap";
+// import HomeMap from "../../map/homeMap";
 // import { makeStyles } from "@mui/styles";
 // import defaultHomeImage from "../../../../../src/site images/home-default.jpg";
 
@@ -26,6 +26,7 @@ import HouseRules from "../search-results/found-profile/HouseRules";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import defaultImage from "../../../assets/user-icon.png";
+import UserMap from "../../map/UserMap";
 
 // import '../../layout/search-results/found-profile/profile.style.scss'
 
@@ -157,10 +158,8 @@ const Profile = () => {
                 <MapIcon /> &nbsp; Location
               </h5>
               {!isCarouselOpen && (
-                <HomeMap
+                <UserMap
                   houseLocation={houseLocation}
-                  height="400px"
-                  zoom={15}
                 />
               )}
             </div>

@@ -25,7 +25,11 @@ import ProfileEdit from "./components/layout/profile/profile-edit/ProfileEdit";
 import { ThemeProvider} from '@mui/material/styles';
 import { theme } from "./utils/muiTheme";
 import ScrollToTop from "./components/scroll-to-top/ScrollToTop";
-
+import {
+  LoadScript,
+} from "@react-google-maps/api";
+const API_Key =process.env.REACT_APP_MAPS_API_KEY
+// const API_Key = "AIzaSyCNCCBfPWacmsiS7eACHMaAgp2VeIornQI";
 let persistor = persistStore(store);
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -56,6 +60,7 @@ function App() {
       <Router>
       <ScrollToTop />
         <div className="App">
+        <LoadScript googleMapsApiKey={API_Key} libraries={["places"]}>
           <NavigationBar />
           <Routes>
             <Route exact path="/" element={<HomePage />} />
@@ -90,6 +95,7 @@ function App() {
             />
           </Routes>
           {/* <Footer /> */}
+          </LoadScript>
         </div>
       
 

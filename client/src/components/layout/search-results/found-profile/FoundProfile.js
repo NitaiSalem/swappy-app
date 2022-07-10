@@ -15,10 +15,11 @@ import { makeStyles } from "@mui/styles";
 // import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
 import MapIcon from "@mui/icons-material/Map";
 import UserAmneties from "./UserAmneties";
-import HomeMap from "../../../map/homeMap";
+// import HomeMap from "../../../map/homeMap";
 import Footer from "../../footer/Footer";
 import UserDetails from "./UserDetails";
 import HouseRules from "./HouseRules";
+import UserMap from "../../../map/UserMap";
 
 const useStyles = makeStyles({
   root: {},
@@ -179,10 +180,9 @@ const FoundProfile = () => {
                 <MapIcon /> &nbsp;  Location
               </h5>
               {!isCarouselOpen && (
-                <HomeMap
+                <UserMap
                   houseLocation={houseLocation}
-                  height="400px"
-                  zoom={15}
+                 
                 />
               )}
             </div>
