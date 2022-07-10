@@ -13,7 +13,7 @@ const search = require("./routes/api/search");
 // path module, which provides utilities for working with file and directory paths:
 const path = require("path");
 // app.use(express.static(path.join(__dirname, 'public')));
-
+app.use("/public", express.static(path.join(__dirname, "./public"))); //Serves resources from public folder 
 app.use(cors());
 app.use(bodyParser.json());
 app.use(
@@ -42,7 +42,7 @@ app.use("/api/user-edit-details", userEditDetails);
 app.use("/api/user", user);
 app.use("/api/search", search);
 
-app.use("/public", express.static(path.join(__dirname, "./public"))); //Serves resources from public folder 
+
 
 const port = process.env.PORT || 5000; // process.env.port is Heroku's port if you choose to deploy the app there
 
