@@ -21,7 +21,7 @@ import {
 
 // const API_Key = process.env.REACT_APP_MAPS_API_KEY;
 
-// const API_Key = "AIzaSyCNCCBfPWacmsiS7eACHMaAgp2VeIornQI";
+ const API_Key = "AIzaSyCNCCBfPWacmsiS7eACHMaAgp2VeIornQI";
 const containerStyle = {
   width: "100%",
   height: "250px",
@@ -32,8 +32,8 @@ const containerStyle = {
 //   lng: -38.523,
 // };
 
-// Geocode.setApiKey(API_Key);
-// Geocode.enableDebug();
+Geocode.setApiKey(API_Key);
+Geocode.enableDebug();
 
 const NewMap = ({ setInViewComponent, houseLocation, setHouseLocation }) => {
   // const { isLoaded, loadError } = useLoadScript({ googleMapsApiKey: 'Your Google API Key' })
