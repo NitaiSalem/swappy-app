@@ -12,7 +12,7 @@
     "heroku-postbuild": "npm run install-client && npm run build",
     "client-install": "npm install --prefix client",
     "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run start --prefix client\"",
-    "server": "nodemon server.js",
+    "server": "node server.js",
     "develop": "concurrently --kill-others-on-fail \"npm run server\" \"npm run start --prefix client\"",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\""
