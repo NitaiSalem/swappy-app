@@ -1,7 +1,7 @@
 {
-  "name": "login-authentication-app",
+  "name": "swappy",
   "version": "1.0.0",
-  "description": "homies website",
+  "description": "swappy website",
   "main": "server.js",
   "scripts": {
     "build": "cd client && npm run build",

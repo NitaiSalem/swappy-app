@@ -10,6 +10,7 @@ const editImages = require("./routes/api/edit-images");
 const user = require("./routes/api/user");
 const userEditDetails = require("./routes/api/user-edit-details");
 const search = require("./routes/api/search");
+// path module, which provides utilities for working with file and directory paths:
 const path = require("path");
 // app.use(express.static(path.join(__dirname, 'public')));
 
@@ -41,13 +42,18 @@ app.use("/api/user-edit-details", userEditDetails);
 app.use("/api/user", user);
 app.use("/api/search", search);
 
-app.use("/public", express.static(path.join(__dirname, "./public"))); //Serves resources from public folder this worked!
+app.use("/public", express.static(path.join(__dirname, "./public"))); //Serves resources from public folder 
 
 const port = process.env.PORT || 5000; // process.env.port is Heroku's port if you choose to deploy the app there
 
-//this renders the old ui from guide, server side rendering?
+//import the client build folder to the server.
+//renders the app in localhost5000 after running npm run build and creating the build directory  
 app.use(express.static(path.resolve(__dirname, "./client/build")));
 // Step 2:
+/*
+Step 2 will ensure that the routes defined with React Router are working once the application has been deployed.
+ It handles any requests by redirecting them to index.html.
+*/
 app.get("*", function (request, response) {
   response.sendFile(path.resolve(__dirname, "./client/build", "index.html"));
 });
