@@ -99,7 +99,6 @@ const ProfileEdit = () => {
       houseLocation: houseLocation,
     };
     selectedImage && dispatch(uploadProfileImage(profileImg));
-    // console.log("length of homeimages state in profileedit", homeImages.length);
     homeImages.length > 0 && dispatch(uploadHomeImages(homeImgData));
     dispatch(uploadHomeDetails(homeDetails));
     navigate("/Profile");

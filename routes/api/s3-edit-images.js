@@ -19,7 +19,7 @@ const s3 = new aws.S3({
   });
 
 
-  const profileUpload = (bucketName) =>
+  const imageUpload = (bucketName) =>
   multer({
     storage: multerS3({
         //the return value from s3 above: 
@@ -44,7 +44,7 @@ const s3 = new aws.S3({
   router.post(
     "/profile-image",
     authenticateJWT,
-    profileUpload("swappy-images").single("profileImg"),
+    imageUpload("swappy-images").single("profileImg"),
     (req, res, next) => {
         console.log( "this is req file in profile image" , req.file)
         // const url = req.protocol + "://" + req.get("host");
@@ -226,21 +226,21 @@ router.delete("/delete-profile-image", authenticateJWT, async (req, res) => {
 //Home Images:
 
 
-const homeUpload = (bucketName) =>
-multer({
-  storage: multerS3({
-      //the return value from s3 above: 
-    s3,
-    //the name of bucket we defined: swappy-images
-    bucket: bucketName,
-    metadata: function (req, file, cb) {
-      cb(null, { fieldName: file.fieldname });
-    },
-    key: function (req, file, cb) {
-      cb(null, `image-${Date.now()}.jpeg`);
-    },
-  }),
-});
+// const homeUpload = (bucketName) =>
+// multer({
+//   storage: multerS3({
+//       //the return value from s3 above: 
+//     s3,
+//     //the name of bucket we defined: swappy-images
+//     bucket: bucketName,
+//     metadata: function (req, file, cb) {
+//       cb(null, { fieldName: file.fieldname });
+//     },
+//     key: function (req, file, cb) {
+//       cb(null, `image-${Date.now()}.jpeg`);
+//     },
+//   }),
+// });
 
 
 // const homeStorage = multer.diskStorage({
@@ -272,18 +272,20 @@ multer({
 router.post(
   "/home-images",
   authenticateJWT,
-  homeUpload("swappy-images").array("homeImages", 5),
+  imageUpload("swappy-images").array("homeImages", 5),
   async (req, res, next) => {
     const reqFiles = [];
-    const url = req.protocol + "://" + req.get("host");
+    // const url = req.protocol + "://" + req.get("host");
+    console.log( "the file object here: "  ,req.files)
     for (var i = 0; i < req.files.length; i++) {
       //create an object and for each file add url and name properties.
       // I want data in form of array of objects where each obj is an image
-      // reqFiles.filename = req.files[i].filename;
-      // reqFiles.url = url + "/public/home-images/" + req.files[i].filename;
+
+//!upload works but name is null 
+
       reqFiles.push({
         url:  req.files[i].location,
-        name: req.files[i].filename,
+        name: req.files[i].key,
       });
     }
     console.log(reqFiles, "the reqfiles");
@@ -303,7 +305,7 @@ router.post(
           homeImages: result.homeImages,
         },
       });
-      console.log(result, "this is result");
+      console.log(result, "this is result of homeimages ");
     } catch (err) {
       console.log(err, "error from our catch"),
         res.status(500).json({
