@@ -243,8 +243,6 @@ multer({
 });
 
 
-
-
 // const homeStorage = multer.diskStorage({
 //   destination: (req, file, cb) => {
 //     cb(null, HOMEDIR);
@@ -274,7 +272,7 @@ multer({
 router.post(
   "/home-images",
   authenticateJWT,
-  homeUpload.array("homeImages", 5),
+  homeUpload("swappy-images").array("homeImages", 5),
   async (req, res, next) => {
     const reqFiles = [];
     const url = req.protocol + "://" + req.get("host");
@@ -284,7 +282,7 @@ router.post(
       // reqFiles.filename = req.files[i].filename;
       // reqFiles.url = url + "/public/home-images/" + req.files[i].filename;
       reqFiles.push({
-        url: url + "/public/home-images/" + req.files[i].filename,
+        url:  req.files[i].location,
         name: req.files[i].filename,
       });
     }
