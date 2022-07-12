@@ -6,7 +6,7 @@ const bodyParser = require("body-parser");
 const passport = require("passport");
 require("dotenv").config();
 const users = require("./routes/api/users");
-const editImages = require("./routes/api/edit-images");
+const editImages = require("./routes/api/s3-edit-images");
 const user = require("./routes/api/user");
 const userEditDetails = require("./routes/api/user-edit-details");
 const search = require("./routes/api/search");
@@ -27,7 +27,7 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-  .then(() => console.log("MongoDB successfully connected"))
+  .then(() => console.log("MongoDB successfully connected"))  
   .catch((err) => console.log(err));
 
 // Passport middleware

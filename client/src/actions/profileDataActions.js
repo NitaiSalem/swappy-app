@@ -40,7 +40,7 @@ export const uploadHomeDetails = (userData) => async (dispatch) => {
 
 export const uploadProfileImage = (profileImg) => async (dispatch) => {
 
-  console.log("uploading profile image entere: ", profileImg)
+  console.log("uploading profile image entered: ", profileImg)
   try {
     await axios.post(
       "http://localhost:5000/api/user-edit-images/profile-image",
