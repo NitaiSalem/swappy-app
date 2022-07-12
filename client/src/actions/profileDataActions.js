@@ -42,8 +42,10 @@ export const uploadProfileImage = (profileImg) => async (dispatch) => {
 
   console.log("uploading profile image entered: ", profileImg)
   try {
+//?change from localhost? 
+
     await axios.post(
-      "http://localhost:5000/api/user-edit-images/profile-image",
+      "/api/user-edit-images/profile-image",
       profileImg
     );
     dispatch(getProfileImg());
@@ -55,7 +57,7 @@ export const uploadProfileImage = (profileImg) => async (dispatch) => {
 export const uploadHomeImages = (homeImages) => async (dispatch) => {
   try {
     await axios.post(
-      "http://localhost:5000/api/user-edit-images/home-images",
+      "/api/user-edit-images/home-images",
       homeImages
     );
     dispatch(getHomeImages());

@@ -225,31 +225,51 @@ router.delete("/delete-profile-image", authenticateJWT, async (req, res) => {
 /////////////////////////////////////////////////////////////////////////////////
 //Home Images:
 
-const homeStorage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, HOMEDIR);
-  },
-  filename: (req, file, cb) => {
-    const fileName = file.originalname.toLowerCase().split(" ").join("-");
-    cb(null, uuidv4() + "-" + fileName);
-  },
+
+const homeUpload = (bucketName) =>
+multer({
+  storage: multerS3({
+      //the return value from s3 above: 
+    s3,
+    //the name of bucket we defined: swappy-images
+    bucket: bucketName,
+    metadata: function (req, file, cb) {
+      cb(null, { fieldName: file.fieldname });
+    },
+    key: function (req, file, cb) {
+      cb(null, `image-${Date.now()}.jpeg`);
+    },
+  }),
 });
 
-const homeUpload = multer({
-  storage: homeStorage,
-  fileFilter: (req, file, cb) => {
-    if (
-      file.mimetype == "image/png" ||
-      file.mimetype == "image/jpg" ||
-      file.mimetype == "image/jpeg"
-    ) {
-      cb(null, true);
-    } else {
-      cb(null, false);
-      return cb(new Error("Only .png, .jpg and .jpeg format allowed!"));
-    }
-  },
-});
+
+
+
+// const homeStorage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, HOMEDIR);
+//   },
+//   filename: (req, file, cb) => {
+//     const fileName = file.originalname.toLowerCase().split(" ").join("-");
+//     cb(null, uuidv4() + "-" + fileName);
+//   },
+// });
+
+// const homeUpload = multer({
+//   storage: homeStorage,
+//   fileFilter: (req, file, cb) => {
+//     if (
+//       file.mimetype == "image/png" ||
+//       file.mimetype == "image/jpg" ||
+//       file.mimetype == "image/jpeg"
+//     ) {
+//       cb(null, true);
+//     } else {
+//       cb(null, false);
+//       return cb(new Error("Only .png, .jpg and .jpeg format allowed!"));
+//     }
+//   },
+// });
 
 router.post(
   "/home-images",
