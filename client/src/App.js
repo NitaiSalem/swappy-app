@@ -69,12 +69,6 @@ function App() {
         <div className="App">
           {/* <h3>app here </h3> 
           <h3>app here </h3> 
-          <h3>app here </h3> 
-          <h3>app here </h3> 
-          <h3>app here </h3> 
-          <h3>app here </h3> 
-          <h3>app here </h3> 
-          <h3>app here </h3> 
      <FakerComponent/>  */}
         <LoadScript googleMapsApiKey={API_Key} libraries={["places"]}>
           <NavigationBar />

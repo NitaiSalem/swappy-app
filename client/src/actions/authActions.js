@@ -46,7 +46,6 @@ export const loginUser = (userData) => (dispatch) => {
         payload: {},
       });
       // Save to localStorage
-      //token is recieved from server post request
       // Set token to localStorage
       const { token } = res.data;
       localStorage.setItem("jwtToken", token);
