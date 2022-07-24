@@ -12,6 +12,7 @@ import { GET_ERRORS, SET_CURRENT_USER, USER_LOADING } from "./types";
 
 // Register User
 export const registerUser = (userData) => (dispatch) => {
+  console.log("user data in register user action " , userData);
   axios
     .post("/api/users/register", userData)
     .then((res) => {
@@ -20,8 +21,11 @@ export const registerUser = (userData) => (dispatch) => {
         type: GET_ERRORS,
         payload: {},
       });
-      //both options work!
-      window.location.href = "./login";
+      //!cancel this before registering lots of users make sure to return it afterwards
+      // window.location.href = "./login";
+
+
+      
       // window.history.pushState({}, "Login", "/login");
       // window.location.reload();
     }) // re-direct to login on successful register

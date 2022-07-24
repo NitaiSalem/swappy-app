@@ -6,7 +6,6 @@ import "./map.scss";
 //   //   Marker,
 // } from "react-google-maps";
 import Autocomplete from "react-google-autocomplete";
-import Geocode from "react-geocode";
 // import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import React, { useCallback, useEffect, useState } from "react";
 import { memo } from "react";

@@ -33,9 +33,9 @@ const MarkerComponent = ({ mappedHouses, goToUser }) => {
   //     navigate(`user/${id}`);
   //   };
 
-  const changeMarker = (id) => {
-    setMarkerIcon(id);
-  };
+  // const changeMarker = (id) => {
+  //   setMarkerIcon(id);
+  // };
 
   const toggleInfoWindow = (id) => {
     console.log({ infoWindow });
@@ -62,21 +62,21 @@ const MarkerComponent = ({ mappedHouses, goToUser }) => {
 
   return (
     <div>
-      {mappedHouses.map((home, index) => {
+      {mappedHouses.length > 0 && mappedHouses.map((home, index) => {
         const { houseLocation } = home.homeDetails;
         console.log({ houseLocation });
         return (
           <div key={index} className="marker-container">
             <Marker
-                 style={{transition: "all 0.9s ease"}}
+                //  style={{transition: "all 0.9s ease"}}
               icon={markerIcon !== home["_id"] ? defaultIcon : highlightedIcon}
               key={index}
               // className="marker"
               position={{ lat: houseLocation.lat, lng: houseLocation.lng }}
               onMouseOver={() =>
-               changeMarker(home["_id"]) 
+                setMarkerIcon(home["_id"]) 
               }
-              onMouseOut={() => (infoWindow === "" ? setMarkerIcon("") : "")}
+              onMouseOut={() => (infoWindow === "" && setMarkerIcon(""))}
               onClick={() => toggleInfoWindow(home["_id"])}
               home={home}
               index={index}

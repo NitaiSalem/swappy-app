@@ -17,20 +17,36 @@ const Carousel = ({ children }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
 
-  const [dotLength, setDotLength] = useState(window.innerWidth > 990 ? 3 : 5);
+  const [dotLength, setDotLength] = useState(
+    window.innerWidth > 990
+      ? 3
+      : window.innerWidth > 770 && window.innerWidth < 990
+      ? 5
+      : 9
+  );
 
   // const [elementWidth,setElementWidth]= useState(window.innerWidth > 990 ? "33.333%": "50%");
   // const dotLength = window.innerWidth > 990 ? 3 : 5;
 
   useEffect(() => {
-    window.addEventListener("resize", () =>
-      setDotLength(
-        window.innerWidth > 990
-          ? 3
-          : window.innerWidth > 770 && window.innerWidth < 990
-          ? 5
-          : 9
-      )
+    console.log("this is inner width ", window.innerWidth);
+    window.addEventListener(
+      "resize",
+      () => {
+        if (window.innerWidth > 990) {
+          setDotLength(3);
+        } else if (window.innerWidth < 770) {
+          setDotLength(9);
+        } else setDotLength(5);
+      }
+
+      // setDotLength(
+      //   window.innerWidth > 990
+      //     ? 3
+      //     : window.innerWidth > 770 && window.innerWidth < 990
+      //     ? 5
+      //     : 9
+      // )
     );
 
     return () => {

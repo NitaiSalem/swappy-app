@@ -90,7 +90,7 @@ const WelcomeSection = () => {
          style={{ fontSize: "16px" }}
           // value={searchText}
           className="search-box"
-          apiKey={process.env.REACT_APP_MAPS_API_KEY}
+          // apiKey={process.env.REACT_APP_MAPS_API_KEY}
           placeholder="Enter destination"
           options={{
             componentRestrictions: { country: "isr" },

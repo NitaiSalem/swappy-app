@@ -47,6 +47,8 @@
 }
 
 @media (min-width: 768px) {
+
+
   .benefit-boxes-container {
     width: 750px;
   }
@@ -65,6 +67,13 @@
 
 @media (max-width: 1000px) {
   .benefits-container {
+
+      .benefits-under-title {
+        text-align: center;
+      }
+    
+
+
     .benefit-boxes-container {
       flex-direction: column;
 

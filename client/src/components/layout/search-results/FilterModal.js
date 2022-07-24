@@ -13,14 +13,12 @@ import {
   FormGroup,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-
 import { useDispatch, useSelector } from "react-redux";
 import CheckBoxOutlinedIcon from "@mui/icons-material/CheckBoxOutlined";
 import CheckBoxOutlineBlankOutlinedIcon from "@mui/icons-material/CheckBoxOutlineBlankOutlined";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
-// import { Numbers } from "@mui/icons-material";
 import {
   AMNETIES_NAMES,
   DETAILS_NAMES,
@@ -28,15 +26,11 @@ import {
   LIFESTYLE_NAMES,
   MENU_ITEMS_RANGE,
 } from "../../../utils/filterUtils";
-// import { useLocation, useNavigate } from "react-router-dom";
 import {
   setFilterCounter,
   updateFilterValues,
 } from "../../../actions/filterActions";
 import { getSearchResults } from "../../../utils/getHomes";
-// import { getSearchResults } from "../../../utils/getHomes";
-
-//this is to map checkboxes....
 
 const style = {
   position: "absolute",
@@ -57,15 +51,10 @@ const style = {
 };
 
 const useStyles = makeStyles((theme) => ({
-  // root: {
-  // },
   list: {
     maxHeight: "400px",
-    // padding: 0
   },
 }));
-
-
 
 const FilterModal = ({
   setFilteredHomes,
@@ -78,7 +67,6 @@ const FilterModal = ({
   setPageCount,
 }) => {
   const classes = useStyles();
-  //* const homeDetails = useSelector((state) => state.homeDetails);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const previousCheckedAmneties = useSelector((state) => state.amnetiesFilter);
   const previousCheckedLifeStyle = useSelector(
@@ -99,9 +87,6 @@ const FilterModal = ({
   const [filterCount, setFilterCount] = useState(
     useSelector((state) => (state.filterCounter ? state.filterCounter : 0))
   );
-  // const displayCount = useSelector((state) =>
-  //   state.filterCounter ? state.filterCounter : 0
-  // );
 
   const [checkedLifeStyle, setCheckedLifeStyle] = useState(
     previousCheckedLifeStyle
@@ -113,39 +98,27 @@ const FilterModal = ({
   const [checkedAmneties, setCheckedAmneties] = useState(
     previousCheckedAmneties
   );
-  //attempt defining local state correctly depending on global redux state
-  // const [checkedAmneties, setCheckedAmneties] = useState(
-  //   Object.values(previousCheckedAmneties).some(Boolean)
-  //     ? previousCheckedAmneties
-  //     : {}
-  // );
 
   const [filterDetailsObj, setFilterDetailsObj] = useState(
     previousFilterDetailsObj
   );
 
   const dispatch = useDispatch();
-  // console.log({ filterCount });
-  // console.log({ checkedAmneties });
-  // console.log({ filteredHomes });
-  // console.log({ filterDetailsObj });
-  // console.log({ desiredHomeType });
-  ////////////////////////////?add filtercount to show how many filters applied?
-  // let navigate = useNavigate();
-  // const location = useLocation();
-  //*can acess location.pathname for current path.
-
   const handleOpen = () => setIsModalOpen(true);
 
   const handleClose = () => {
-    //!set the filter states  here back to what they are in redux state
     setCheckedLifeStyle(previousCheckedLifeStyle);
     setDesiredHomeType(previousDesiredHomeType);
     setCheckedAmneties(previousCheckedAmneties);
     setFilterDetailsObj(previousFilterDetailsObj);
-
     setIsModalOpen(false);
   };
+
+  const fetchHomes = async () => {
+    const foundHomes = await getSearchResults(searchValue);
+    setFilteredHomes(foundHomes);
+  };
+
   const resetFilter = () => {
     dispatch(updateFilterValues("", {}, {}, {}));
     dispatch(setFilterCounter(0));
@@ -159,17 +132,14 @@ const FilterModal = ({
     });
     setCheckedAmneties({});
     setCheckedLifeStyle({});
-
     setFilterCount(0);
+    fetchHomes();
   };
   ////////////////////////////////////////////////////////////////////////////////////////////////
-  const updateResults = async() => {
-    //!update results not updating with search value in consideration!
+  const updateResults = async () => {
     setFilterCounter(filterCount);
     dispatch(setFilterCounter(filterCount));
-    
-//make the api call then apply all the new filters? 
-const foundHomes = await getSearchResults(searchValue);
+    const foundHomes = await getSearchResults(searchValue);
 
     if (filterCount > 0 && foundHomes) {
       const finalFiltered = filterAll(
@@ -180,18 +150,7 @@ const foundHomes = await getSearchResults(searchValue);
         checkedLifeStyle
       );
       setFilteredHomes(finalFiltered);
-    } else setFilteredHomes(foundHomes? foundHomes: []);
-
-    // const finalFiltered = filterAll(
-    //   foundHomes,
-    //   desiredHomeType,
-    //   filterDetailsObj,
-    //   checkedAmneties,
-    //   checkedLifeStyle
-    // );
-    // setFilteredHomes(finalFiltered);
-    // setSlicedHomes(finalFiltered);
-
+    } else setFilteredHomes(foundHomes ? foundHomes : []);
     setIsModalOpen(false);
     dispatch(
       updateFilterValues(
@@ -216,7 +175,6 @@ const foundHomes = await getSearchResults(searchValue);
     //cover cases:
     //if that key is true/defined then count stays the same
     //if its empty then +1
-    //must -1 when canceled? check the value from event
     if (!filterDetailsObj[key] && value !== "") {
       setFilterCount(filterCount + 1);
     } else if (value === "") {
@@ -256,13 +214,6 @@ const foundHomes = await getSearchResults(searchValue);
       <button onClick={resetFilter} className="reset-filters">
         Reset filters
       </button>
-      <style>
-        {/* {`.fooDiv {
-                background-color: red;
-                color: white;
-                font-size: 2em
-            }`} */}
-      </style>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -288,7 +239,6 @@ const foundHomes = await getSearchResults(searchValue);
                 </Typography>
               </div>
               <div className="details-container">
-                {/* map here */}
                 {DETAILS_NAMES.map((detail) => {
                   return (
                     <div className="detail-container" key={detail.name}>
@@ -335,11 +285,9 @@ const foundHomes = await getSearchResults(searchValue);
                             style={{ color: "#f7a800" }}
                           />
                         }
-                        // checked={false}
                         checked={
                           desiredHomeType === "Appartment" ? true : false
                         }
-                        //make condition here
                       />
                     }
                     label={"Appartment"}
@@ -358,18 +306,13 @@ const foundHomes = await getSearchResults(searchValue);
                             style={{ color: "#f7a800" }}
                           />
                         }
-                        // checked={false}
                         checked={desiredHomeType === "House" ? true : false}
-                        //make condition here
                       />
                     }
                     label={"House"}
                     value="House"
                     labelPlacement="end"
                   />
-                  {/* make 2 checkboxes?  */}
-                  {/* <Button variant="outlined">house</Button>
-                  <Button variant="outlined">Appartment</Button> */}
                 </div>
               </div>
 
@@ -402,11 +345,9 @@ const foundHomes = await getSearchResults(searchValue);
                                   style={{ color: "#f7a800" }}
                                 />
                               }
-                              // checked={false}
                               checked={
                                 checkedAmneties[amnety.key] ? true : false
                               }
-                              //make condition here
                             />
                           }
                           label={amnety.name}
@@ -448,11 +389,9 @@ const foundHomes = await getSearchResults(searchValue);
                                   style={{ color: "#f7a800" }}
                                 />
                               }
-                              // checked={false}
                               checked={
                                 checkedLifeStyle[lifeStyle.key] ? true : false
                               }
-                              //make condition here
                             />
                           }
                           label={lifeStyle.name}

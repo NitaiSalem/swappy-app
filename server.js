@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const mongoose = require("mongoose");
+// const User = require("./models/User");
 const bodyParser = require("body-parser");
 const passport = require("passport");
 require("dotenv").config();
@@ -21,6 +22,10 @@ app.use(
     extended: true,
   })
 );
+
+
+// const faker = require('@faker-js/faker');
+
 // Connect to MongoDB
 mongoose
   .connect(process.env.MONGODB_CONNECTION_STRING, {
@@ -59,3 +64,23 @@ app.get("*", function (request, response) {
 });
 
 app.listen(port, () => console.log(`Server up and running on port ${port} !`));
+
+
+// app.post("/", (req, res) => {
+// 	for (var i = 0; i < 2; i++) {
+// 		var fakee = new User({
+// 			firstname: faker.name.firstName(),
+// 			lastname: faker.name.lastName(),
+// 			phonenumber: faker.phone.phoneNumber(),
+// 			city: faker.address.city(),
+// 			state: faker.address.state(),
+// 			country: faker.address.country(),
+// 		});
+// 		fakee.save((err, data) => {
+// 			if (err) {
+// 				console.log(err);
+// 			}
+// 		});
+// 	}
+// 	res.redirect("/");
+// });

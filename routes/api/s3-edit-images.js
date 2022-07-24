@@ -130,6 +130,8 @@ const s3 = new aws.S3({
 //           });
 //       });
 //   }
+//
+//
 // );
 
 //  I probably wont need the get requests here? 

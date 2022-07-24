@@ -3,8 +3,8 @@ import "./App.scss";
 import "./scss/style.scss";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
-import {setCurrentUser, logoutUser} from "./actions/authActions";
-import {Provider} from "react-redux";
+import {setCurrentUser, logoutUser, registerUser} from "./actions/authActions";
+import {Provider, useDispatch} from "react-redux";
 import store from "./store";
 import NavigationBar from "./components/layout/navbar/Navbar";
 //import Landing from "./components/layout/Landing";
@@ -25,11 +25,12 @@ import ProfileEdit from "./components/layout/profile/profile-edit/ProfileEdit";
 import { ThemeProvider} from '@mui/material/styles';
 import { theme } from "./utils/muiTheme";
 import ScrollToTop from "./components/scroll-to-top/ScrollToTop";
+
 import {
   LoadScript,
 } from "@react-google-maps/api";
-const API_Key =process.env.REACT_APP_MAPS_API_KEY
-// const API_Key = "AIzaSyCNCCBfPWacmsiS7eACHMaAgp2VeIornQI";
+import FakerComponent from "./utils/Faker.js";
+const API_Key =process.env.REACT_APP_MAPS_API_KEY;
 let persistor = persistStore(store);
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -50,9 +51,15 @@ if (localStorage.jwtToken) {
   }
 }
 
-//////////testing sync
+
+
 
 function App() {
+
+
+
+
+
   return (
     <Provider store={store}>
          <ThemeProvider theme={theme}>
@@ -60,6 +67,15 @@ function App() {
       <Router>
       <ScrollToTop />
         <div className="App">
+          {/* <h3>app here </h3> 
+          <h3>app here </h3> 
+          <h3>app here </h3> 
+          <h3>app here </h3> 
+          <h3>app here </h3> 
+          <h3>app here </h3> 
+          <h3>app here </h3> 
+          <h3>app here </h3> 
+     <FakerComponent/>  */}
         <LoadScript googleMapsApiKey={API_Key} libraries={["places"]}>
           <NavigationBar />
           <Routes>
@@ -94,7 +110,6 @@ function App() {
               }
             />
           </Routes>
-          {/* <Footer /> */}
           </LoadScript>
         </div>
       

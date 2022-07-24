@@ -36,17 +36,19 @@
       padding-top: 22px;
       padding-bottom: 22px;
       font-weight: 700;
-      font-size: 24px;
+      font-size: 30px;
     }
     .search-boxes-container {
       display: flex;
       align-items: center;
       padding-bottom: 20px;
+      margin-left: 20px;
       //  justify-content: center;
     }
 
     .submit-search-button {
       background-color: $darkerOrange;
+      margin-left: 10px;
       border: none;
       color: white;
       padding: 10px 15px 10px 15px;
@@ -64,7 +66,7 @@
     }
 
     .search-box {
-      margin: 0px 10px 0px 20px;
+      margin-right: 10px;
       border: none;
       border-radius: 3px;
       background-color: $light-gray-background;
@@ -92,14 +94,22 @@
     }
 
     .search-home-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       width: 75vw;
-
-      .search-boxes-container{
+      .search-header {
+        margin: 0px;
+      }
+      .search-boxes-container {
         flex-direction: column;
-        align-items: flex-start;
-
-        .submit-search-button{
-          margin-left:20px; 
+        align-items: center;
+        margin: 0px;
+        .search-box {
+          margin-right: 0px;
+        }
+        .submit-search-button {
+          margin-left: 0px;
           margin-top: 10px;
         }
       }

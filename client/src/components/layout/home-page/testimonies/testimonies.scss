@@ -66,9 +66,9 @@
               flex-wrap: wrap;
               padding: 5px 10px 5px 0px;
               font-size: 15px;
-              margin-left:5px;
+              margin-left: 5px;
               color: $panel-heading;
-               font-weight: 600;
+              font-weight: 600;
               // white-space: wrap;
 
               // word-break: break-word;
@@ -94,28 +94,27 @@
             .user-text-box {
               display: flex;
               flex-direction: column;
-              margin-left:10px;
-              margin-right:10px;
-              padding-left:10px;
-              width:100%;
+              margin-left: 10px;
+              margin-right: 10px;
+              padding-left: 10px;
+              width: 100%;
               // background-color: $light-gray-background;
-              border: 1px solid rgb(6, 130, 149,0.2);
+              border: 1px solid rgb(6, 130, 149, 0.2);
               border-radius: 4px;
 
-              .testimony-name{
-                color:$panel-heading; 
+              .testimony-name {
+                color: $panel-heading;
                 font-size: 15px;
                 font-weight: 700;
-              }  
+              }
 
-              .user-date{
+              .user-date {
                 color: $faded-font-color;
                 font-size: 13px;
-                display:flex; 
+                display: flex;
                 align-items: center;
               }
             }
-            
           }
         }
       }
@@ -153,13 +152,16 @@
 }
 
 @media (max-width: 770px) {
+  .home-testimonies-container {
+    .home-testimonies-title-container {
+      text-align: center;
+      margin-left: 0px;
+    }
+  }
 
   .testimonies-carousel {
     min-height: 450px;
-
-    
   }
-
 
   .carousel-item {
     width: 100% !important;
@@ -169,7 +171,6 @@
     display: none !important;
   }
 }
-
 
 // @media (max-width: 990px) {
 

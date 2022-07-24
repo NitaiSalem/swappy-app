@@ -15,7 +15,6 @@ import MarkerComponent from "./Marker";
 
 // const API_Key = process.env.REACT_APP_MAPS_API_KEY;
 
-// const API_Key = "AIzaSyCNCCBfPWacmsiS7eACHMaAgp2VeIornQI";
 const containerStyle = {
   width: "100%",
   height: "100%",
@@ -36,6 +35,7 @@ const SearchResultsMap = ({ mappedHouses, goToUser }) => {
       mapContainerStyle={containerStyle}
       center={{ lat: 32.077860051007875, lng: 34.77854258203124 }}
       zoom={10}
+      style={{ marginBottom: "40px"}}
       // onLoad={onLoad}
       // onUnmount={onUnmount}
     >

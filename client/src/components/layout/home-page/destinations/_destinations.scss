@@ -79,9 +79,18 @@
       padding: 15px 5px 35px 5px;
       // padding: 35px;
 
-      span{
+      span {
         color: $darkerOrange;
       }
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  .destinations-container {
+    .destinations-header, .destinations-sub-header {
+      text-align: center;
+      margin-left: 0px;
     }
   }
 }

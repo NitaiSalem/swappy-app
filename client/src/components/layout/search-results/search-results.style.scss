@@ -76,10 +76,7 @@
     right: 0 !important;
     // padding: 2em;
     padding-bottom: 6px;
-    .map-wrapper {
-      // height: 100%;
-      height: calc(100% - 10px);
-    }
+    height: calc(100% - 51px);
   }
 
   .all-homes-container {
@@ -336,7 +333,7 @@
 }
 .search-box-container {
   display: flex;
-  margin-left: 20px;
+  // margin-left: 20px;
   .search-box-container-hidden {
     display: none;
   }
@@ -458,6 +455,27 @@
 }
 
 @media (max-width: 600px) {
+
+
+  .search-results-container{
+    .found-homes-title{
+      padding-left:10px;
+    }
+    .search-box-container {
+      display: flex;
+      padding: 0px 10px 0px 10px;
+
+      .search-box {
+        flex-basis: 16rem;
+        margin: 0px;
+      }
+      .submit-search {
+        flex-basis: 1;
+      }
+    }
+
+  }
+
   .details-title {
     align-self: center;
     margin: 12px 0 12px 0;
