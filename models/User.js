@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 // Create Schema
-//_id: mongoose.Schema.Types.ObjectId,    might need to add later?
 const UserSchema = new Schema({
   name: {
     type: String,
