@@ -1,7 +1,6 @@
 import React from "react";
-import './fonts/AvertaDemoPECuttedDemo-Regular.otf'; 
 import ReactDOM from "react-dom";
-import "./index.css";
+// import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 // import { library } from "@fortawesome/fontawesome-svg-core"; //allows later to just use icon name to render-them

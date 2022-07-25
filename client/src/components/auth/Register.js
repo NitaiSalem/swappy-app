@@ -1,4 +1,3 @@
-import "./auth.style.scss";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 // import PropTypes from "prop-types";
@@ -12,6 +11,7 @@ import ValidationTextField from "./ValidationTextField";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import Footer from "../layout/footer/Footer";
 import { GET_ERRORS } from "../../actions/types";
+
 // onChange={(e) => setEmail(e.target.value)}
 // value={state}
 // error={reduxErrors.email}

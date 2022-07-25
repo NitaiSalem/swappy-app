@@ -1,5 +1,4 @@
 //import GoogleMapReact from "google-map-react";
-import "./map.scss";
 import {
   withGoogleMap,
   GoogleMap,

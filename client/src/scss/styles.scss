@@ -1,0 +1,25 @@
+// /** SETUP **/
+@import "./setup/variables";
+@import "./setup/fonts/fonts";
+@import "./setup/base";
+
+
+
+// /** COMPONENTS **/
+@import "./components/spinner/spinner"; 
+@import"./components/navbar/navStyle";
+@import "./components/footer/footerStyle"; 
+
+
+
+/** VIEWS **/
+@import "./components/layout/about/about";
+@import "./components/layout/home/welcome";
+@import "./components/layout/home/benefits"; 
+@import "./components/layout/home/destinations"; 
+@import "./components/layout/home/testimonies";
+@import "./components/layout/auth/auth"; 
+@import "./components/layout/profile/profile"; 
+@import "./components/layout/profile/profile-edit"; 
+@import "./components/layout/search/search-results"; 
+

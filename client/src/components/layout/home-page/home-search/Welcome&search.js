@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import "./welcome.style.scss";
+// import "./welcome.style.scss";
 // import { Button } from "react-bootstrap";
 import Autocomplete from "react-google-autocomplete";
 import { useNavigate } from "react-router-dom";
 import { getSearchResults } from "../../../../utils/getHomes";
-import { Button } from "@mui/material";
+// import { Button } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import { useInView } from "react-intersection-observer";
 import { useDispatch } from "react-redux";

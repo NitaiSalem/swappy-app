@@ -1,4 +1,3 @@
-import "./map.scss";
 // import {
 //   withGoogleMap,
 //   //   GoogleMap,

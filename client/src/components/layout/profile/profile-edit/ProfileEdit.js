@@ -15,7 +15,7 @@ import {
   uploadProfileImage,
 } from "../../../../actions/profileDataActions";
 // import Map from "../../../map/Map";
-import "./profile-edit.style.scss";
+// import "./profile-edit.style.scss";
 import { useNavigate } from "react-router-dom";
 import ProfileEditMap from "../../../map/ProfileEditMap";
 // import NewMap2 from "../../../map/NewMap2";

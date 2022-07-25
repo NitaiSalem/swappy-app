@@ -1,6 +1,5 @@
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
-import "./App.scss";
-import "./scss/style.scss";
+import "./scss/styles.scss";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
 import {setCurrentUser, logoutUser, registerUser} from "./actions/authActions";

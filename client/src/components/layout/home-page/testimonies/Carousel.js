@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./testimonies.scss";
+// import "./testimonies.scss";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import CircleIcon from "@mui/icons-material/Circle";

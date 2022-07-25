@@ -6,22 +6,4 @@ const PrivateRoute = ({children, ...rest}) => {
   return isAuthenticated ? children : <Navigate to="/" />;
 };
 
-//   <Route
-//     {...rest}
-//     render={(props) =>
-//       auth.isAuthenticated === true ? (
-//         <Component {...props} />
-//       ) : (
-//         <Navigate to="/login" />
-//       )
-//     }
-//   />
-
-// PrivateRoute.propTypes = {
-//   auth: PropTypes.object.isRequired,
-// };
-// const mapStateToProps = (state) => ({
-//   auth: state.auth,
-// });
-
 export default PrivateRoute;

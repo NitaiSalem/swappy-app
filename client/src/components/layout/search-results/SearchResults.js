@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import defaultImage from "../../../assets/user-icon.png";
 import defaultHomeImage from "../../../assets/home-default.jpg";
 import { Button, Grid } from "@mui/material";
-import "./search-results.style.scss";
+// import "./search-results.style.scss";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState, useRef, useMemo, useCallback } from "react";

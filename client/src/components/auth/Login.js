@@ -1,8 +1,7 @@
-import "./auth.style.scss";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
-import { connect, useDispatch, useSelector } from "react-redux";
+// import PropTypes from "prop-types";
+import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../actions/authActions";
 import classnames from "classnames";
 import { useNavigate } from "react-router-dom";
@@ -12,8 +11,6 @@ import { PasswordTwoTone } from "@mui/icons-material";
 import Footer from "../layout/footer/Footer";
 import { GET_ERRORS } from "../../actions/types";
 
-// import { loginUser } from "../../actions/authActions";
-// import { loginUser } from "../../../../actions/profileDataActions";
 
 const Login = () => {
   const [email, setEmail] = useState("");

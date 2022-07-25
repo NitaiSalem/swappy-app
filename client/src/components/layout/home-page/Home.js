@@ -3,7 +3,8 @@ import Benefits from "./benefits/Benefits";
 import Destinations from "./destinations/Destinations";
 import Footer from "../footer/Footer";
 import Testimonies from "./testimonies/Testimonies";
-import "./home-search/welcome.style.scss";
+// import "./home-search/welcome.style.scss";
+
 // import { useLocation } from "react-router-dom";
 
 const HomePage = () => {

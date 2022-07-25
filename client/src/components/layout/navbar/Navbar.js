@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link, matchPath, useLocation, useNavigate } from "react-router-dom";
-import "./navStyle.scss";
+// import "./navStyle.scss";
 import logo from "../../../assets/swappy-logo.png";
 import { useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";

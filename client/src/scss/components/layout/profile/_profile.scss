@@ -1,5 +1,3 @@
-// @import '../../../sassStyles/variables';
-@import "../../../../sassStyles/variables";
 #justcolor {
   color: rgb(182, 119, 2);
 }
@@ -116,7 +114,7 @@
   }
 
   .carousel.carousel-slider {
-    height: 85% !important;
+    // height: 85% !important;
   }
 }
 
@@ -147,20 +145,20 @@
   //   width: 100%;
   display: flex !important;
   justify-content: center;
-  margin: 10px 0 20px 0 !important;
+  margin: 5px 0 0 0 !important;
 }
 
 li.thumb {
   display: flex !important;
   justify-content: center !important;
   border: 3px solid #333 !important;
-  margin-bottom: 8px !important;
+  // margin-bottom: 8px !important;
 }
 li.thumb.selected {
   display: flex !important;
   justify-content: center !important;
   border: 3px solid rgb(255, 255, 255) !important;
-  margin-bottom: 8px !important;
+  // margin-bottom: 8px !important;
 }
 li.thumb:hover{
   cursor:pointer;

@@ -1,5 +1,5 @@
 import { useLocation } from "react-router-dom";
-import "./profile.style.scss";
+// import "./profile.style.scss";
 import ImageCarousel from "./ImageCarousel";
 import defaultImage from "../../../../assets/user-icon.png";
 import defaultHomeImage from "../../../../../src/assets/home-default.jpg";

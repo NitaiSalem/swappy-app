@@ -3,7 +3,7 @@ import appartment from "./home_design.110e92245ca990655ab4.jpg";
 import coffee from "./photo-1604881988758-f76ad2f7aac1.jfif";
 import handshake from "./handshake-for-blog.jpg";
 import drive from "./shutterstock_305567459-1024x683.jpg";
-import "./about.style.scss";
+// import "./about.style.scss";
 import Footer from "../footer/Footer";
 
 const About = () => (
