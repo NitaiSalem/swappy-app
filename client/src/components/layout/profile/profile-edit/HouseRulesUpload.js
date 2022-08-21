@@ -81,11 +81,11 @@ const HouseRulesUpload = ({
               id="children"
               type="checkbox"
               checked={houseRules.children === true}
-              onChange={() => updateHouseRules("plants")}
+              onChange={() => updateHouseRules("children")}
               className="hidden-input"
             />
             <label htmlFor ="children">
-              <LocalFlorist /> Children welcome
+              <ChildCare /> Children welcome
             </label>
           </div>
         </div>

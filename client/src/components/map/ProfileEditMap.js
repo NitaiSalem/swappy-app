@@ -135,7 +135,7 @@ const NewMap = ({ setInViewComponent, houseLocation, setHouseLocation }) => {
 
         {/* <LoadScript googleMapsApiKey={API_Key}> */}
           <Autocomplete
-            //  apiKey={API_Key}
+             apiKey={API_Key}
             className="location-autocomplete"
             options={{
               types: ["(cities)"],

@@ -42,7 +42,7 @@ const WelcomeSection = () => {
     // console.log("this is searchvalue in search homes func", searchValue);
     // console.log("this is search results in search homes func", searchResults);
     navigate(`/search/${searchValue}`, {
-      state: { searchValue, foundHomes: searchResults },
+      state: {searchValue}
     });
   };
 
@@ -87,10 +87,11 @@ const WelcomeSection = () => {
         {/* <input id="search" type="text" placeholder="Go anywhere" /> */}
         <div className="search-boxes-container">
         <Autocomplete
+          id="autocomplete"
          style={{ fontSize: "16px" }}
           // value={searchText}
           className="search-box"
-          // apiKey={process.env.REACT_APP_MAPS_API_KEY}
+           apiKey={process.env.REACT_APP_MAPS_API_KEY}
           placeholder="Enter destination"
           options={{
             componentRestrictions: { country: "isr" },
@@ -100,23 +101,10 @@ const WelcomeSection = () => {
           onPlaceSelected={(place, event) =>
             handlePlaceSelected(place.formatted_address, event)
           }
-
           //!must create separation between cases if we get the place obj or just plain text from our state
-          // onPlaceSelected={(place) =>{console.log('on place selected fired');  setSearchText(place.formatted_address) }
-
-          //!it stays only as what i typed not full adress
-          // setSearchText(place.formatted_address.replace(', Israel', ""))
-
-          // }
+          // onPlaceSelected={(place) =>{console.log('on place selected fired');  setSearchText(place.formatted_address) }   
           //?possibly useffect to avoid the async problem?
-          // onPlaceSelected={onPlaceSelected}
-          // onKeyUp={({ code }) => {
-
-          //   if (code === "Enter") {
-
-          //     searchHomes(searchText);
-          //   }
-          // }}
+  
         />
 
         <button

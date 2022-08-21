@@ -13,7 +13,7 @@ import axios from "axios";
 export const getSearchResults = async (searchValue) => {
   try {
     const response = await axios.get(`/api/search/${searchValue}`);
-    console.log(response.data, " the response data in gethomedetails");
+    // console.log(response.data, " the response data in gethomedetails");
     return response.data;
     // dispatch(setSearchResults(response.data));
   } catch (err) {

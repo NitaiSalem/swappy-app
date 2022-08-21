@@ -92,6 +92,7 @@ const isSearchPath = matchPath("/search/*", pathname);
           }
         >
           <Autocomplete
+           id="autocomplete"
             className="search-box"
             apiKey={process.env.REACT_APP_MAPS_API_KEY}
             value={searchText}

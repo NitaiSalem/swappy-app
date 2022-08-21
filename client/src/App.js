@@ -16,6 +16,7 @@ import Footer from "./components/layout/footer/Footer";
 import About from "./components/layout/about/About";
 // import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import SearchResults from "./components/layout/search-results/SearchResults";
+
 // import FoundProfile from "./components/layout/search-results/FoundProfile";
 import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
@@ -25,11 +26,18 @@ import { ThemeProvider} from '@mui/material/styles';
 import { theme } from "./utils/muiTheme";
 import ScrollToTop from "./components/scroll-to-top/ScrollToTop";
 
-import {
-  LoadScript,
-} from "@react-google-maps/api";
+// import {
+//   LoadScript,
+// } from "@react-google-maps/api";
+import { useJsApiLoader } from '@react-google-maps/api';
+
 import FakerComponent from "./utils/Faker.js";
+
 const API_Key =process.env.REACT_APP_MAPS_API_KEY;
+const libraries = ["places"]; 
+
+
+
 let persistor = persistStore(store);
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -52,15 +60,18 @@ if (localStorage.jwtToken) {
 
 
 
-
 function App() {
 
-
-
+  const { isLoaded } = useJsApiLoader({
+    id: 'google-map-script',
+    googleMapsApiKey: API_Key, 
+    libraries:libraries
+  })
 
 
   return (
-    <Provider store={store}>
+    isLoaded && (
+<Provider store={store}>
          <ThemeProvider theme={theme}>
          <PersistGate persistor={persistor}>
       <Router>
@@ -69,7 +80,7 @@ function App() {
           {/* <h3>app here </h3> 
           <h3>app here </h3> 
      <FakerComponent/>  */}
-        <LoadScript googleMapsApiKey={API_Key} libraries={["places"]}>
+        {/* <LoadScript googleMapsApiKey={API_Key} libraries={["places"]}> */}
           <NavigationBar />
           <Routes>
             <Route exact path="/" element={<HomePage />} />
@@ -103,7 +114,7 @@ function App() {
               }
             />
           </Routes>
-          </LoadScript>
+          {/* </LoadScript> */}
         </div>
       
 
@@ -111,6 +122,8 @@ function App() {
       </PersistGate>
       </ThemeProvider>
     </Provider>
+    )
+    
   );
 }
 

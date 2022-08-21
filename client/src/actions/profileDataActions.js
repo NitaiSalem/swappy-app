@@ -69,7 +69,7 @@ export const uploadHomeImages = (homeImages) => async (dispatch) => {
 export const getHomeDetails = () => async (dispatch) => {
   try {
     const response = await axios.get("/api/user-edit-details/home-details");
-    console.log(response.data, " the response data in gethomedetails");
+    // console.log(response.data, " the response data in gethomedetails");
     dispatch(setHomeDetails(response.data));
   } catch (err) {
     console.error(err);

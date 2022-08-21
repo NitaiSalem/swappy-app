@@ -66,7 +66,7 @@ export const filterLifeStyle = (checkedLifeStyle, foundHomesArr) => {
       if (rulesKeysArray.length === 0) {
         return false;
       } else {
-        console.log({ rulesKeysArray });
+        // console.log({ rulesKeysArray });
         return rulesKeysArray.every(
           //use the amneties from home here
           (rulesKey) => houseRules[rulesKey] === true
@@ -103,7 +103,7 @@ export const filterAmneties = (checkedAmneties, foundHomesArr) => {
       if (amnetiesKeysArray.length === 0) {
         return false;
       } else {
-        console.log({ amnetiesKeysArray });
+        // console.log({ amnetiesKeysArray });
         return amnetiesKeysArray.every(
           //use the amneties from home here
           (amnetyKey) => homeAmneties[amnetyKey] === true

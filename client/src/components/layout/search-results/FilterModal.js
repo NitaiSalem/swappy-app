@@ -4,7 +4,7 @@ import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { useState } from "react";
+import { memo, useState } from "react";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import {
   Checkbox,
@@ -57,14 +57,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const FilterModal = ({
-  setFilteredHomes,
-  foundHomes,
+  // setFilteredHomes,
+  // searchHomes,
+  setCurrPage,
+ setPageCount,
+  setOffset,
   searchValue,
-  filteredHomes,
-  perPage,
-  setSlicedHomes,
   setFoundHomes,
-  setPageCount,
+  // setCheckedAmnetiesState
 }) => {
   const classes = useStyles();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -84,17 +84,19 @@ const FilterModal = ({
           singleBeds: "",
         }
   );
+  const reduxFilterCount = useSelector((state) => state.filterCounter);
+  //!not yet recieving filter count from redux so check is wrong?
   const [filterCount, setFilterCount] = useState(
-    useSelector((state) => (state.filterCounter ? state.filterCounter : 0))
+    reduxFilterCount ? reduxFilterCount : 0
   );
-
+  // console.log("filtercount on top in filtermodal", filterCount);
   const [checkedLifeStyle, setCheckedLifeStyle] = useState(
     previousCheckedLifeStyle
   );
   const [desiredHomeType, setDesiredHomeType] = useState(
     previousDesiredHomeType
   );
-
+  //? maybe these initializations mess upp filter values afterwards?
   const [checkedAmneties, setCheckedAmneties] = useState(
     previousCheckedAmneties
   );
@@ -107,19 +109,23 @@ const FilterModal = ({
   const handleOpen = () => setIsModalOpen(true);
 
   const handleClose = () => {
+    // console.log("handle close called ");
     setCheckedLifeStyle(previousCheckedLifeStyle);
     setDesiredHomeType(previousDesiredHomeType);
     setCheckedAmneties(previousCheckedAmneties);
     setFilterDetailsObj(previousFilterDetailsObj);
+    setFilterCount(reduxFilterCount);
     setIsModalOpen(false);
   };
 
   const fetchHomes = async () => {
     const foundHomes = await getSearchResults(searchValue);
-    setFilteredHomes(foundHomes);
+    setFoundHomes(foundHomes);
   };
 
   const resetFilter = () => {
+    setCurrPage(0); 
+     setOffset(0);
     dispatch(updateFilterValues("", {}, {}, {}));
     dispatch(setFilterCounter(0));
     setDesiredHomeType("");
@@ -134,24 +140,24 @@ const FilterModal = ({
     setCheckedLifeStyle({});
     setFilterCount(0);
     fetchHomes();
+ 
+
   };
   ////////////////////////////////////////////////////////////////////////////////////////////////
   const updateResults = async () => {
-    setFilterCounter(filterCount);
-    dispatch(setFilterCounter(filterCount));
-    const foundHomes = await getSearchResults(searchValue);
+    // console.log(
+    //   "checked amneties in filter modal on update |: ",
+    //   checkedAmneties
+    // );
+    //! error here typo???
+    // setFilterCounter(filterCount);
+    // console.log("filtercount in update results in filtermodal", filterCount);
+    // setCheckedAmnetiesState(checkedAmneties);
 
-    if (filterCount > 0 && foundHomes) {
-      const finalFiltered = filterAll(
-        foundHomes,
-        desiredHomeType,
-        filterDetailsObj,
-        checkedAmneties,
-        checkedLifeStyle
-      );
-      setFilteredHomes(finalFiltered);
-    } else setFilteredHomes(foundHomes ? foundHomes : []);
-    setIsModalOpen(false);
+    // const fetchedHomes = await getSearchResults(searchValue);
+    setPageCount(0);
+     setCurrPage(0); 
+    setOffset(0);
     dispatch(
       updateFilterValues(
         desiredHomeType,
@@ -160,6 +166,23 @@ const FilterModal = ({
         checkedLifeStyle
       )
     );
+    dispatch(setFilterCounter(filterCount));
+
+    // const foundHomes = await getSearchResults(searchValue);
+
+    // if (filterCount > 0 && foundHomes) {
+    //   console.log("filtercount condition applied");
+    //   const finalFiltered = filterAll(
+    //     foundHomes,
+    //     desiredHomeType,
+    //     filterDetailsObj,
+    //     checkedAmneties,
+    //     checkedLifeStyle
+    //   );
+    //   setFoundHomes(finalFiltered);
+    // } else setFoundHomes(foundHomes ? foundHomes : []);
+
+    setIsModalOpen(false);
   };
 
   const handleHomeTypeChange = ({ target: { value } }) => {
@@ -435,4 +458,4 @@ const FilterModal = ({
   );
 };
 
-export default FilterModal;
+export default memo(FilterModal);
