@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-// import "./testimonies.scss";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import CircleIcon from "@mui/icons-material/Circle";
@@ -25,55 +24,19 @@ const Carousel = ({ children }) => {
       : 9
   );
 
-  // const [elementWidth,setElementWidth]= useState(window.innerWidth > 990 ? "33.333%": "50%");
-  // const dotLength = window.innerWidth > 990 ? 3 : 5;
-
   useEffect(() => {
-    console.log("this is inner width ", window.innerWidth);
-    window.addEventListener(
-      "resize",
-      () => {
-        if (window.innerWidth > 990) {
-          setDotLength(3);
-        } else if (window.innerWidth < 770) {
-          setDotLength(9);
-        } else setDotLength(5);
-      }
-
-      // setDotLength(
-      //   window.innerWidth > 990
-      //     ? 3
-      //     : window.innerWidth > 770 && window.innerWidth < 990
-      //     ? 5
-      //     : 9
-      // )
-    );
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 990) {
+        setDotLength(3);
+      } else if (window.innerWidth < 770) {
+        setDotLength(9);
+      } else setDotLength(5);
+    });
 
     return () => {
       window.removeEventListener("resize", setDotLength);
     };
   }, []);
-
-  // let elementWidth;
-  // if (window.innerWidth > 990) {
-  //   elementWidth = "33.333%";
-  // } else if (window.innerWidth > 750) {
-  //   elementWidth = "50%";
-  // } else elementWidth = "100%";
-
-  // window.innerWidth < 990 ?
-  //2 active items, 50% width & slide both 2 => translateX(-${activeIndex * 100}%)
-  //*use these later to switchh 3 testimonies at a time
-
-  // const updateIndex = (newIndex) => {
-  //   if (newIndex < 0) {
-  //     //i just know its 3 so update accordingly?
-  //     newIndex = React.Children.count(children) - 1;
-  //   } else if (newIndex >= React.Children.count(children)) {
-  //     newIndex = 0;
-  //   }
-  //   setActiveIndex(newIndex);
-  // };
 
   const updateIndex = (newIndex) => {
     if (newIndex < 0) {
@@ -82,13 +45,6 @@ const Carousel = ({ children }) => {
       newIndex = 0;
     }
     setActiveIndex(newIndex);
-
-    /*
-    activeIndex === 4
-                  ? `translateX(-${activeIndex * 50}%)`
-                  : `translateX(-${activeIndex * 100}%)`,
-
-*/
   };
 
   useEffect(() => {
@@ -99,9 +55,7 @@ const Carousel = ({ children }) => {
     }, 5000);
 
     return () => {
-      if (interval) {
-        clearInterval(interval);
-      }
+      clearInterval(interval);
     };
   });
 
@@ -129,7 +83,6 @@ const Carousel = ({ children }) => {
         >
           <div
             className="inner"
-            //  style={{ transform: `translateX(-${ activeIndex * 100}%)` }}
             style={{
               transform:
                 activeIndex === 4 && dotLength === 5
@@ -138,8 +91,6 @@ const Carousel = ({ children }) => {
             }}
           >
             {React.Children.map(children, (child, index) => {
-              //make this 33.333%??
-              //?instead of this make the comp a grid that gets width responsively from vw?
               return React.cloneElement(child);
             })}
           </div>
@@ -165,18 +116,6 @@ const Carousel = ({ children }) => {
             </button>
           );
         })}
-
-        {/* {React.Children.map(children, (child, index) => {
-            return (
-              <button
-                className={`${index === activeIndex ? "active" : ""}`}
-                onClick={() => updateIndex(index)}
-              >
-                <CircleIcon     style={{fontSize: "12px"}}/>
-            
-              </button>
-            );
-          })} */}
       </div>
     </div>
   );

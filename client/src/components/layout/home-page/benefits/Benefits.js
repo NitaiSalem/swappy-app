@@ -1,4 +1,3 @@
-// import "./benefits.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faGlobe,

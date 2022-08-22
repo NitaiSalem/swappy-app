@@ -1,6 +1,4 @@
 export const filterHomeType = (desiredHomeType, foundHomesArr) => {
-  //the hometype wiil be just string of house or appartment,
-  //make activefilter to check first?
   let filteredHomes = foundHomesArr;
   const hasActiveFilter = desiredHomeType !== "";
   if (hasActiveFilter === false || foundHomesArr.length === 0) {
@@ -14,11 +12,7 @@ export const filterHomeType = (desiredHomeType, foundHomesArr) => {
   return filteredHomes;
 };
 
-//use this method just to filter amneties? each group has own function to filter?
-//check active filter in each func? to know for sure which active filters we have. we would have to check anyway
-
 export const filterDetails = (detailsToFilter, HomesArr) => {
-  //make activefilter to check first?
   let filteredHomes = HomesArr;
   // check if any of the filters are set:
   const hasActiveFilter = Object.values(detailsToFilter).some(
@@ -28,7 +22,7 @@ export const filterDetails = (detailsToFilter, HomesArr) => {
     return filteredHomes;
   } else {
     filteredHomes = HomesArr.filter((home) => {
-      // do as amneties and get only the defined details
+      // get only the defined details
       const detailsToFilterKeys = Object.keys(detailsToFilter).filter(
         (k) => detailsToFilter[k] !== ""
       );
@@ -42,10 +36,8 @@ export const filterDetails = (detailsToFilter, HomesArr) => {
 };
 
 export const filterLifeStyle = (checkedLifeStyle, foundHomesArr) => {
-  //mustuseMemo for this expensive filtering!!!! higher up in handle filterclick function
   console.log({ checkedLifeStyle });
   let filteredHomes = foundHomesArr;
-  //make or condition to check if we have filter active?
   const hasActiveFilter = Object.values(checkedLifeStyle).includes(true);
 
   if (hasActiveFilter === false) {
@@ -66,9 +58,7 @@ export const filterLifeStyle = (checkedLifeStyle, foundHomesArr) => {
       if (rulesKeysArray.length === 0) {
         return false;
       } else {
-        // console.log({ rulesKeysArray });
         return rulesKeysArray.every(
-          //use the amneties from home here
           (rulesKey) => houseRules[rulesKey] === true
         );
       }
@@ -79,12 +69,9 @@ export const filterLifeStyle = (checkedLifeStyle, foundHomesArr) => {
 };
 
 export const filterAmneties = (checkedAmneties, foundHomesArr) => {
-  //mustuseMemo for this expensive filtering!!!! higher up in handle filterclick function
   console.log({ checkedAmneties });
   let filteredHomes = foundHomesArr;
-  //make or condition to check if we have filter active?
   const hasActiveFilter = Object.values(checkedAmneties).includes(true);
-
   if (hasActiveFilter === false) {
     return filteredHomes;
   } else {
@@ -103,9 +90,7 @@ export const filterAmneties = (checkedAmneties, foundHomesArr) => {
       if (amnetiesKeysArray.length === 0) {
         return false;
       } else {
-        // console.log({ amnetiesKeysArray });
         return amnetiesKeysArray.every(
-          //use the amneties from home here
           (amnetyKey) => homeAmneties[amnetyKey] === true
         );
       }
@@ -124,7 +109,6 @@ export const filterAll = (
   checkedAmneties,
   checkedLifeStyle
 ) => {
-  //how to filter our details::
   const filterdByHomeType = filterHomeType(desiredHomeType, homesToFilter);
 
   const filteredByDetails = filterDetails(filterDetailsObj, filterdByHomeType);
@@ -134,11 +118,6 @@ export const filterAll = (
 
   return finalFiltered;
 };
-
-// export const getStoragedFavorites = () => JSON.parse(localStorage.getItem('favoriteImages')) || [];
-
-// export const saveFavoritesToStorage = (newFavoriteImages) =>
-// 	localStorage.setItem('favoriteImages', JSON.stringify(newFavoriteImages));
 
 export const AMNETIES_NAMES = [
   { name: "TV", key: "tv" },

@@ -3,8 +3,6 @@
   flex-direction: column;
   width: 100%;
   align-items: center;
-  //   height: 250px;
-
   padding: 50px 50px 60px 50px;
   background-color: $light-gray-background;
   .benefits-header {
@@ -45,8 +43,6 @@
 }
 
 @media (min-width: 768px) {
-
-
   .benefit-boxes-container {
     width: 750px;
   }
@@ -65,12 +61,9 @@
 
 @media (max-width: 1000px) {
   .benefits-container {
-
-      .benefits-under-title {
-        text-align: center;
-      }
-    
-
+    .benefits-under-title {
+      text-align: center;
+    }
 
     .benefit-boxes-container {
       flex-direction: column;

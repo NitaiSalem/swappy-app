@@ -32,7 +32,6 @@ const UserSchema = new Schema({
 UserSchema.index(
   {
     homeDetails: "text",
-    // "homeDetails.houseLocation.area": "text",
   },
   {collation: {locale: "en", strength: 2}}
 );

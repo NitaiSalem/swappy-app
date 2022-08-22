@@ -1,24 +1,12 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-// import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../../actions/authActions";
-import classnames from "classnames";
 import { useNavigate } from "react-router-dom";
-import { TextField } from "@mui/material";
-import { makeStyles } from "@mui/styles";
 import ValidationTextField from "./ValidationTextField";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import Footer from "../layout/footer/Footer";
 import { GET_ERRORS } from "../../actions/types";
-
-// onChange={(e) => setEmail(e.target.value)}
-// value={state}
-// error={reduxErrors.email}
-// id="email"
-// label="Email"
-// helperText={reduxErrors.email}
-// variant="standard"
 
 const Register = (props) => {
   const [name, setName] = useState("");
@@ -33,21 +21,17 @@ const Register = (props) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  console.log("this is navigate " ,navigate);
-
   useEffect(() => {
     if (isAuthenticated) {
-      navigate("/Profile"); // push user to dashboard when they login
+      navigate("/Profile"); // push user to dashboard if logged in
     }
   }, [isAuthenticated]);
 
   useEffect(() => {
     window.addEventListener("resize", () => {
-      console.log("resize entered");
       if (window.innerWidth < 790) {
         setFooterDisplay("none");
       } else {
-        console.log("entered else to resize");
         setFooterDisplay("flex");
       }
     });
@@ -66,7 +50,6 @@ const Register = (props) => {
       password2: password2,
     };
     dispatch(registerUser(newUser));
-    // setIsRegistered(true);
   };
   const navigateAuth = () => {
     dispatch({
@@ -74,20 +57,6 @@ const Register = (props) => {
       payload: {},
     });
   };
-
-  // if (isAuthenticated) {
-  //   return (
-  //     <div>
-  //       <p>Loading... </p>
-  //       <p>Loading... </p>
-  //       <p>Loading... </p>
-  //       <p>Loading... </p>
-  //       <p>Loading... </p>
-  //       <p>Loading... </p>
-  //       <p>Loading... </p>
-  //     </div>
-  //   );
-  // }
 
   return (
     <div className="register-container">
@@ -101,7 +70,6 @@ const Register = (props) => {
             <b>Register</b> below
           </h2>
           <p className="grey-text text-darken-1">
-            {/*need to add onclick here and remove errors? */}
             Already have an account?{" "}
             <Link to="/login" onClick={navigateAuth}>
               Log in
@@ -149,7 +117,6 @@ const Register = (props) => {
         </form>
       </div>
       <Footer
-        // position={footerStyle.position}
         position="absolute"
         display={footerDisplay}
       />

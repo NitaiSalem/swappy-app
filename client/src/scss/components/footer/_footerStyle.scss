@@ -1,17 +1,11 @@
-// @import "../../sassStyles/variables";
-// @import "../../../sassStyles/variables";
 
 .footer-container {
-  //  position:relative;
-  // position: fixed; /* Set the footer to fixed position */
   bottom: 0;
-  // height: 55px;
   width: 100%; /* Full width */
   background-color: #ffffff;
   display: flex;
   flex-direction: column;
   align-items: center;
-  // justify-content: space-between;
    box-shadow: 0 2px 5px 0 rgba(0,0,0,.2);
 
   .footer-row {
@@ -35,8 +29,3 @@
   }
 }
 
-// @media (max-width: 700px) {
-//   .footer-container{
-//     display:none;
-//   }
-// }

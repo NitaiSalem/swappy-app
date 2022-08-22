@@ -2,11 +2,10 @@ import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import "./scss/styles.scss";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
-import {setCurrentUser, logoutUser, registerUser} from "./actions/authActions";
-import {Provider, useDispatch} from "react-redux";
+import {setCurrentUser, logoutUser} from "./actions/authActions";
+import {Provider} from "react-redux";
 import store from "./store";
 import NavigationBar from "./components/layout/navbar/Navbar";
-//import Landing from "./components/layout/Landing";
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 import PrivateRoute from "./components/private-route/PrivateRoute";
@@ -14,10 +13,7 @@ import Profile from "./components/layout/profile/Profile";
 import HomePage from "./components/layout/home-page/Home";
 import Footer from "./components/layout/footer/Footer";
 import About from "./components/layout/about/About";
-// import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import SearchResults from "./components/layout/search-results/SearchResults";
-
-// import FoundProfile from "./components/layout/search-results/FoundProfile";
 import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
 import FoundProfile from "./components/layout/search-results/found-profile/FoundProfile";
@@ -26,9 +22,7 @@ import { ThemeProvider} from '@mui/material/styles';
 import { theme } from "./utils/muiTheme";
 import ScrollToTop from "./components/scroll-to-top/ScrollToTop";
 
-// import {
-//   LoadScript,
-// } from "@react-google-maps/api";
+
 import { useJsApiLoader } from '@react-google-maps/api';
 
 import FakerComponent from "./utils/Faker.js";
@@ -36,9 +30,7 @@ import FakerComponent from "./utils/Faker.js";
 const API_Key =process.env.REACT_APP_MAPS_API_KEY;
 const libraries = ["places"]; 
 
-
-
-let persistor = persistStore(store);
+const persistor = persistStore(store);
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
   // Set auth token header auth
@@ -77,10 +69,7 @@ function App() {
       <Router>
       <ScrollToTop />
         <div className="App">
-          {/* <h3>app here </h3> 
-          <h3>app here </h3> 
-     <FakerComponent/>  */}
-        {/* <LoadScript googleMapsApiKey={API_Key} libraries={["places"]}> */}
+        {/* <FakerComponent/>  */}
           <NavigationBar />
           <Routes>
             <Route exact path="/" element={<HomePage />} />
@@ -114,7 +103,6 @@ function App() {
               }
             />
           </Routes>
-          {/* </LoadScript> */}
         </div>
       
 
@@ -131,14 +119,12 @@ export default App;
 
 
 /*
-just regular 
+colored comments:
+
+just regular comment
 *This is my main method- brighter color  
 ! red comment alert, this can only be whatever 
 ? blue as a question for myself? do i need to check the val? 
 todo: i need to call some method here
 
 */ 
-//! this is red alert 
-//todo: make 
-//? blue comment question? 
-//*brighter empasize main comment 

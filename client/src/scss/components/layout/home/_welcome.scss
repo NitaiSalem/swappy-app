@@ -41,7 +41,6 @@
       align-items: center;
       padding-bottom: 20px;
       margin-left: 20px;
-      //  justify-content: center;
     }
 
     .submit-search-button {
@@ -80,7 +79,6 @@
 
     .search-box::placeholder {
       color: $panel-heading;
-      // opacity: 0.6;
     }
   }
 }
@@ -118,7 +116,7 @@
 @media (max-width: 700px) {
   .welcome-container {
     .swappy-header {
-      text-align: center; // font-size:32px;
+      text-align: center;
     }
   }
 }

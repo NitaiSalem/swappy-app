@@ -9,8 +9,6 @@ const Testimonies = () => {
         <h2 className="home-testimonies-title">The best way to travel</h2>
         <p className="home-testimonies-subtitle"> Hear from our members </p>
       </div>
-
-      {/*map carouselitem here?   */}
       <Carousel>
         {testimoniesData.map((testimony) => {
           return (
@@ -35,14 +33,11 @@ const Testimonies = () => {
                   <p className= "user-date"> <AccessTimeIcon fontSize="10px" style={{marginRight: "5px" }} /> {testimony.memberDate}</p> 
                   </div> 
                 </div>
-                {/* <p className= "testimony-text"> testimony text</p> */}
+             
               </div>
             </CarouselItem>
           );
         })}
-        {/* <CarouselItem> Item 1 </CarouselItem>
-        <CarouselItem> Item 2</CarouselItem>
-        <CarouselItem> Item 3 </CarouselItem> */}
       </Carousel>
     </div>
   );

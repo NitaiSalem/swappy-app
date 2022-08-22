@@ -1,11 +1,10 @@
-//make as a component that renders when you click edit profile from inside profile comp.
 import { useSelector, useDispatch } from "react-redux";
 import DetailsUpload from "./DetailsUpload";
 import AmnetiesUpload from "./AmnetiesUpload";
 import HouseRulesUpload from "./HouseRulesUpload";
 import HomeImgUpload from "./HomeImgUpload";
 import ProfileImgUpload from "./ProfileImgUpload";
-import { Button, Grid } from "@mui/material";
+import { Grid } from "@mui/material";
 import { useEffect, useState } from "react";
 
 import {
@@ -14,11 +13,8 @@ import {
   uploadHomeImages,
   uploadProfileImage,
 } from "../../../../actions/profileDataActions";
-// import Map from "../../../map/Map";
-// import "./profile-edit.style.scss";
 import { useNavigate } from "react-router-dom";
 import ProfileEditMap from "../../../map/ProfileEditMap";
-// import NewMap2 from "../../../map/NewMap2";
 
 const ProfileEdit = () => {
   const navigate = useNavigate();
@@ -71,7 +67,6 @@ const ProfileEdit = () => {
   }, []);
 
   const onSubmit = async (e) => {
-    console.log("entered onSubmit method");
     e.preventDefault(); //we’ll use e.preventDefault() to stop the page from reloading when the submit button is clicked
     const profileImg = new FormData();
     profileImg.append("profileImg", selectedImage);
@@ -79,14 +74,9 @@ const ProfileEdit = () => {
     const objOfImages = { ...homeImages };
 
     for (const key of Object.keys(objOfImages)) {
-      console.log({ key });
       homeImgData.append("homeImages", objOfImages[key]);
     }
-
-    console.log({ homeImages });
-    console.log({ homeImgData });
     const homeDetails = {
-      //* use all these from object state
       homeType: details.homeType,
       sleeps: details.sleeps,
       bedRooms: details.bedRooms,
@@ -197,25 +187,13 @@ const ProfileEdit = () => {
             />
             <ProfileEditMap
               setInViewComponent={setInViewComponent}
-                  houseLocation={
-                houseLocation.lat
-                  ? houseLocation
-                  : { lat: 32.079918405524154, lng: 34.77430033010254 }
-              }
-              setHouseLocation={setHouseLocation}
-          
-            />
-            {/* <Map
-              setInViewComponent={setInViewComponent}
-              setHouseLocation={setHouseLocation}
               houseLocation={
                 houseLocation.lat
                   ? houseLocation
                   : { lat: 32.079918405524154, lng: 34.77430033010254 }
               }
-              height="250px"
-              zoom={13}
-            /> */}
+              setHouseLocation={setHouseLocation}
+            />
             <DetailsUpload
               setInViewComponent={setInViewComponent}
               details={details}

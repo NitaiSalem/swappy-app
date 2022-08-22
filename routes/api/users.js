@@ -4,9 +4,6 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const keys = require("../../config/keys");
 const { v4: uuidv4 } = require("uuid");
-const multer = require("multer");
-
-// @route POST api/users/register
 
 // Load input validation
 const validateRegisterInput = require("../../validation/register");
@@ -15,9 +12,8 @@ const validateLoginInput = require("../../validation/login");
 // Load User model
 const User = require("../../models/User");
 
-// @route POST api/users/register
-// @desc Register user
-// @access Public
+
+
 /*
 Pull the errors and isValid variables from our validateRegisterInput(req.body) function and check input validation
 If valid input, use MongoDB’s User.findOne() to see if the user already exists
@@ -29,9 +25,7 @@ router.post("/register", (req, res) => {
   console.log("this is req body with the fake user data: ", req.body);
   // Form validation
   const { errors, isValid } = validateRegisterInput(req.body);
-  
   // Check validation
-  //!problem herewith is valid! 
   if (!isValid) {
     return res.status(400).json(errors);
   }
@@ -65,7 +59,7 @@ router.post("/register", (req, res) => {
 
 // @route POST api/users/login
 // @desc Login user and return JWT token
-// @access Public
+
 router.post("/login", (req, res) => {
   // Form validation
   //Pull the errors and isValid variables from our validateLoginInput(req.body) function and check input validation

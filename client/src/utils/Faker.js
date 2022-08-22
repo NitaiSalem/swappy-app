@@ -15,8 +15,6 @@ Geocode.enableDebug();
 
 const FakerComponent = () => {
   const dispatch = useDispatch();
-  //will need to be in loop eventually???
-
   const getArea = (addressArray) => {
     let area = "";
     for (let i = 0; i < addressArray.length; i++) {
@@ -106,11 +104,9 @@ const FakerComponent = () => {
     const getAddress = async () => {
       try {
         const response = await Geocode.fromLatLng(latitude, longitude);
-        // console.log(response, "this is the response from geocode ");
         let updatedAddress = response.results[0].formatted_address,
           addressArray = response.results[0].address_components;
         const area = getArea(addressArray);
-        // console.log(area, " area in area here");
 
         return {
           lat: parseFloat(latitude),
@@ -123,20 +119,11 @@ const FakerComponent = () => {
       }
     };
 
-    // let locationObj;
-    // const passWord = faker.internet.password();
-    // let locationObj = await getAddress();
-
     try {
-      // getAddress().then((res) => {
-      //   console.log("the res from returned address: ", res);
-      //   locationObj = res;
-      // });
-
       const locationObj = await getAddress();
       const homeImage1 = await getRandomImg();
-      const homeImage2 = await getRandomImg()
-      const homeImage3 = await getRandomImg()
+      const homeImage2 = await getRandomImg();
+      const homeImage3 = await getRandomImg();
 
       return {
         name: faker.internet.userName(),
@@ -144,11 +131,7 @@ const FakerComponent = () => {
         password: "test123",
         password2: "test123",
         profileImg: faker.image.avatar(),
-        homeImages: [
-          homeImage1,
-          homeImage2,
-          homeImage3,
-        ],
+        homeImages: [homeImage1, homeImage2, homeImage3],
         homeDetails: {
           homeType: "",
           sleeps: Math.floor(Math.random() * 10) + 1,
@@ -187,37 +170,15 @@ const FakerComponent = () => {
     }
   }
 
-  //`https://pixabay.com/api/?key=25540812-faf2b76d586c1787d2dd02736&q=${category}&per_page=${IMG_LIMIT}&page=1&safesearch=true`
-
-  //https://source.unsplash.com/random/?home
-
-  // let imagesArray;
-  // getRandomHomeImages().then((res) => {
-  //   console.log("the res from returned images: ", res);
-  //   imagesArray = res;
-  // });
-
-  // console.log({imagesArray});
-
-  // console.log(createRandomBooleanValue());
-
   const handleClick = (e) => {
     //use faker here to generate our user:
 
-    //  getRandomImg();
     let newUser;
     createRandomUser().then((res) => {
       console.log("the res from returned user: ", res);
       newUser = res;
       dispatch(registerUser(newUser));
     });
-
-    // console.log({ newUser });
-
-    //  console.log(createRandomUser());
-
-    //
-    // setIsRegistered(true);
   };
 
   return (

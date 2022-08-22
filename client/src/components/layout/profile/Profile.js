@@ -1,20 +1,10 @@
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import { logoutUser } from "../../../actions/authActions";
 import {
   getHomeDetails,
   getProfileImg,
   getHomeImages,
 } from "../../../actions/profileDataActions";
-// import {getHomeImages} from "../../../actions/profileDataActions";
-// import Details from "./details/Details";
-// import ProfileEdit from "./profile-edit/ProfileEdit";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import Map from "../../map/Map";
-// import HomeMap from "../../map/homeMap";
-// import { makeStyles } from "@mui/styles";
-// import defaultHomeImage from "../../../../../src/site images/home-default.jpg";
-
 import defaultHomeImage from "../../../../src/assets/home-default.jpg";
 import ImageCarousel from "../search-results/found-profile/ImageCarousel";
 import { Grid } from "@mui/material";
@@ -28,12 +18,10 @@ import { Link } from "react-router-dom";
 import defaultImage from "../../../assets/user-icon.png";
 import UserMap from "../../map/UserMap";
 
-// import '../../layout/search-results/found-profile/profile.style.scss'
-
 const Profile = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isCarouselOpen, setIsCarouselOpen] = useState(false); //this is show from examle!
-  const profileImg = useSelector((state) => state.profileImg); //use these for rest of state from db
+  const [isCarouselOpen, setIsCarouselOpen] = useState(false);
+  const profileImg = useSelector((state) => state.profileImg);
   const user = useSelector((state) => state.auth.user);
   const homeImages = useSelector((state) => state.homeImages);
   const homeDetails = useSelector((state) => state.homeDetails);
@@ -54,9 +42,6 @@ const Profile = () => {
     }
   }, []);
 
-  // const toggleEdit = (view) => {
-  //   setEdit(view);
-  // };
   useEffect(() => {
     dispatch(getProfileImg());
     dispatch(getHomeImages());
@@ -97,10 +82,7 @@ const Profile = () => {
           />
         </div>
         {!isCarouselOpen && (
-          <div
-            className={isScrolled ? "scrolled-column" : "user-column"}
-            // style={isScrolled ? scrollStyle : defaultStyle}
-          >
+          <div className={isScrolled ? "scrolled-column" : "user-column"}>
             <div className="profile-info-container">
               <div className="profile-pic-container">
                 <img
@@ -111,7 +93,6 @@ const Profile = () => {
               </div>
               <div className="name-email-container">
                 <h2 className="home-title">{user.name}</h2>
-                {/* <p> {state.email}</p> */}
               </div>
             </div>
             <div className="hometype-area-container">
@@ -133,8 +114,6 @@ const Profile = () => {
               </p>
             </div>
             <div className="Update-profile-container">
-              {/* <h5 className="">edit profile: </h5> */}
-              {/* {edit && <ProfileEdit toggleEdit={toggleEdit} />} */}
               <Link to="edit" className="edit-profile-button">
                 <FontAwesomeIcon className="edit-profile-icon" icon="edit" />{" "}
                 &nbsp; Update profile
@@ -157,11 +136,7 @@ const Profile = () => {
               <h5 className="info-section-title">
                 <MapIcon /> &nbsp; Location
               </h5>
-              {!isCarouselOpen && (
-                <UserMap
-                  houseLocation={houseLocation}
-                />
-              )}
+              {!isCarouselOpen && <UserMap houseLocation={houseLocation} />}
             </div>
           </Grid>
         </Grid>

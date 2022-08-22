@@ -1,4 +1,3 @@
-// import tiberias from "../../../../assets/tiberias.jpg";
 import woman1 from "../../../../assets/woman1.jpg";
 import woman2 from "../../../../assets/woman2.jpg";
 import woman3 from "../../../../assets/woman3.jpg";

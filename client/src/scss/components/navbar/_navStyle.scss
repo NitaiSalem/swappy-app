@@ -1,7 +1,6 @@
 .navigation-bar {
   position: fixed !important;
   top: 0; /* Position the navbar at the top of the page */
-  // height:40px;
   width: 100%;
   display: flex;
   flex-wrap: wrap;
@@ -12,63 +11,51 @@
   padding: 8px 15px 8px 15px;
   z-index: 999;
 
-
   .nav-search-box-container {
     position: absolute;
-     left: 70px;
+    left: 70px;
     display: flex;
-  
-    
+
     .search-box {
-      // border: none;
       font-size: 16px;
       border: 1px solid $faded-border;
-      // border-radius: 3px;
       width: 220px;
       padding: 10px;
       opacity: 0.7;
     }
     .search-box:hover {
-     border: 1px solid  $turquoise-faded;
-      //  box-shadow: 0 0 1px  $light-blue;
+      border: 1px solid $turquoise-faded;
     }
 
     .search-box:focus {
       outline: none;
-      border: 1px solid  $turquoise-faded;
-      // box-shadow: 0 0 1px  $light-blue;
+      border: 1px solid $turquoise-faded;
     }
-    
+
     .search-box::placeholder {
-      // color: $panel-heading;
       color: $turquoise;
-      opacity:0.8;
-      // opacity: 0.6;
+      opacity: 0.8;
     }
-    
-  
+
     .submit-search {
       color: $darkerOrange;
       border-color: $faded-border;
-      // border-color: $darkerOrange;
       transition: all 0.3s ease;
-      border-radius:0px;
+      border-radius: 0px;
     }
-  
+
     .submit-search:hover {
       background-color: #ffffff;
       border-color: $darkerOrange;
     }
   }
 
-  .nav-search-box-container-hidden{
-    display: none  !important;
-}
-
+  .nav-search-box-container-hidden {
+    display: none !important;
+  }
 }
 
 .navigation-bar a {
-  // margin: 0px 16px 0px 16px;
   color: $panel-heading;
   text-decoration: none;
 }
@@ -78,16 +65,6 @@
   transition: all 0.3s ease;
 }
 
-// .logo-container {
-//   margin-bottom: auto;
-//   height: 40px;
-//   width: 40px;
-// }
-// .logo-image {
-//   margin-right: 50px;
-//   // background: url(../../../site\ images/swappy-logo.png); /* Your icon */
-//   position: relative; /* Allows an absolute positioned psuedo element */
-// }
 .logo-container {
   margin-bottom: auto;
   height: 40px;
@@ -98,19 +75,6 @@
   width: 100%;
   animation: rotate 4s linear infinite;
 }
-// .icon {
-//   background: url(../../../site\ images/swappy-logo.png); /* Your icon */
-//   position: relative; /* Allows an absolute positioned psuedo element */
-// }
-
-// .logo-image ::after{
-//   position: absolute; /* Positions psuedo element relative to .icon */
-//   width: 100%; /* Same dimensions as .icon */
-//   height: 100%;
-//   content: ""; /* Allows psuedo element to show */
-//   background: #EC008C; /* The color you want the icon to change to */
-//   mix-blend-mode: multiply; /* Only apply color on top of white, use screen if icon is black */
-// }
 
 @keyframes rotate {
   to {
@@ -128,13 +92,11 @@
     display: flex;
     align-items: center;
     .logout-button {
-      // font-size: 12px;
       margin-left: 40px;
       display: flex;
       align-items: center;
 
       .css-i4bv87-MuiSvgIcon-root {
-        // height:20px;
         width: 20px;
       }
 
@@ -146,13 +108,10 @@
         text-align: center;
         padding: 5px 5px;
         border-radius: 3px;
-
-        /* Position the tooltip text - see examples below! */
         position: absolute;
         z-index: 1;
 
         top: 100%;
-        // left: 50%;
         margin-left: -37px; /* Use half of the width (120/2 = 60), to center the tooltip */
       }
     }
@@ -168,26 +127,20 @@
 }
 
 @media (max-width: 500px) {
-  .nav-search-box-container{
-    display:none !important;
+  .nav-search-box-container {
+    display: none !important;
   }
 
   .closed-menu {
     width: 100%;
-    // transition: ease;
-    // display:none;
     opacity: 0;
-    // visibility:hidden;
     height: 0;
     overflow: hidden;
     transition: all 0.5s ease;
-    // position: relative; /* <-- Added */
-    //  z-index: 10000; /* <-- Added */
   }
 
   .closed-menu > .list {
     opacity: 0;
-    // visibility: hidden;
     transition: all 0.5s ease;
   }
 
@@ -209,7 +162,6 @@
     opacity: 1;
     animation-name: appearanceOpacity;
     animation-duration: 1000ms;
-    // visibility:visible;
     height: 150px;
     transition: height 0.3s ease;
   }
@@ -222,11 +174,6 @@
   .list {
     flex-direction: column;
     align-items: center;
-
-    // padding: 20px;
-    //  visibility: hidden;
-    // transition: height 0.5s ease-in;
-
     .profile-logout-container {
       flex-direction: column;
       .logout-button {
@@ -235,14 +182,6 @@
       }
     }
   }
-
-  // .list-show {
-  //   flex-direction: column;
-  //   align-items: center;
-  //   padding: 20px;
-  //   // height:155px;
-  //   // transition: height 0.5s ease-in;
-  // }
 
   #toggler {
     display: inline-flex;
@@ -256,8 +195,4 @@
     flex-direction: column;
     width: 100%;
   }
-
-  // #toggler:checked ~ .menu {
-  //   max-height: 100%;
-  // }
 }

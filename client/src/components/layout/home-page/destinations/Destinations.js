@@ -1,11 +1,6 @@
-// import "./destinations.scss";
-import { Router, Route, Switch } from "react-router";
-import { NavLink } from "react-router-dom";
-import Spinner from "../../../spinner/Spinner";
 import { Grid } from "@mui/material";
 import { destinationsData } from "./destinationsData";
 import DestinationBox from "./DestinationBox";
-// import telAviv from "../../../../assets/beach-telaviv.jpeg";
 
 const Destinations = () => {
   return (
@@ -26,7 +21,6 @@ const Destinations = () => {
               />
             );
           })}
-          {/* <Spinner /> */}
           <div className="destinations-description-container">
             <p className="destinations-description">
               Find a home swap in the Israel, with homes to exchange in more
@@ -41,8 +35,6 @@ const Destinations = () => {
           </div>
         </Grid>
       </div>
-
-      {/* <Footer/>  */}
     </div>
   );
 };

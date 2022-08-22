@@ -1,15 +1,11 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { memo, useEffect } from "react";
 import { useInView } from "react-intersection-observer";
-import MapsHomeWorkIcon from "@mui/icons-material/MapsHomeWork";
 import { Bed, SingleBed } from "@mui/icons-material";
-import GroupIcon from "@mui/icons-material/Group";
-import WcIcon from "@mui/icons-material/Wc";
 import MeetingRoomIcon from "@mui/icons-material/MeetingRoom";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 const DetailsUpload = ({ details, setDetails, setInViewComponent }) => {
-  //recieve state and increment?
   const { ref, inView, entry } = useInView({
     /* Optional options */
     threshold: 1,
@@ -26,13 +22,11 @@ const DetailsUpload = ({ details, setDetails, setInViewComponent }) => {
   };
 
   useEffect(() => {
-    //  console.log( "this is in view",inView)
     inView && setInViewComponent("details-upload");
   }, [inView]);
 
   return (
     <div id="details-upload" className="panel" ref={ref}>
-      {/*add 2 icons here */}
       <div className="panel-heading-container">
         <h3>Details</h3>
       </div>
@@ -63,7 +57,6 @@ const DetailsUpload = ({ details, setDetails, setInViewComponent }) => {
               className="hidden-input"
               type="checkbox"
               onChange={() => setDetails({ ...details, homeType: "House" })}
-              // onClick={() => setDetails({ ...details, homeType: "House" })}
             />
             <label htmlFor="home-type-house">
               <FontAwesomeIcon icon="home" style={{ fontSize: "28px" }} /> House

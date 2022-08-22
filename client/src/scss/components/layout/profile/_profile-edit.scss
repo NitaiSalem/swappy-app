@@ -5,13 +5,10 @@
   margin-top: 56px;
   margin-right: auto;
   margin-left: auto;
-  // display:flex;
-  // justify-content: center;
   .name-title {
     color: $panel-heading;
     font-size: 35px;
     font-weight: 700;
-    // margin: 5px 0;
   }
 
   .grid-container-edit {
@@ -25,7 +22,6 @@
           color: $darkerOrange;
           text-decoration: none;
           font-weight: 800;
-          // transform: translateX(10px);
           margin: 15px 0;
           border-left: 4px solid $darkerOrange;
           padding-left: 5px;
@@ -45,9 +41,7 @@
       }
     }
     .panel {
-      // margin-bottom: 50px;
       padding-top: 66px;
-    
 
       .panel-heading-container {
         color: $panel-heading;
@@ -56,23 +50,18 @@
         font-weight: 700;
         border: 1px solid #e3e3e3;
         background-color: $light-gray-background;
-        // border-bottom: 1px solid transparent;
-        // border-top-left-radius: 1px;
-        // border-top-right-radius: 1px;
       }
       .panel-body {
         box-shadow: 0px 1px rgb(0 0 0 / 10%);
         padding: 20px 30px;
         border: 1px solid #e3e3e3;
         border-top: none;
-        // background-color: $light-gray-background;
         .panel-body-title {
           color: $panel-heading;
           display: block;
           font-size: 24px;
           font-weight: 700;
-          padding:10px;
-        
+          padding: 10px;
         }
         .home-img-upload-button {
           background-color: $orangeButton;
@@ -161,7 +150,6 @@
         .location-autocomplete:focus-within {
           outline: none;
           box-shadow: 0 0 3px #3b99fc;
-          // border-color: rgb(255, 136, 0) !important;
         }
       }
 
@@ -170,9 +158,8 @@
         width: 100%;
         margin-bottom: 40px;
         padding-top: 20px;
-         padding-left:15px;
+        padding-left: 15px;
       }
-      // height: 99px;
       .profile-image-box {
         display: flex;
         justify-content: center;
@@ -201,13 +188,6 @@
           object-fit: cover;
           border-radius: 50%;
         }
-        // .delete-button-container:hover {
-        //     display: flex;
-        //     text-align: center;
-        //     justify-content: center;
-
-        //   background: rgba(250, 244, 244, 0.8);
-        // }
       }
 
       .profile-image-box:hover {
@@ -236,7 +216,6 @@
         height: 60px;
         margin: 15px 15px 15px 15px;
         z-index: 11;
-        // transition: all 0.2s ease;
         .hidden-input {
           position: absolute;
           visibility: hidden;
@@ -259,7 +238,6 @@
           font-weight: 400;
           border-radius: 4px;
         }
-        // lets add this to try setting the animation on befor pseudo element
 
         label:before {
           content: "";
@@ -281,25 +259,11 @@
           color: $darkerOrange;
         }
 
-        // animation: input-option-click .4s ease-in-out;
-
-        // animation-duration: 0.4s;
-        // animation-timing-function: ease-in-out;
-        // animation-delay: 0s;
-        // animation-iteration-count: 1;
-        // animation-direction: normal;
-        // animation-fill-mode: none;
-        // animation-play-state: running;
-        // animation-name: input-option-click;
-
         @keyframes input-option-click {
-          // 0%   { transform: scale(1);opacity: 0;}
-          // 25%  {background-color:yellow; left:200px; top:0px;}
           50% {
             transform: scale(1.1);
             opacity: 0.5;
           }
-          // 75%  {background-color:green; left:0px; top:200px;}
           100% {
             transform: scale(1.2);
             opacity: 0;
@@ -308,11 +272,6 @@
 
         input:checked + label:before {
           animation: input-option-click 0.4s ease-out;
-          // animation-delay: 0s;
-          // animation-iteration-count: 1;
-          // animation-direction: normal;
-          // animation-fill-mode: none;
-          // animation-play-state: running;
         }
       }
 
@@ -357,19 +316,6 @@
               width: 130px;
             }
             .number-button {
-              // transition: all 0.3s;
-              // cursor: pointer;
-              // font-size: 24px;
-              // font-family: monospace, sans-serif;
-              // display: flex;
-              // justify-content: center;
-              // align-items: center;
-              // text-align: center;
-              // width: 40px;
-              // height: 40px;
-              // border-radius: 100%;
-              // background: none;
-              // border: 1px solid $panel-heading;
               display: flex;
               align-items: center;
               justify-content: center;
@@ -384,9 +330,7 @@
               line-height: 1;
               height: 36px;
               width: 36px;
-              // text-align: center;
               padding: 0;
-              // vertical-align: middle;
             }
             .number-button:hover {
               color: $darkerOrange;
@@ -422,11 +366,8 @@
       outline: none;
       background-color: $darkerOrange;
       border: 1px solid $darkerOrange;
-      // border-color:  $darkerOrange;
       color: white;
 
-
-   
       height: 60px;
       width: 170px;
       transition: all 0.5s;
@@ -441,31 +382,25 @@
   }
 }
 
-// @media (min-width: 768px) {
-//   .profile-edit-container {
-//     width: 750px;
-//   }
-// }
-
 @media (max-width: 900px) {
   .nav-grid-column {
     display: none;
   }
-  .profile-edit-container{
+  .profile-edit-container {
     .grid-container-edit {
       .panel {
         .panel-body {
           padding: 0px 0px;
 
-          .home-images-box{
+          .home-images-box {
             justify-content: center;
             flex-wrap: wrap;
           }
           .sleeps-container {
             align-self: center;
             display: grid;
-            padding: 0px ;
-            grid-template-columns: 1fr ;
+            padding: 0px;
+            grid-template-columns: 1fr;
           }
           .rules-container {
             display: flex;
@@ -474,26 +409,12 @@
           }
         }
       }
-      // display:flex;
-      // flex-direction: column;
-      // justify-content: center;
     }
   }
-
 }
-
-// @media (min-width: 992px) {
-//   .profile-edit-container {
-//     width: 970px;
-//   }
-// }
 
 @media (min-width: 1200px) {
   .profile-edit-container {
     width: 1200px;
   }
 }
-
-//      color: #fff;
-// background-color: #f7a800;
-// border-color: #f7a800;

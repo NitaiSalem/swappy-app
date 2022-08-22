@@ -23,15 +23,9 @@ export const setHomeDetails = (details) => {
   };
 };
 
-//need to add error cases?
-
-//make get request method here and handle in server, must use when profile is rendered otherwise data wont show.
-
 export const uploadHomeDetails = (userData) => async (dispatch) => {
-  console.log("entered upload home details ")
   try {
     await axios.post("/api/user-edit-details/home-details", userData);
-    // console.log(response.data, "this is response data");
     dispatch(setHomeDetails(userData));
   } catch (err) {
     console.error(err);
@@ -39,8 +33,6 @@ export const uploadHomeDetails = (userData) => async (dispatch) => {
 };
 
 export const uploadProfileImage = (profileImg) => async (dispatch) => {
-
-  console.log("uploading profile image entered: ", profileImg)
   try {
 //?change from localhost? 
 
@@ -69,7 +61,6 @@ export const uploadHomeImages = (homeImages) => async (dispatch) => {
 export const getHomeDetails = () => async (dispatch) => {
   try {
     const response = await axios.get("/api/user-edit-details/home-details");
-    // console.log(response.data, " the response data in gethomedetails");
     dispatch(setHomeDetails(response.data));
   } catch (err) {
     console.error(err);

@@ -19,8 +19,6 @@
     margin-top: 50px;
     display: flex;
     padding: 0px 30px;
-    //  justify-content: center;
-    //  align-items: center;
     background-color: $light-gray-background;
 
     .destinations-grid-container {
@@ -38,7 +36,6 @@
           height: 100%;
           width: 100%;
           object-fit: cover;
-          // background-color: rgba(0,0,0,.15);
         }
 
         .destination-name-container {
@@ -73,8 +70,6 @@
 
     .destinations-description {
       padding: 15px 5px 35px 5px;
-      // padding: 35px;
-
       span {
         color: $darkerOrange;
       }
@@ -84,7 +79,8 @@
 
 @media (max-width: 700px) {
   .destinations-container {
-    .destinations-header, .destinations-sub-header {
+    .destinations-header,
+    .destinations-sub-header {
       text-align: center;
       margin-left: 0px;
     }

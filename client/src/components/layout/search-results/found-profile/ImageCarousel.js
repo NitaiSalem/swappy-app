@@ -1,16 +1,14 @@
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { useEffect, useState, useRef, useMemo } from "react";
+import { useEffect, useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 
 const ImageCarousel = ({
   homeImages,
   setIsCarouselOpen,
   isCarouselOpen,
-  setCarouselClass,
 }) => {
   const [shouldRender, setRender] = useState(isCarouselOpen);
-  // const outsideClickRef = useRef();
   const carouselButtonsArr = [
     "carousel-image-container",
     "control-arrow control-next",
@@ -22,7 +20,6 @@ const ImageCarousel = ({
   ];
 
   useEffect(() => {
-    console.log("iscarousel open in useffect", isCarouselOpen);
     if (isCarouselOpen) {
       setRender(true);
 
@@ -32,33 +29,22 @@ const ImageCarousel = ({
     }
   }, [isCarouselOpen]);
 
-  //   useEffect(() => {
-  //     containerRef.current.focus();
-  //   });
   const onAnimationEnd = () => {
     if (!isCarouselOpen) setRender(false);
   };
 
   const handleClose = () => {
     setIsCarouselOpen(false);
-    // setTimeout(() => setIsCarouselOpen(false), 500);
-    // setCarouselClass("carousel-wrapper-outside-close");
   };
 
   function useOnClickOutside(carouselButtonsClasses, handler) {
     useEffect(
       () => {
         const listener = (event) => {
-          console.log("this is event target classname", event.target.className);
           // Do nothing if clicking ref's element or descendent elements
-
           if (carouselButtonsClasses.includes(event.target.className)) {
             return;
           }
-
-          // if (!ref.current || ref.current.contains(event.target)) {
-          //   return;
-          // }
           handler(event);
         };
         document.addEventListener("mousedown", listener);
@@ -68,12 +54,6 @@ const ImageCarousel = ({
           document.removeEventListener("touchstart", listener);
         };
       },
-      // Add ref and handler to effect dependencies
-      // It's worth noting that because the passed-in handler is a new ...
-      // ... function on every render that will cause this effect ...
-      // ... callback/cleanup to run every render. It's not a big deal ...
-      // ... but to optimize you can wrap handler in useCallback before ...
-      // ... passing it into this hook.
       [carouselButtonsClasses, handler]
     );
   }
@@ -99,8 +79,6 @@ const ImageCarousel = ({
             fontSize="large"
           />
           <Carousel infiniteLoop={true} useKeyboardArrows={true} autoFocus>
-            {/* loop images here */}
-
             {homeImages &&
               homeImages.map((imageObj) => {
                 return (

@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link, matchPath, useLocation, useNavigate } from "react-router-dom";
-// import "./navStyle.scss";
 import logo from "../../../assets/swappy-logo.png";
 import { useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -8,7 +7,6 @@ import { logoutUser } from "../../../actions/authActions";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { GET_ERRORS } from "../../../actions/types";
 import Autocomplete from "react-google-autocomplete";
-// import { getSearchResults } from "../../../../utils/getHomes";
 import { getSearchResults } from "../../../utils/getHomes";
 import { Button } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
@@ -22,7 +20,7 @@ const NavigationBar = () => {
   const navigate = useNavigate();
   const isNavSearchShown = useSelector((state) => state.isNavSearchShown);
   const { pathname } = useLocation();
-const isSearchPath = matchPath("/search/*", pathname);
+  const isSearchPath = matchPath("/search/*", pathname);
 
   const onTextChange = ({ target: { value } }) => {
     setSearchText(value);
@@ -30,24 +28,17 @@ const isSearchPath = matchPath("/search/*", pathname);
 
   const searchHomes = async (searchValue) => {
     const searchResults = await getSearchResults(searchValue);
-    // console.log("this is searchvalue in search homes func", searchValue);
-    // console.log("this is search results in search homes func", searchResults);
     navigate(`/search/${searchValue}`, {
       state: { searchValue, foundHomes: searchResults },
     });
   };
 
   const handlePlaceSelected = (place, event) => {
-    console.log("this is event value", event.value);
-    // event.preventDefault();
-    console.log("on place selected fired");
-    console.log({ place });
+    //event.value gives us the entered text when autocomplete not used
     if (place) {
       setSearchText(place);
-      console.log("entered place true condition", { place });
       searchHomes(place);
     } else {
-      // console.log('entered else condition ', {searchText})
       searchHomes(event.value);
     }
   };
@@ -61,8 +52,6 @@ const isSearchPath = matchPath("/search/*", pathname);
     dispatch(logoutUser());
   };
 
-  //remove login/register errors when navigating to other routes
-
   const handleLinkClick = () => {
     dispatch(setIsNavSearchShown(true));
     setSearchText("");
@@ -72,9 +61,6 @@ const isSearchPath = matchPath("/search/*", pathname);
     });
     setClassName("closed-menu");
   };
-
-
-
 
   return (
     <nav className="navigation-bar" id="navigation-bar">
@@ -92,7 +78,7 @@ const isSearchPath = matchPath("/search/*", pathname);
           }
         >
           <Autocomplete
-           id="autocomplete"
+            id="autocomplete"
             className="search-box"
             apiKey={process.env.REACT_APP_MAPS_API_KEY}
             value={searchText}
@@ -114,7 +100,6 @@ const isSearchPath = matchPath("/search/*", pathname);
           >
             <SearchIcon />
           </Button>
-          {/* </form> */}
         </div>
       )}
 

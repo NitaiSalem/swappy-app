@@ -1,11 +1,8 @@
 import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
-import MuiAppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
 import CssBaseline from "@mui/material/CssBaseline";
 import List from "@mui/material/List";
-import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -38,23 +35,6 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
   })
 );
 
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== "open",
-})(({ theme, open }) => ({
-  transition: theme.transitions.create(["margin", "width"], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(["margin", "width"], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    marginRight: drawerWidth,
-  }),
-}));
-
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
   alignItems: "center",
@@ -64,7 +44,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   justifyContent: "space-between",
 }));
 
-const NavDrawer = ()=>  {
+const NavDrawer = () => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
   const theme = useTheme();
@@ -81,24 +61,24 @@ const NavDrawer = ()=>  {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <Navbar bg="light" variant="light"  id ="navbar" fixed="top" expand="sm" className="navbar-container">
-      {/* <AppBar position="fixed" open={open}> */}
-        {/* <Toolbar> */}
+      <Navbar
+        bg="light"
+        variant="light"
+        id="navbar"
+        fixed="top"
+        expand="sm"
+        className="navbar-container"
+      >
         <Link to="/"> Logo</Link>
-          {/* <Typography variant="h6" noWrap sx={{ flexGrow: 1 }} component="div">
-            Persistent drawer
-          </Typography> */}
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="end"
-            onClick={handleDrawerOpen}
-            sx={{ ...(open && { display: "none" }) }}
-          >
-            <MenuIcon />
-          </IconButton>
-        {/* </Toolbar> */}
-      {/* </AppBar> */}
+        <IconButton
+          color="inherit"
+          aria-label="open drawer"
+          edge="end"
+          onClick={handleDrawerOpen}
+          sx={{ ...(open && { display: "none" }) }}
+        >
+          <MenuIcon />
+        </IconButton>
       </Navbar>
       <Main open={open}>
         <DrawerHeader />
@@ -125,43 +105,25 @@ const NavDrawer = ()=>  {
           </IconButton>
         </DrawerHeader>
         <Divider />
-        {/* <Navbar bg="light" variant="light"  id ="navbar" fixed="top" expand="sm" className="navbar-container">
-      <Container fluid className="container-fluid">
-        <Link to="/"> Logo</Link>
-        <Nav> 
-          <Link to="/about">How it works</Link>
-          { !isAuthenticated? <Link to="/login">Login</Link> :<Link to="/profile">Profile</Link> }
-          <Link  to="/">Home</Link>
-        </Nav>
-      </Container>
-    </Navbar> */}
         <List>
+          <ListItem>
+            <Link to="/about">How it works</Link>
+          </ListItem>
 
-{/* <Link to="/about">How it works</Link> */}
-
-<ListItem >
-<Link to="/about">How it works</Link>
-</ListItem>
-
-<ListItem >
-{ !isAuthenticated? <Link to="/login">Login</Link> :<Link to="/profile">Profile</Link> }</ListItem>
-<ListItem >
-<Link  to="/">Home</Link>
-</ListItem>
-
-            {/* // <ListItem button key={text}>
-            //   <ListItemIcon>
-            //     {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            //   </ListItemIcon>
-            //   <ListItemText primary={text} />
-            // </ListItem>
-      */}
+          <ListItem>
+            {!isAuthenticated ? (
+              <Link to="/login">Login</Link>
+            ) : (
+              <Link to="/profile">Profile</Link>
+            )}
+          </ListItem>
+          <ListItem>
+            <Link to="/">Home</Link>
+          </ListItem>
         </List>
-        {/* <Divider /> */}
-
       </Drawer>
     </Box>
   );
-}
+};
 
-export default NavDrawer; 
+export default NavDrawer;

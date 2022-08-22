@@ -1,21 +1,11 @@
-//import GoogleMapReact from "google-map-react";
-// import {
-//   withGoogleMap,
-//   //   GoogleMap,
-//   withScriptjs,
-//   //   Marker,
-// } from "react-google-maps";
 import Autocomplete from "react-google-autocomplete";
 import Geocode from "react-geocode";
-// import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect } from "react";
 import { memo } from "react";
 import { useInView } from "react-intersection-observer";
 import {
   GoogleMap,
-//   useJsApiLoader,
   Marker,
-  LoadScript,
 } from "@react-google-maps/api";
 
 const API_Key = process.env.REACT_APP_MAPS_API_KEY;
@@ -25,22 +15,15 @@ const containerStyle = {
   height: "250px",
 };
 
-// const center = {
-//   lat: -3.745,
-//   lng: -38.523,
-// };
-
 Geocode.setApiKey(API_Key);
 Geocode.enableDebug();
 
-const NewMap = ({ setInViewComponent, houseLocation, setHouseLocation }) => {
-  // const { isLoaded, loadError } = useLoadScript({ googleMapsApiKey: 'Your Google API Key' })
+const ProfileEditMap = ({ setInViewComponent, houseLocation, setHouseLocation }) => {
 
   let markerPosition = {
     lat: houseLocation.lat,
     lng: houseLocation.lng,
   };
-  const [map, setMap] = useState(null);
 
   const { ref, inView, entry } = useInView({
     /* Optional options */
@@ -106,8 +89,7 @@ const NewMap = ({ setInViewComponent, houseLocation, setHouseLocation }) => {
           lng: newLng,
           address: updatedAddress ? updatedAddress : "",
           area: area ? area : "",
-          //add city here?
-        }); //this causing double render!
+        }); 
       },
       (error) => {
         console.error(error);
@@ -133,7 +115,6 @@ const NewMap = ({ setInViewComponent, houseLocation, setHouseLocation }) => {
           where to find your home.
         </p>
 
-        {/* <LoadScript googleMapsApiKey={API_Key}> */}
           <Autocomplete
              apiKey={API_Key}
             className="location-autocomplete"
@@ -153,11 +134,8 @@ const NewMap = ({ setInViewComponent, houseLocation, setHouseLocation }) => {
             mapContainerStyle={containerStyle}
             center={{ lat: markerPosition.lat, lng: markerPosition.lng }}
             zoom={11}
-            // onLoad={onLoad}
-            // onUnmount={onUnmount}
           >
             <Marker
-              // className="marker-class-here"
               onClick={onMarkerClick}
               draggable={true}
               onDragEnd={onMarkerDragEnd}
@@ -168,10 +146,9 @@ const NewMap = ({ setInViewComponent, houseLocation, setHouseLocation }) => {
             />
             <Marker />
           </GoogleMap>
-        {/* </LoadScript> */}
       </div>
     </div>
   );
 };
 
-export default memo(NewMap);
+export default memo(ProfileEditMap);

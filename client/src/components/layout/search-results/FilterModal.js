@@ -22,7 +22,6 @@ import Select from "@mui/material/Select";
 import {
   AMNETIES_NAMES,
   DETAILS_NAMES,
-  filterAll,
   LIFESTYLE_NAMES,
   MENU_ITEMS_RANGE,
 } from "../../../utils/filterUtils";
@@ -57,14 +56,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const FilterModal = ({
-  // setFilteredHomes,
-  // searchHomes,
   setCurrPage,
- setPageCount,
+  setPageCount,
   setOffset,
   searchValue,
   setFoundHomes,
-  // setCheckedAmnetiesState
 }) => {
   const classes = useStyles();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -85,18 +81,15 @@ const FilterModal = ({
         }
   );
   const reduxFilterCount = useSelector((state) => state.filterCounter);
-  //!not yet recieving filter count from redux so check is wrong?
   const [filterCount, setFilterCount] = useState(
     reduxFilterCount ? reduxFilterCount : 0
   );
-  // console.log("filtercount on top in filtermodal", filterCount);
   const [checkedLifeStyle, setCheckedLifeStyle] = useState(
     previousCheckedLifeStyle
   );
   const [desiredHomeType, setDesiredHomeType] = useState(
     previousDesiredHomeType
   );
-  //? maybe these initializations mess upp filter values afterwards?
   const [checkedAmneties, setCheckedAmneties] = useState(
     previousCheckedAmneties
   );
@@ -109,7 +102,6 @@ const FilterModal = ({
   const handleOpen = () => setIsModalOpen(true);
 
   const handleClose = () => {
-    // console.log("handle close called ");
     setCheckedLifeStyle(previousCheckedLifeStyle);
     setDesiredHomeType(previousDesiredHomeType);
     setCheckedAmneties(previousCheckedAmneties);
@@ -124,8 +116,8 @@ const FilterModal = ({
   };
 
   const resetFilter = () => {
-    setCurrPage(0); 
-     setOffset(0);
+    setCurrPage(0);
+    setOffset(0);
     dispatch(updateFilterValues("", {}, {}, {}));
     dispatch(setFilterCounter(0));
     setDesiredHomeType("");
@@ -140,23 +132,11 @@ const FilterModal = ({
     setCheckedLifeStyle({});
     setFilterCount(0);
     fetchHomes();
- 
-
   };
   ////////////////////////////////////////////////////////////////////////////////////////////////
   const updateResults = async () => {
-    // console.log(
-    //   "checked amneties in filter modal on update |: ",
-    //   checkedAmneties
-    // );
-    //! error here typo???
-    // setFilterCounter(filterCount);
-    // console.log("filtercount in update results in filtermodal", filterCount);
-    // setCheckedAmnetiesState(checkedAmneties);
-
-    // const fetchedHomes = await getSearchResults(searchValue);
     setPageCount(0);
-     setCurrPage(0); 
+    setCurrPage(0);
     setOffset(0);
     dispatch(
       updateFilterValues(
@@ -167,20 +147,6 @@ const FilterModal = ({
       )
     );
     dispatch(setFilterCounter(filterCount));
-
-    // const foundHomes = await getSearchResults(searchValue);
-
-    // if (filterCount > 0 && foundHomes) {
-    //   console.log("filtercount condition applied");
-    //   const finalFiltered = filterAll(
-    //     foundHomes,
-    //     desiredHomeType,
-    //     filterDetailsObj,
-    //     checkedAmneties,
-    //     checkedLifeStyle
-    //   );
-    //   setFoundHomes(finalFiltered);
-    // } else setFoundHomes(foundHomes ? foundHomes : []);
 
     setIsModalOpen(false);
   };
@@ -195,7 +161,6 @@ const FilterModal = ({
   };
 
   const handleDetailsChange = ({ target: { value } }, key) => {
-    //cover cases:
     //if that key is true/defined then count stays the same
     //if its empty then +1
     if (!filterDetailsObj[key] && value !== "") {

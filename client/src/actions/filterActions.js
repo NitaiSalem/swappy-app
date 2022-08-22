@@ -41,10 +41,6 @@ export const setFilterCounter = (counter) => {
   };
 };
 
-//need to add error cases?
-
-//make get request method here and handle in server, must use when profile is rendered otherwise data wont show.
-
 export const updateFilterValues =
   (homeType, details, amneties, lifeStyle) => (dispatch) => {
     dispatch(setFilterHomeType(homeType));

@@ -22,13 +22,9 @@ export const registerUser = (userData) => (dispatch) => {
         payload: {},
       });
       //!cancel this before registering lots of users make sure to return it afterwards
+      // re-direct to login on successful register
       // window.location.href = "./login";
-
-
-      
-      // window.history.pushState({}, "Login", "/login");
-      // window.location.reload();
-    }) // re-direct to login on successful register
+    }) 
     .catch((err) =>
       dispatch({
         type: GET_ERRORS,

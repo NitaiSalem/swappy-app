@@ -1,93 +1,18 @@
-/*
-_animations.scss
-This partial stores the actual @keyframe CSS animations. It helps to drastically reduce the size of component stylesheets. 
-In our example this file stores 22 animations, which is almost 800 lines of code! That is a lot of space saved in our component files, 
-that now just need to reference this file.
-
-_functions.scss
-This partial contains any SASS functions which process and return a value. I didn't use them in this project, 
-but a great example of them can be found in this StackOverflow thread.
-
-_global.scss
-This partial contains styling that overrides global elements, such as the #root or body elements. 
-In our example it is also importing the _variable.scss file to reference a color.
-
-_mixins.scss
-This partial can hold any block of code that is repeatable. In our example I am using mixins to determine breakpoint sizes.
- They are also using variables, so if my overall lg size changes, it will update everywhere.
-
-_typography.scss
-This partial holds major typography element styles such as h1-h6, p, and global classes or ids. As you can see in our example, 
-I like to stay away from applying super-specific properties here, like color. 
-This way I have the flexibility of changing it in different parts of the app, without worrying about specificity.
-
-_variables.scss
-This partial contains repeatable property values, such as brand colors and sizes. 
-By storing #002e25 in the variable $primaryDark2Color I can apply it to properties like color and border while preserving the option to change the color globally later on.
-
-
-*/
-$test-color: #000000; 
-
-$green-button: #508104; 
-$orange-color: #DB8200; 
- $propdoBlue: #001145; 
-
-
- //*use these 3 as combo!
-$orangeButton: #f7a800; 
-$shadedOrange: #de9700; 
-$darkerOrange:#e85710;  
-$turquoise :#068295; 
-$redError: #d80505; 
-$light-blue: #3b99fc; 
-
-
-
- $turquoise-faded: rgb(6, 130, 149,0.3); 
-/////////////////////////////////////////
-$font-color: #475257; 
-$faded-font-color: #8b8b8b; 
-$panel-heading: #191d1f; 
-$add-image-faded: #b3b3b3; 
-$add-image-hover: #7d7d7d; 
-$light-gray-background: #f4f4f4; 
+$orangeButton: #f7a800;
+$shadedOrange: #de9700;
+$darkerOrange: #e85710;
+$turquoise: #068295;
+$turquoise-faded: rgb(6, 130, 149, 0.3);
+$redError: #d80505;
+$light-blue: #3b99fc;
+$font-color: #475257;
+$faded-font-color: #8b8b8b;
+$panel-heading: #191d1f;
+$add-image-faded: #b3b3b3;
+$add-image-hover: #7d7d7d;
+$light-gray-background: #f4f4f4;
 $border-color-light: #d1cece;
 $faded-border: #e3e3e3;
-$filter-border: #f1f1f1; 
+$filter-border: #f1f1f1;
 
 
-
-//examples 
-$screen-sm: 576px;
-$screen-md: 768px;
-$screen-lg: 992px;
-$screen-xl: 1200px;
-$screen-xxl: 1300px;
-$screen-full: 1400px;
-
-/*
-mixin use example: 
-in mixin file: 
-
-@import './variables';
-
-@mixin customMinBreakPoint($size) {
-    @media (min-width: $size+'px') {
-        @content;
-    }
- }
-
- then in component folder: 
-
- @import '../../../sassStyles/variables';
-@import '../../../sassStyles/animations';
-@import '../../../sassStyles/mixins';
-
-   @include customMinBreakPoint(1024) {
-        margin-top: 0;
-        padding: 26px 0 50px 0;
-        -webkit-animation: fade-left 1s cubic-bezier(0.165, 0.840, 0.440, 1.000)  both;
-        animation: fade-left 1s cubic-bezier(0.165, 0.840, 0.440, 1.000)  both;
-    }
-*/

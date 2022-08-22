@@ -33,5 +33,3 @@ export default function (state = initialState, action) {
   }
 }
 
-//we import this as registeruser so maybe change to named func?
-//auth is coming from this reducer...going to the rootreducer in index. 

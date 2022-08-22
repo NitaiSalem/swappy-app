@@ -9,9 +9,6 @@ import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import defaultImage from "../../../../assets/user-icon.png";
 import ProfileTextField from "./TextField";
 
-//to fix updating profileimg not rerendering we had to connect the FilesUploadComponent to redux store,
-// pass it the profileimg state as props and after posting, making get request to get updated image!
-
 const ProfileImgUpload = ({
   setInViewComponent,
   selectedImage,
@@ -25,7 +22,6 @@ const ProfileImgUpload = ({
   const hiddenFileInput = useRef(null);
 
   const onFileChange = (e) => {
-    // e.target.value = null;
     if (!e.target.files || e.target.files.length === 0) {
       setSelectedImage("not-selected-profile-image");
       return;
@@ -56,7 +52,6 @@ const ProfileImgUpload = ({
     inView && setInViewComponent("profile-image-upload");
   }, [inView]);
 
-
   const deleteProfileImg = () => {
     hiddenFileInput.current.value = "";
     selectedImage
@@ -78,60 +73,57 @@ const ProfileImgUpload = ({
   return (
     <div id="profile-image-upload" className="panel" ref={ref}>
       <div className="panel-heading-container">
-        <h3 >Upload Profile Image</h3>
+        <h3>Upload Profile Image</h3>
       </div>
       <div className="panel-body">
-        <div className="profile-image-upload-container"> 
-        {currProfileImg || selectedImage ? (
-          <div className="profile-image-box">
-            <div className="delete-button-container">
-              <IconButton
-                className="delete-button"
-                aria-label="delete"
-                size="large"
-                onClick={deleteProfileImg}
-              >
-                <DeleteIcon fontSize="large" style={{ fill: "#e85710" }} />
-              </IconButton>
+        <div className="profile-image-upload-container">
+          {currProfileImg || selectedImage ? (
+            <div className="profile-image-box">
+              <div className="delete-button-container">
+                <IconButton
+                  className="delete-button"
+                  aria-label="delete"
+                  size="large"
+                  onClick={deleteProfileImg}
+                >
+                  <DeleteIcon fontSize="large" style={{ fill: "#e85710" }} />
+                </IconButton>
+              </div>
+              <img
+                className="profile-img"
+                src={selectedImage ? previewImage : currProfileImg}
+                alt="profile pic"
+                width="100%"
+                height="100%"
+              />
             </div>
-            <img
-              className="profile-img"
-              src={selectedImage ? previewImage : currProfileImg}
-              alt="profile pic"
-              width="100%"
-              height="100%"
+          ) : (
+            <div className="profile-image-box">
+              <img
+                className="profile-img"
+                src={defaultImage}
+                alt="profile pic"
+                width="100%"
+                height="100%"
+              />
+            </div>
+          )}
+
+          <div className="form-group">
+            <input
+              type="file"
+              onChange={onFileChange}
+              ref={hiddenFileInput}
+              style={{ display: "none" }}
             />
           </div>
-        ) : (
-          /* use else here to render the icon like foundprofile */
-
-          <div className="profile-image-box">
-            <img
-              className="profile-img"
-              src={defaultImage}
-              alt="profile pic"
-              width="100%"
-              height="100%"
-            />
-          </div>
-        )}
-
-        <div className="form-group">
-          <input
-            type="file"
-            onChange={onFileChange}
-            ref={hiddenFileInput}
-            style={{ display: "none" }}
-          />
-          {/* </label>  */}
-        </div>
-        <Button
-          variant="outlined"
-          className="profileimg-upload-button"
-          onClick={handleClick}
-        >
-          <CameraAltIcon /> &nbsp; choose image
-        </Button>
+          <Button
+            variant="outlined"
+            className="profileimg-upload-button"
+            onClick={handleClick}
+          >
+            <CameraAltIcon /> &nbsp; choose image
+          </Button>
         </div>
         <h3 className="panel-body-title">
           What will your guests love about your home
@@ -152,12 +144,4 @@ const ProfileImgUpload = ({
   );
 };
 
-// const mapStateToProps = (state) => ({
-//   auth: state.auth,
-//   profileImg: state.profileImg,
-//   //this passes the auth state from the root reducer as props to component
-// });
-
 export default memo(ProfileImgUpload);
-
-//export default connect(mapStateToProps, {getProfileImg})(ProfileImgUpload);

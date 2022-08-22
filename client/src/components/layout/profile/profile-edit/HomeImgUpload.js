@@ -32,7 +32,6 @@ const HomeImgUpload = ({ setInViewComponent, homeImages, setHomeImages }) => {
     sumOfImages <= 5 && setHomeImages([...homeImages, ...chosenFiles]);
   };
 
-  // create a preview as a side effect, whenever selected file is changed
   useEffect(() => {
     if (homeImages.length === 0) {
       setPreviewImages(currHomeImg);
@@ -42,13 +41,9 @@ const HomeImgUpload = ({ setInViewComponent, homeImages, setHomeImages }) => {
     const objectUrls = homeImages.map((img) => {
       //create array of objects with name and url like our db
       return { url: URL.createObjectURL(img), name: img.name };
-      // return URL.createObjectURL(img);
     });
 
-    //!make sure no repeats!
     //currHomeImgUrls use this original value with the updated images state
-    console.log({ objectUrls });
-    console.log({ currHomeImgUrls });
     setPreviewImages([...currHomeImg, ...objectUrls]);
 
     //  free memory when ever this component is unmounted
@@ -60,7 +55,7 @@ const HomeImgUpload = ({ setInViewComponent, homeImages, setHomeImages }) => {
   }, [inView]);
 
   const deleteHomeImg = (imageName) => {
-    //*here check first if the image is in db already
+    // check first if the image is in db already
     if (currHomeImg.find(({ name }) => imageName === name)) {
       axios
         .delete(

@@ -1,21 +1,12 @@
 import { useLocation } from "react-router-dom";
-// import "./profile.style.scss";
 import ImageCarousel from "./ImageCarousel";
 import defaultImage from "../../../../assets/user-icon.png";
 import defaultHomeImage from "../../../../../src/assets/home-default.jpg";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import MapsHomeWorkIcon from "@mui/icons-material/MapsHomeWork";
-
-// import GroupIcon from "@mui/icons-material/Group";
-import { useEffect, useState, useRef, useCallback } from "react";
-import { Button, createTheme, Grid } from "@mui/material";
+import { useEffect, useState, useCallback } from "react";
+import { Button, Grid } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-// import WcIcon from "@mui/icons-material/Wc";
-// import MeetingRoomIcon from "@mui/icons-material/MeetingRoom";
-// import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
 import MapIcon from "@mui/icons-material/Map";
 import UserAmneties from "./UserAmneties";
-// import HomeMap from "../../../map/homeMap";
 import Footer from "../../footer/Footer";
 import UserDetails from "./UserDetails";
 import HouseRules from "./HouseRules";
@@ -50,13 +41,8 @@ const useStyles = makeStyles({
 const FoundProfile = () => {
   const classes = useStyles();
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isCarouselOpen, setIsCarouselOpen] = useState(false); //this is show from examle!
-  // const scrollContainerWrapper = useRef(null);
-
+  const [isCarouselOpen, setIsCarouselOpen] = useState(false);
   const onScroll = useCallback((event) => {
-    // console.log("onscroll method fired")
-    // console.log("onscroll method fired");
-    // console.log("this is event target scrolltop", event.target);
     if (window.scrollY > 0) {
       setIsScrolled(true);
     } else if (window.scrollY === 0) {
@@ -75,16 +61,13 @@ const FoundProfile = () => {
     ? state.homeDetails.amneties
     : "";
 
-  console.log("this is state ", state);
-
   useEffect(() => {
-    // clean up code
-    // scrollContainerWrapper.current.addEventListener
     window.addEventListener("scroll", onScroll, {
       passive: true,
     });
+    // clean up code
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  });
 
   return (
     <div className="found-profile-container">
@@ -114,7 +97,6 @@ const FoundProfile = () => {
         {!isCarouselOpen && (
           <div
             className={isScrolled ? "scrolled-column" : "user-column"}
-            // style={isScrolled ? scrollStyle : defaultStyle}
           >
             <div className="profile-info-container">
               <div className="profile-pic-container">
@@ -128,12 +110,11 @@ const FoundProfile = () => {
 
             <div className="hometype-area-container">
               <h2 className="hometype-area">
-              {state.homeDetails?.homeType ? state.homeDetails.homeType + " in " + homeDetails.houseLocation.area: "Appartment/House in unset location"}
-{/*               
                 {state.homeDetails?.homeType
-                  ? state.homeDetails.homeType + " in "
-                  : "Appartment/House in unset location"}{" "}
-                {houseLocation?.area} */}
+                  ? state.homeDetails.homeType +
+                    " in " +
+                    homeDetails.houseLocation.area
+                  : "Appartment/House in unset location"}
               </h2>
             </div>
 
@@ -176,15 +157,10 @@ const FoundProfile = () => {
             <UserAmneties amneties={homeAmneties} />
 
             <div className="info-section-box">
-              <h5 className= "info-section-title">
-                <MapIcon /> &nbsp;  Location
+              <h5 className="info-section-title">
+                <MapIcon /> &nbsp; Location
               </h5>
-              {!isCarouselOpen && (
-                <UserMap
-                  houseLocation={houseLocation}
-                 
-                />
-              )}
+              {!isCarouselOpen && <UserMap houseLocation={houseLocation} />}
             </div>
           </Grid>
         </Grid>

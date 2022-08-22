@@ -10,4 +10,3 @@ const setAuthToken = token => {
 };
 export default setAuthToken;
 
-//this is basically what I added in postman to send post request with Authentication header to post img to DB

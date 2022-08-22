@@ -3,41 +3,26 @@
 }
 
 .found-profile-container {
-  // overflow-y: scroll;
   width: 100%;
   height: 100vh;
-  // background-color: blueviolet;
 }
 
 .top-view-container {
   display: flex;
-  //  height: 50vw !important;
-  // height: calc(100% - 56px);
-  // margin-left: 13vw
+
   margin-right: 13vw;
   width: 100%;
   height: calc(100% - 56px);
-  //   margin-left: 150px;
-  //   margin-right: 150px;
-  // max-height: 881px;
-  margin-top: 56px;
-  // border-right: 1px solid rgb(94, 90, 90);
-  // border-left: 1px solid rgb(94, 90, 90);
-  //   box-shadow: 3px 0px 0px 0 rgba(0, 0, 0, 0.2),
-  //     -3px 0px 0px 0 rgba(0, 0, 0, 0.2);
-  // border-radius:  2px;
 
+  margin-top: 56px;
   .found-home-img-container {
     border: none !important;
-    //   margin-top:40px;
     width: 70%;
     height: 100%;
   }
 
   .found-profile-homeimg {
     box-shadow: -3px 0px 5px 0 rgba(0, 0, 0, 0.2);
-    // width: auto !important;
-    // height: auto !important;
     object-fit: cover;
     height: 100%;
     width: 100%;
@@ -52,11 +37,6 @@
 }
 
 .carousel-wrapper-outside-close {
-  // margin-top:40px;
-  // animation-name: closeOpacity;
-  // animation-duration: 500ms;
-
-  // transition: ease-in 2s linear;
   position: fixed;
   height: 100% !important;
 }
@@ -85,24 +65,16 @@
   position: fixed !important;
   z-index: 1000 !important;
   bottom: 0px;
-  //   top:40px;
   left: 0;
   width: 100%;
-  // height: 100%;
-  //  background:rgba(255, 255, 255, 0.9);
   background-color: rgba(43, 40, 40, 0.9);
   display: flex;
   flex-direction: column;
-  // flex-wrap:  wrap ;
-
-  //  max-width: 100%;
-  //  padding-right: 8px;
   height: 100%;
   width: 100%;
 
   .close-carousel {
     right: 0;
-    // width: 30px;
     align-self: flex-end;
   }
 
@@ -112,28 +84,12 @@
   .carousel-root {
     height: 100%;
   }
-
-  .carousel.carousel-slider {
-    // height: 85% !important;
-  }
-}
-
-.carousel-image-container {
-  // height: calc(100% - 143px);
-  //100% -  143 px; 
-  // width: 100%;
 }
 
 .carousel-image {
-  // padding-top:40px;
-  // width: auto !important;
-  // height: auto !important;
   max-height: 80vh;
   object-fit: contain;
   max-width: 85% !important;
-  // height: 450px;
-
-  // object-fit: contain;
 }
 
 .carousel {
@@ -142,7 +98,6 @@
 }
 
 .thumbs-wrapper {
-  //   width: 100%;
   display: flex !important;
   justify-content: center;
   margin: 5px 0 0 0 !important;
@@ -152,21 +107,18 @@ li.thumb {
   display: flex !important;
   justify-content: center !important;
   border: 3px solid #333 !important;
-  // margin-bottom: 8px !important;
 }
 li.thumb.selected {
   display: flex !important;
   justify-content: center !important;
   border: 3px solid rgb(255, 255, 255) !important;
-  // margin-bottom: 8px !important;
 }
-li.thumb:hover{
-  cursor:pointer;
+li.thumb:hover {
+  cursor: pointer;
 }
 
 .thumbs {
   display: flex !important;
-  // justify-content:center !important;
   padding-left: 0 !important;
 }
 
@@ -174,7 +126,6 @@ li.thumb:hover{
   max-height: 100%;
 }
 
-//for user  column instead of inline change the class then adjust class with media query
 .user-column {
   display: flex;
   flex-direction: column;
@@ -183,7 +134,6 @@ li.thumb:hover{
   background-color: $light-gray-background;
   display: flex;
   padding: 15px;
-  // max-height: 70vh;
 }
 .Update-profile-container {
   display: flex;
@@ -205,8 +155,6 @@ li.thumb:hover{
     border-radius: 4px;
     transition: color 0.3s ease;
     transition: background-color 0.3s ease;
-
-    // width:350px;
     .edit-profile-icon {
       color: $orangeButton;
     }
@@ -230,7 +178,6 @@ li.thumb:hover{
   box-shadow: 3px 0px 5px 0 rgba(0, 0, 0, 0.2),
     -3px 0px 5px 0 rgba(0, 0, 0, 0.2);
   right: 0px;
-  // height: 70vh;
   width: 20%;
   min-height: 50vh;
   display: flex;
@@ -241,7 +188,6 @@ li.thumb:hover{
   }
 }
 
-// background-color: rgb(252, 218, 175);
 .profile-info-container {
   display: flex;
   align-items: center;
@@ -322,7 +268,6 @@ li.thumb:hover{
         .user-amneties-wrapper {
           display: flex;
           flex-wrap: wrap;
-          // padding-left: 2rem;
 
           .user-amnety-box {
             padding: 0 10px 10px 0;
@@ -330,7 +275,6 @@ li.thumb:hover{
             flex-wrap: nowrap;
             align-items: center;
             width: 33.3%;
-            //make 50% in media query
           }
 
           .amnety-text {
@@ -367,10 +311,8 @@ li.thumb:hover{
           margin-right: 8px;
           width: 40px;
           height: 40px;
-          // width:36px;
           border-radius: 160px;
           padding: 6px;
-          // background-color:#9b0000;
 
           background-color: #f4f4f4;
         }
@@ -388,10 +330,6 @@ li.thumb:hover{
       font-size: 16px;
     }
   }
-
-  // dfssvbds {
-  //   background-color: lightblue;
-  // }
 }
 
 @media (max-width: 1024px) {
@@ -437,12 +375,7 @@ li.thumb:hover{
   .found-home-info-section-container {
     .user-amneties-wrapper {
       .user-amnety-box {
-        // padding: 0 10px 10px 0;
-        // display: flex;
-        // flex-wrap: nowrap;
-        // align-items: center;
         width: 50% !important;
-        //make 50% in media query
       }
     }
   }
@@ -454,14 +387,11 @@ li.thumb:hover{
     flex-direction: column;
     margin-right: 0;
     height: auto;
-    // height: 100% !important;
 
     .found-home-img-container {
       border: none !important;
-      //   margin-top:40px;
       width: 100% !important;
       height: 50vw !important;
-      // max-height: 70vh;
     }
     .Update-profile-container {
       .edit-profile-button {
@@ -472,29 +402,20 @@ li.thumb:hover{
 
     .user-column {
       display: flex;
-      // flex-direction: row;
       box-shadow: 3px 0px 5px 0 rgba(0, 0, 0, 0.2);
       width: 100%;
       background-color: #f4f4f4;
       display: flex;
       padding: 15px;
       min-height: 40vh;
-      // max-height: 100%;
     }
 
     .scrolled-column {
       display: flex;
-      // flex-direction: row;
       position: relative;
-      // background-color:rgba(255, 255, 255, 0.9);
-      // position: fixed;
-      // z-index: 3;
-      // top: "40px";
       min-height: 40vh;
       box-shadow: 3px 0px 5px 0 rgba(0, 0, 0, 0.2),
         -3px 0px 5px 0 rgba(0, 0, 0, 0.2);
-      // right: 0px;
-      // height: 45vh;
       width: 100%;
       padding: 15px;
     }
@@ -525,12 +446,7 @@ li.thumb:hover{
 
     .user-amneties-wrapper {
       .user-amnety-box {
-        // padding: 0 10px 10px 0;
-        // display: flex;
-        // flex-wrap: nowrap;
-        // align-items: center;
         width: 50% !important;
-        //make 50% in media query
       }
     }
   }
