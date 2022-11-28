@@ -5,7 +5,6 @@ import SearchIcon from "@mui/icons-material/Search";
 import { useInView } from "react-intersection-observer";
 import { useDispatch} from "react-redux";
 import { setIsNavSearchShown } from "../../../actions/showNavSearchAction";
-import { useNavigate } from "react-router-dom";
 
 const SearchBar = ({
   searchHomes,
@@ -13,7 +12,6 @@ const SearchBar = ({
   setSearchValue
 }) => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { ref, inView, entry } = useInView({
     /* Optional options */
     threshold: 1,

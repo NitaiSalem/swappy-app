@@ -32,43 +32,6 @@ const FakerComponent = () => {
     }
   };
 
-  // const getRandomHomeImages = async () => {
-  //   try {
-  //     let imagesArr = [];
-  //     for (let i = 0; i < 5; i++) {
-  //       console.log("loop round ", i)
-  //       const image = await Axios.get(
-  //         "https://source.unsplash.com/random/?home"
-  //       );
-  //       imagesArr.push(image.data);
-  //     }
-
-  //     return imagesArr;
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // };
-
-  //   'https://3geonames.org/randomland.IL'
-
-  // const getRandomLocationByCountry = (countryName) => {
-  //   //  const fakeCity = faker.address.city(['IL']);
-  //   //  console.log("the fake zip city ", fakeCity );
-  //   //     var lat = '';
-  //   //     var lng = '';
-
-  //   const loc = {
-  //     top: "32.096403466759085",
-  //     bottom: "31.610674760426335",
-  //     left: "34.773591608009625",
-  //     right: "34.94579676154469",
-  //   };
-
-  //   //so latitide is up down
-  //   //34 is up down
-  //   //31-32 is left right
-  // };
-
   const getRandomImg = async () => {
     try {
       const response = await Axios.get(

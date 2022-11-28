@@ -1,9 +1,9 @@
-import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./scss/styles.scss";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
-import {setCurrentUser, logoutUser} from "./actions/authActions";
-import {Provider} from "react-redux";
+import { setCurrentUser, logoutUser } from "./actions/authActions";
+import { Provider } from "react-redux";
 import store from "./store";
 import NavigationBar from "./components/layout/navbar/Navbar";
 import Register from "./components/auth/Register";
@@ -14,21 +14,20 @@ import HomePage from "./components/layout/home-page/Home";
 import Footer from "./components/layout/footer/Footer";
 import About from "./components/layout/about/About";
 import SearchResults from "./components/layout/search-results/SearchResults";
-import { persistStore } from 'redux-persist';
-import { PersistGate } from 'redux-persist/integration/react';
+import { persistStore } from "redux-persist";
+import { PersistGate } from "redux-persist/integration/react";
 import FoundProfile from "./components/layout/search-results/found-profile/FoundProfile";
 import ProfileEdit from "./components/layout/profile/profile-edit/ProfileEdit";
-import { ThemeProvider} from '@mui/material/styles';
+import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "./utils/muiTheme";
 import ScrollToTop from "./components/scroll-to-top/ScrollToTop";
 
+import { useJsApiLoader } from "@react-google-maps/api";
 
-import { useJsApiLoader } from '@react-google-maps/api';
+// import FakerComponent from "./utils/Faker.js";
 
-import FakerComponent from "./utils/Faker.js";
-
-const API_Key =process.env.REACT_APP_MAPS_API_KEY;
-const libraries = ["places"]; 
+const API_Key = process.env.REACT_APP_MAPS_API_KEY;
+const libraries = ["places"];
 
 const persistor = persistStore(store);
 // Check for token to keep user logged in
@@ -50,81 +49,65 @@ if (localStorage.jwtToken) {
   }
 }
 
-
-
 function App() {
-
   const { isLoaded } = useJsApiLoader({
-    id: 'google-map-script',
-    googleMapsApiKey: API_Key, 
-    libraries:libraries
-  })
-
+    id: "google-map-script",
+    googleMapsApiKey: API_Key,
+    libraries: libraries,
+  });
 
   return (
     isLoaded && (
-<Provider store={store}>
-         <ThemeProvider theme={theme}>
-         <PersistGate persistor={persistor}>
-      <Router>
-      <ScrollToTop />
-        <div className="App">
-        {/* <FakerComponent/>  */}
-          <NavigationBar />
-          <Routes>
-            <Route exact path="/" element={<HomePage />} />
-            <Route exact path="/register" element={<Register />} />
-            <Route exact path="/login" element={<Login />} />
-            <Route exact path="/about" element={<About />} />
-            <Route path="/search/" element={<SearchResults />} />
-            <Route path="/search/:query" element={<SearchResults />} />
-            <Route
-              path="/search/:query/user/:userid"
-              element={<FoundProfile />}
-            />
-            <Route path="/search/user/:userid" element={<FoundProfile />} />
-            <Route
-              exact
-              path="/Profile"
-              element={
-                <PrivateRoute>
-                  <Profile />
-                </PrivateRoute>
-              }
-            />
+      <Provider store={store}>
+        <ThemeProvider theme={theme}>
+          <PersistGate persistor={persistor}>
+            <Router>
+              <ScrollToTop />
+              <div className="App">
+                {/* <FakerComponent/>  */}
+                <NavigationBar />
+                <Routes>
+                  <Route exact path="/" element={<HomePage />} />
+                  <Route exact path="/register" element={<Register />} />
+                  <Route exact path="/login" element={<Login />} />
+                  <Route exact path="/about" element={<About />} />
+                  <Route path="/search/" element={<SearchResults />} />
+                  <Route path="/search/:query" element={<SearchResults />} />
                   <Route
-              exact
-              path="/Profile/edit"
-              element={
-                <PrivateRoute>
-                  <ProfileEdit />
-                  <Footer />
-                </PrivateRoute>
-              }
-            />
-          </Routes>
-        </div>
-      
-
-      </Router>
-      </PersistGate>
-      </ThemeProvider>
-    </Provider>
+                    path="/search/:query/user/:userid"
+                    element={<FoundProfile />}
+                  />
+                  <Route
+                    path="/search/user/:userid"
+                    element={<FoundProfile />}
+                  />
+                  <Route
+                    exact
+                    path="/Profile"
+                    element={
+                      <PrivateRoute>
+                        <Profile />
+                      </PrivateRoute>
+                    }
+                  />
+                  <Route
+                    exact
+                    path="/Profile/edit"
+                    element={
+                      <PrivateRoute>
+                        <ProfileEdit />
+                        <Footer />
+                      </PrivateRoute>
+                    }
+                  />
+                </Routes>
+              </div>
+            </Router>
+          </PersistGate>
+        </ThemeProvider>
+      </Provider>
     )
-    
   );
 }
 
 export default App;
-
-
-/*
-colored comments:
-
-just regular comment
-*This is my main method- brighter color  
-! red comment alert, this can only be whatever 
-? blue as a question for myself? do i need to check the val? 
-todo: i need to call some method here
-
-*/ 

@@ -1,13 +1,4 @@
-import {SET_CURRENT_USER, USER_LOADING} from "../actions/types";
-/*
-Reducers are pure functions that specify how application state should change in response to an action. Reducers respond with the new state, 
-which is passed to our store and, in turn, our UI.
-Our flow for reducers will go as follows.
-Import all our actions from our types.js file
-Define our initialState
-Define how state should change based on actions with a switch statement
-*/
-
+import { SET_CURRENT_USER, USER_LOADING } from "../actions/types";
 
 const isEmpty = require("is-empty");
 const initialState = {
@@ -32,4 +23,3 @@ export default function (state = initialState, action) {
       return state;
   }
 }
-

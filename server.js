@@ -12,7 +12,7 @@ const userEditDetails = require("./routes/api/user-edit-details");
 const search = require("./routes/api/search");
 // path module, which provides utilities for working with file and directory paths:
 const path = require("path");
-app.use("/public", express.static(path.join(__dirname, "./public"))); //Serves resources from public folder
+// app.use("/public", express.static(path.join(__dirname, "./public"))); //Serves resources from public folder
 app.use(cors());
 app.use(bodyParser.json());
 app.use(

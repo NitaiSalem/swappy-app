@@ -1,7 +1,8 @@
 import Carousel, { CarouselItem } from "./Carousel";
 import { testimoniesData } from "./testimoniesData";
-import AccessTimeIcon from '@mui/icons-material/AccessTime';import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faQuoteLeft } from "@fortawesome/fontawesome-free-solid";
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import faQuoteLeft from "@fortawesome/fontawesome-free-solid/faQuoteLeft";
 const Testimonies = () => {
   return (
     <div className="home-testimonies-container">
