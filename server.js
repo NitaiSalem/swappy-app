@@ -21,6 +21,13 @@ app.use(
   })
 );
 
+if (process.env.NODE_ENV === 'production') {
+  //*Set static folder up in production
+  app.use(express.static('client/build'));
+
+  app.get('*', (req,res) => res.sendFile(path.resolve(__dirname, 'client', 'build','index.html')));
+}
+
 // Connect to MongoDB
 mongoose
   .connect(process.env.MONGODB_CONNECTION_STRING, {
@@ -45,13 +52,13 @@ app.use("/api/search", search);
 const port = process.env.PORT || 5000; // process.env.port is Heroku's port for deploying the app there
 
 //import the client build folder to the server.
-app.use(express.static(path.resolve(__dirname, "./client/build")));
+// app.use(express.static(path.resolve(__dirname, "./client/build")));
 
 /*ensure that the routes defined with React Router are working once the application has been deployed.
  It handles any requests by redirecting them to index.html.
 */
-app.get("*", function (request, response) {
-  response.sendFile(path.resolve(__dirname, "./client/build", "index.html"));
-});
+// app.get("*", function (request, response) {
+//   response.sendFile(path.resolve(__dirname, "./client/build", "index.html"));
+// });
 
 app.listen(port, () => console.log(`Server up and running on port ${port} !`));
