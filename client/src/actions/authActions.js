@@ -23,7 +23,7 @@ export const registerUser = (userData) => (dispatch) => {
       });
       //!cancel this before registering lots of users make sure to return it afterwards
       // re-direct to login on successful register
-      // window.location.href = "./login";
+       window.location.href = "./login";
     }) 
     .catch((err) =>
       dispatch({

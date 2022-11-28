@@ -33,7 +33,22 @@ const MarkerComponent = ({ mappedHouses, goToUser }) => {
     <div>
       {mappedHouses.length > 0 &&
         mappedHouses.map((home, index) => {
-          const { houseLocation } = home.homeDetails;
+          // const { houseLocation } = home.homeDetails;
+          const {
+            homeDetails: { houseLocation },
+          } = home.homeDetails
+            ? home
+            : {
+                homeDetails: {
+                  houseLocation: {
+                    lat: 32.077860051007875,
+                    lng: 34.77854258203124,
+                    address: "Tel Aviv",
+                    area: "Tel Aviv Area",
+                  },
+                },
+              };
+
           return (
             <div key={index} className="marker-container">
               <Marker
