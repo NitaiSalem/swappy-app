@@ -20,8 +20,6 @@ app.use(
     extended: true,
   })
 );
-//import the client build folder to the server.
-app.use(express.static(path.resolve(__dirname, "./client/build")));
 
 // Connect to MongoDB
 mongoose
@@ -45,6 +43,9 @@ app.use("/api/user", user);
 app.use("/api/search", search);
 
 const port = process.env.PORT || 5000; // process.env.port is Heroku's port for deploying the app there
+
+//import the client build folder to the server.
+app.use(express.static(path.resolve(__dirname, "./client/build")));
 
 /*ensure that the routes defined with React Router are working once the application has been deployed.
  It handles any requests by redirecting them to index.html.
